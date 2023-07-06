@@ -1,0 +1,5 @@
+Tipos de Documentacion:
+documento nacional de identidad = DNI
+libreta civica = LC
+libreta de enrolamiento = LE
+certificado de nacionalidad con foto = CNF
