@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Pedido {
+public class Solicitud {
     private Ciudad destino;
     private final String fechaSolicitud;
     private Cliente persona;
@@ -15,19 +15,19 @@ public class Pedido {
     private boolean envioPagado;
 
 
-    public Pedido(){
+    public Solicitud(){
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
         envioPagado = false;
     }
 
-    public Pedido(Ciudad destino, Cliente persona){
+    public Solicitud(Ciudad destino, Cliente persona){
         this.destino = destino;
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
         this.persona = persona;
         this.envioPagado = false;
     }
 
-    public Pedido(Ciudad destino, Cliente persona, int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega){
+    public Solicitud(Ciudad destino, Cliente persona, int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega){
         this.destino = destino;
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
         this.persona = persona;
