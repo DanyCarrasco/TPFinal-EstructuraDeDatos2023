@@ -7,7 +7,6 @@ import java.util.Locale;
 public class Descripcion {
     //Descripcion de la solicitud
     private final String fechaSolicitud;
-    private Cliente persona;
     private int cantMetrosCuadrados;
     private int cantBulto;
     private String domicilioRetiro;
@@ -20,13 +19,8 @@ public class Descripcion {
         envioPagado = false;
     }
 
-    public Descripcion(Cliente persona){
-        fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
-        this.persona = persona;
-        this.envioPagado = false;
-    }
 
-    public Descripcion(Cliente persona, int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega){
+    public Descripcion(int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega){
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
         this.persona = persona;
         this.cantMetrosCuadrados = cantMetrosCuadrados;
@@ -38,14 +32,6 @@ public class Descripcion {
 
     public String getFechaSolicitud() {
         return fechaSolicitud;
-    }
-
-    public Cliente getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Cliente persona) {
-        this.persona = persona;
     }
 
     public int getCantMetrosCuadrados() {
