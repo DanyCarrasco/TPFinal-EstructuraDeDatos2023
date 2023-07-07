@@ -6,7 +6,6 @@ import java.util.Locale;
 
 public class Descripcion {
     //Descripcion de la solicitud
-    //otro comentario
     private final String fechaSolicitud;
     private Cliente persona;
     private int cantMetrosCuadrados;
