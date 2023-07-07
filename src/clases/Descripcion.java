@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Solicitud {
-    private Ciudad destino;
+public class Descripcion {
+    //Descripcion de la solicitud
     private final String fechaSolicitud;
     private Cliente persona;
     private int cantMetrosCuadrados;
@@ -15,20 +15,18 @@ public class Solicitud {
     private boolean envioPagado;
 
 
-    public Solicitud(){
+    public Descripcion(){
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
         envioPagado = false;
     }
 
-    public Solicitud(Ciudad destino, Cliente persona){
-        this.destino = destino;
+    public Descripcion(Cliente persona){
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
         this.persona = persona;
         this.envioPagado = false;
     }
 
-    public Solicitud(Ciudad destino, Cliente persona, int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega){
-        this.destino = destino;
+    public Descripcion(Cliente persona, int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega){
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
         this.persona = persona;
         this.cantMetrosCuadrados = cantMetrosCuadrados;
@@ -36,14 +34,6 @@ public class Solicitud {
         this.domicilioRetiro = domicilioRetiro;
         this.domicilioEntrega = domicilioEntrega;
         this.envioPagado = false;
-    }
-
-    public Ciudad getDestino() {
-        return destino;
-    }
-
-    public void setDestino(Ciudad destino) {
-        this.destino = destino;
     }
 
     public String getFechaSolicitud() {
