@@ -9,27 +9,27 @@ public class ArbolAVLDicc {
         this.raiz = null;
     }
 
-    public boolean pertenece(Comparable clave) {
+    public boolean existeClave(Comparable clave) {
         // Devuelve verdadero si el elemento recibido por parámetro está en el árbol y falso en caso contrario.
         boolean exito = false;
         if (this.raiz != null) {
-            exito = perteneceAux(this.raiz, clave);
+            exito = existeClaveAux(this.raiz, clave);
         }
         return exito;
     }
 
-    private boolean perteneceAux(NodoAVLDicc n, Comparable clave) {
+    private boolean existeClaveAux(NodoAVLDicc n, Comparable clave) {
         boolean exito = false;
         if (clave.compareTo(n.getClave()) == 0) {
             exito = true;
         } else {
             if (clave.compareTo(n.getClave()) < 0) {
                 if (n.getIzquierdo() != null) {
-                    exito = perteneceAux(n.getIzquierdo(), clave);
+                    exito = existeClaveAux(n.getIzquierdo(), clave);
                 }
             } else {
                 if (n.getDerecho() != null) {
-                    exito = perteneceAux(n.getDerecho(), clave);
+                    exito = existeClaveAux(n.getDerecho(), clave);
                 }
             }
         }
@@ -266,12 +266,37 @@ public class ArbolAVLDicc {
         return this.raiz == null;
     }
 
+    public Object obtenerInformacion(Comparable clave){
+        Object dato = null;
+        if (raiz != null) {
+            dato = obtenerInformacionAux(this.raiz, clave);
+        }
+        return dato;
+    }
+
+    private Object obtenerInformacionAux(NodoAVLDicc n, Comparable clave) {
+        Object dato = false;
+        if (clave.compareTo(n.getClave()) == 0) {
+            dato = n.getDato();
+        } else {
+            if (clave.compareTo(n.getClave()) < 0) {
+                if (n.getIzquierdo() != null) {
+                    dato = obtenerInformacionAux(n.getIzquierdo(), clave);
+                }
+            } else {
+                if (n.getDerecho() != null) {
+                    dato = obtenerInformacionAux(n.getDerecho(), clave);
+                }
+            }
+        }
+        return dato;
+
     public Lista listarClave() {
         /*recorre el árbol completo y devuelve una lista ordenada con las claves que se encuentran
         almacenados en él.*/
         Lista lis = new Lista();
         if (this.raiz != null) {
-            listarDatosAux(this.raiz, lis);
+            listarClaveAux(this.raiz, lis);
         }
         return lis;
     }
@@ -288,15 +313,15 @@ public class ArbolAVLDicc {
         }
     }
 
-    public Lista listarDatos() {
+        public Lista listarDatos() {
         /*recorre el árbol completo y devuelve una lista ordenada con los datos que se encuentran
         almacenados en él.*/
-        Lista lis = new Lista();
-        if (this.raiz != null) {
-            listarDatosAux(this.raiz, lis);
+            Lista lis = new Lista();
+            if (this.raiz != null) {
+                listarDatosAux(this.raiz, lis);
+            }
+            return lis;
         }
-        return lis;
-    }
 
     private void listarDatosAux(NodoAVLDicc n, Lista lis) {
         if (n.getIzquierdo() != null) {
