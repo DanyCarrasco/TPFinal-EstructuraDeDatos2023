@@ -1,4 +1,4 @@
-package conjuntistas;
+package Estructuras.DiccionarioAVL;
 
 public class NodoAVLDicc {
     private Object clave;

@@ -1,4 +1,7 @@
+package Estructuras.DiccionarioAVL;
+
 import Estructuras.lineales.dinamicas.Lista;
+
 public class ArbolAVLDicc {
     private NodoAVLDicc raiz;
 
@@ -41,7 +44,7 @@ public class ArbolAVLDicc {
         return h;
     }
 
-    private NodoAVL rotarDerecha(NodoAVLDicc r) {
+    private NodoAVLDicc rotarDerecha(NodoAVLDicc r) {
         NodoAVLDicc h = r.getIzquierdo();
         NodoAVLDicc temp = h.getDerecho();
         h.setDerecho(r);
@@ -55,7 +58,7 @@ public class ArbolAVLDicc {
         falso en caso contrario.*/
         boolean exito = true;
         if (this.raiz == null) {
-            this.raiz = new NodoAVL(clave, elemento, null, null);
+            this.raiz = new NodoAVLDicc(clave, elemento, null, null);
         } else {
             exito = insertarAux(this.raiz, null, clave, elemento);
         }
@@ -71,13 +74,13 @@ public class ArbolAVLDicc {
                 if (n.getIzquierdo() != null) {
                     exito = insertarAux(n.getIzquierdo(), n, clave, elemento);
                 } else {
-                    n.setIzquierdo(new NodoAVL(clave, elemento, null, null));
+                    n.setIzquierdo(new NodoAVLDicc(clave, elemento, null, null));
                 }
             } else {
                 if (n.getDerecho() != null) {
                     exito = insertarAux(n.getDerecho(), n, clave, elemento);
                 } else {
-                    n.setDerecho(new NodoAVL(clave, elemento, null, null));
+                    n.setDerecho(new NodoAVLDicc(clave, elemento, null, null));
                 }
             }
             n.recalcularAltura();
@@ -102,7 +105,7 @@ public class ArbolAVLDicc {
                     n = rotarDerecha(n);
                 }
             } else {
-                if (balance == -2){
+                if (balance == -2) {
                     if (balanceHD < 1) {
                         //rotar a la izquierda
                         n = rotarIzquierda(n);
@@ -196,7 +199,7 @@ public class ArbolAVLDicc {
             //Caso especial al intentar eliminar la raiz
             this.raiz = null;
         } else {
-            int temp = elemento.compareTo(padre.getClave());
+            int temp = clave.compareTo(padre.getClave());
             if (temp < 0) {
                 padre.setIzquierdo(null);
             } else {
@@ -220,7 +223,7 @@ public class ArbolAVLDicc {
             }
         } else {
             //Verifico la rama derecha o izquierda.
-            int temp = elem.compareTo(padre.getElem());
+            int temp = clave.compareTo(padre.getClave());
             if (temp < 0) {
                 if (izq == null) {
                     padre.setIzquierdo(der);
@@ -249,7 +252,7 @@ public class ArbolAVLDicc {
             nodoPadreA = nodoA;
             nodoA = nodoA.getDerecho();
         }
-        actual.setElem(nodoA.getElem());
+        actual.setDato(nodoA.getDato());
         NodoAVLDicc hijoDer = nodoA.getDerecho();
         if (actual.getIzquierdo() == nodoA) {
             actual.setIzquierdo(hijoDer);
@@ -275,13 +278,13 @@ public class ArbolAVLDicc {
 
     private void listarClaveAux(NodoAVLDicc n, Lista lis) {
         if (n.getIzquierdo() != null) {
-            listarAux(n.getIzquierdo(), lis);
+            listarClaveAux(n.getIzquierdo(), lis);
         }
 
         lis.insertar(n.getClave(), lis.longitud() + 1);
 
         if (n.getDerecho() != null) {
-            listarAux(n.getDerecho(), lis);
+            listarClaveAux(n.getDerecho(), lis);
         }
     }
 
@@ -297,17 +300,17 @@ public class ArbolAVLDicc {
 
     private void listarDatosAux(NodoAVLDicc n, Lista lis) {
         if (n.getIzquierdo() != null) {
-            listarAux(n.getIzquierdo(), lis);
+            listarDatosAux(n.getIzquierdo(), lis);
         }
 
         lis.insertar(n.getDato(), lis.longitud() + 1);
 
         if (n.getDerecho() != null) {
-            listarAux(n.getDerecho(), lis);
+            listarDatosAux(n.getDerecho(), lis);
         }
     }
 
-//metodo que se usara en el inciso 7 del tpFinal, inciso 2
+    //metodo que se usara en el inciso 7 del tpFinal, inciso 2
     public Lista listarRango(Comparable claveMin, Comparable claveMax) {
         /*Recorre parte del árbol (sólo lo necesario) y devuelve una lista ordenada con los elementos que
         se encuentran en el intervalo [elemMinimo, elemMaximo].*/
@@ -320,14 +323,14 @@ public class ArbolAVLDicc {
 
     private void listarRangoAux(NodoAVLDicc n, Lista lis, Comparable claveMin, Comparable claveMax) {
         if (n.getIzquierdo() != null && (claveMin.compareTo(n.getClave()) < 0)) {
-            listarRangoAux(n.getIzquierdo(), lis, elemMin, elemMax);
+            listarRangoAux(n.getIzquierdo(), lis, claveMin, claveMax);
         }
         if ((claveMin.compareTo(n.getClave()) <= 0) && (claveMax.compareTo(n.getClave()) >= 0)) {
             lis.insertar(n.getDato(), lis.longitud() + 1);
         }
 
-        if (n.getDerecho() != null && (elemMax.compareTo(n.getElem()) > 0)) {
-            listarRangoAux(n.getDerecho(), lis, elemMin, elemMax);
+        if (n.getDerecho() != null && (claveMax.compareTo(n.getClave()) > 0)) {
+            listarRangoAux(n.getDerecho(), lis, claveMin, claveMax);
         }
     }
 
@@ -341,9 +344,11 @@ public class ArbolAVLDicc {
     }
 
     private Object minimoElemAux(NodoAVLDicc n) {
-        Object elem = n.getElem();
+        Object elem;
         if (n.getIzquierdo() != null) {
             elem = minimoElemAux(n.getIzquierdo());
+        } else {
+            elem = n.getDato();
         }
         return elem;
     }
@@ -358,15 +363,17 @@ public class ArbolAVLDicc {
     }
 
     private Object maximoElemAux(NodoAVLDicc n) {
-        Object elem = n.getElem();
+        Object elem;
         if (n.getDerecho() != null) {
             elem = maximoElemAux(n.getDerecho());
+        } else {
+            elem = n.getDato();
         }
         return elem;
     }
 
     public ArbolAVLDicc clone() {
-        ArbolAVL clon = new ArbolAVL();
+        ArbolAVLDicc clon = new ArbolAVLDicc();
         clon.raiz = cloneAux(this.raiz);
         return clon;
     }
@@ -374,7 +381,7 @@ public class ArbolAVLDicc {
     private NodoAVLDicc cloneAux(NodoAVLDicc n) {
         NodoAVLDicc nuevo = null;
         if (n != null) {
-            nuevo = new NodoAVLDicc(n.getClave(), n.getElem(), cloneAux(n.getIzquierdo()), cloneAux(n.getDerecho()));
+            nuevo = new NodoAVLDicc(n.getClave(), n.getDato(), cloneAux(n.getIzquierdo()), cloneAux(n.getDerecho()));
         }
         return nuevo;
     }
