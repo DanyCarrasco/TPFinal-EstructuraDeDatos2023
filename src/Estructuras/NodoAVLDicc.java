@@ -1,13 +1,13 @@
 package conjuntistas;
 
-public class NodoAVL {
+public class NodoAVLDicc {
     private Object clave;
     private Object dato;
     private int altura;
-    private NodoAVL izquierdo;
-    private NodoAVL derecho;
+    private NodoAVLDicc izquierdo;
+    private NodoAVLDicc derecho;
 
-    public NodoAVL(Object clave, Object dato, NodoAVL izq, NodoAVL der){
+    public NodoAVLDicc(Object clave, Object dato, NodoAVLDicc izq, NodoAVLDicc der){
         this.clave = clave;
         this.dato = dato;
         this.izquierdo = izq;
@@ -47,27 +47,27 @@ public class NodoAVL {
         }
     }
 
-    public NodoAVL getIzquierdo() {
+    public NodoAVLDicc getIzquierdo() {
         return izquierdo;
     }
 
-    public void setIzquierdo(NodoAVL izq) {
+    public void setIzquierdo(NodoAVLDicc izq) {
         this.izquierdo = izq;
     }
 
-    public NodoAVL getDerecho() {
+    public NodoAVLDicc getDerecho() {
         return derecho;
     }
 
-    public void setDerecho(NodoAVL der) {
+    public void setDerecho(NodoAVLDicc der) {
         this.derecho = der;
     }
 
-    public boolean equalsEnlaceIzq(NodoAVL enlaceIzq){
+    public boolean equalsEnlaceIzq(NodoAVLDicc enlaceIzq){
         return this.izquierdo == enlaceIzq;
     }
 
-    public boolean equalsEnlaceDer(NodoAVL enlaceDer){
+    public boolean equalsEnlaceDer(NodoAVLDicc enlaceDer){
         return this.derecho == enlaceDer;
     }
 }

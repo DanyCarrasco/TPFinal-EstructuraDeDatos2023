@@ -1,6 +1,6 @@
-package conjuntistas;
+package Estructuras.conjuntistas;
 
-import lineales.dinamicas.Lista;
+import Estructuras.lineales.dinamicas.Lista;
 
 public class ArbolAVL {
     private NodoAVL raiz;

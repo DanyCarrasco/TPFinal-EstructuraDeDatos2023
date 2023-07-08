@@ -2,11 +2,11 @@ package clases;
 
 import Estructuras.lineales.dinamicas.Lista;
 
-public class tipoDocumento {
+public class TipoDocumento {
     //Usa una lista para guardar los tipos de documento
     private Lista tipos;
 
-    public tipoDocumento() {
+    public TipoDocumento() {
         tipos = new Lista();
         tipos.insertar("DNI", 1); //documento nacional de identidad
         tipos.insertar("LC", 2); //libreta civica

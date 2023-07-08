@@ -5,6 +5,16 @@ public class Ciudad {
     private String nombre;
     private String provincia;
 
+    public Ciudad(int codigoPostal, String nombre, String provincia) {
+        this.codigoPostal = codigoPostal;
+        this.nombre = nombre;
+        this.provincia = provincia;
+    }
+
+    public int getCodigoPostal() {
+        return codigoPostal;
+    }
+
     public String getNombre() {
         return nombre;
     }

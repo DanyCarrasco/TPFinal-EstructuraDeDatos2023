@@ -1,12 +1,12 @@
 package clases;
 
 public class Documento {
-    private tipoDocumento tiposDoc;
+    private TipoDocumento tiposDoc;
     private String tipo;
     private int numero;
 
     private void asignarTipo(int num) {
-        tiposDoc = new tipoDocumento();
+        tiposDoc = new TipoDocumento();
         tipo = tiposDoc.getTipoDocumento(num);
     }
 

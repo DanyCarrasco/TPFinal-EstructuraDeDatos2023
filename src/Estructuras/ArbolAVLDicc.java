@@ -1,7 +1,4 @@
-package conjuntistas;
-
-import lineales.dinamicas.Lista;
-
+import Estructuras.lineales.dinamicas.Lista;
 public class ArbolAVLDicc {
     private NodoAVLDicc raiz;
 
@@ -36,7 +33,7 @@ public class ArbolAVLDicc {
         return exito;
     }
 
-    private NodoAVL rotarIzquierda(NodoAVLDicc r) {
+    private NodoAVLDicc rotarIzquierda(NodoAVLDicc r) {
         NodoAVLDicc h = r.getDerecho();
         NodoAVLDicc temp = h.getIzquierdo();
         h.setIzquierdo(r);

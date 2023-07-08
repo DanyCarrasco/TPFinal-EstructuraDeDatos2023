@@ -1,4 +1,4 @@
-package conjuntistas;
+package Estructuras.conjuntistas;
 
 public class NodoAVL {
     private Object elem;
