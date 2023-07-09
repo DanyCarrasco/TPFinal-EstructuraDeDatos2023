@@ -39,6 +39,16 @@ public class Ciudades {
         return salida;
     }
 
+    public String getNombreCiudad(int codigoPostal) {
+        Ciudad buscado = null;
+        String nombre = "";
+        if (arbol.existeClave(codigoPostal)) {
+            buscado = (Ciudad) arbol.obtenerInformacion(codigoPostal);
+            nombre = buscado.getNombre();
+        }
+        return nombre;
+    }
+
     public boolean setNombreCiudad(int codigoPostal, String nombre) {
         boolean exito = false;
         if (arbol.existeClave(codigoPostal)) {
@@ -48,6 +58,16 @@ public class Ciudades {
             exito = arbol.insertar(original.getCodigoPostal(), original);
         }
         return exito;
+    }
+
+    public String getProvinciaCiudad(int codigoPostal) {
+        Ciudad buscado = null;
+        String provincia = "";
+        if (arbol.existeClave(codigoPostal)) {
+            buscado = (Ciudad) arbol.obtenerInformacion(codigoPostal);
+            provincia = buscado.getProvincia();
+        }
+        return provincia;
     }
 
     public boolean setProvinciaCiudad(int codigoPostal, String provincia) {
@@ -64,6 +84,6 @@ public class Ciudades {
     public Lista listarCiudades(int prefijo){
         int codigoMin = prefijo*100;
         int codigoMax = ((prefijo+1)*100)-1;
-        return arbol.
+        return arbol.listarRango(codigoMin,codigoMax);
     }
 }

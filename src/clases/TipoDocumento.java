@@ -30,4 +30,7 @@ public class TipoDocumento {
         return tipos.eliminar(tipos.localizar(tipo));
     }
 
+    public boolean existeTipoDocumento (String tipo){
+        return tipos.localizar(tipo) != 0;
+    }
 }

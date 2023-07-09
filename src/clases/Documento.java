@@ -30,4 +30,8 @@ public class Documento {
     public void setNumero(int numero) {
         this.numero = numero;
     }
+
+    public boolean equals(Documento doc){
+        return this.tipo.equals(doc.getTipo()) && (this.numero == doc.getNumero());
+    }
 }

@@ -266,7 +266,7 @@ public class ArbolAVLDicc {
         return this.raiz == null;
     }
 
-    public Object obtenerInformacion(Comparable clave){
+    public Object obtenerInformacion(Comparable clave) {
         Object dato = null;
         if (raiz != null) {
             dato = obtenerInformacionAux(this.raiz, clave);
@@ -290,10 +290,9 @@ public class ArbolAVLDicc {
             }
         }
         return dato;
+    }
 
     public Lista listarClave() {
-        /*recorre el árbol completo y devuelve una lista ordenada con las claves que se encuentran
-        almacenados en él.*/
         Lista lis = new Lista();
         if (this.raiz != null) {
             listarClaveAux(this.raiz, lis);
@@ -313,15 +312,15 @@ public class ArbolAVLDicc {
         }
     }
 
-        public Lista listarDatos() {
+    public Lista listarDatos() {
         /*recorre el árbol completo y devuelve una lista ordenada con los datos que se encuentran
         almacenados en él.*/
-            Lista lis = new Lista();
-            if (this.raiz != null) {
-                listarDatosAux(this.raiz, lis);
-            }
-            return lis;
+        Lista lis = new Lista();
+        if (this.raiz != null) {
+            listarDatosAux(this.raiz, lis);
         }
+        return lis;
+    }
 
     private void listarDatosAux(NodoAVLDicc n, Lista lis) {
         if (n.getIzquierdo() != null) {

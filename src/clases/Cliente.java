@@ -1,24 +1,29 @@
 package clases;
 
 public class Cliente {
-    private String tipoDNI;
-    private int DNI;
+    private Documento doc;
     private String nombre;
     private String apellido;
     private int telefono;
     private String email;
 
-    public Cliente(String unTipo, int unNumDni){
-        this.tipoDNI = unTipo;
-        this.DNI = unNumDni;
+    public Cliente(int numTipo, int unNumDni){
+        this.doc = new Documento(numTipo, unNumDni);
     }
-    public Cliente(String unTipo, int unNumDni, String nombre, String apellido, int telefono, String email) {
-        this.tipoDNI = unTipo;
-        this.DNI = unNumDni;
+    public Cliente(int numTipo, int unNumDni, String nombre, String apellido, int telefono, String email) {
+        this.doc = new Documento(numTipo, unNumDni);
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.email = email;
+    }
+
+    public String getTipoDocumento(){
+        return this.doc.getTipo();
+    }
+
+    public int getNumeroDocumento(){
+        return this.doc.getNumero();
     }
 
     public String getNombre() {
