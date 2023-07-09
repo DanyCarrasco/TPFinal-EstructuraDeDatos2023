@@ -124,12 +124,12 @@ public class Clientes {
         return email;
     }
 
-    public boolean setEmailCiudad(int tipoDoc, int numeroDoc, int telefono){
+    public boolean setEmailCiudad(int tipoDoc, int numeroDoc, String email){
         boolean exito = false;
         Documento clave = new Documento(tipoDoc,numeroDoc);
         if (arbol.containsKey(clave)){
             Cliente original = (Cliente) arbol.get(clave);
-            original.setTelefono(telefono);
+            original.setEmail(email);
             arbol.remove(clave);
             exito = arbol.put(clave,original) != null;
         }

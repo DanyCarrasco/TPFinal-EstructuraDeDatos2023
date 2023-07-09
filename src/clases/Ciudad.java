@@ -30,4 +30,8 @@ public class Ciudad {
     public void setProvincia(String provincia) {
         this.provincia = provincia;
     }
+
+    public boolean equals(Ciudad ciudad){
+        return this.codigoPostal == ciudad.codigoPostal;
+    }
 }
