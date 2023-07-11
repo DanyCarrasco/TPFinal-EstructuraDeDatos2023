@@ -312,7 +312,7 @@ public class Rutas {
         return this.inicio != null;
     }
 
-    public Lista caminoMasCorto(Object origen, Object destino) {
+    public Lista caminoCortoCiudades(Object origen, Object destino) {
         Lista salida = new Lista();
         boolean exito = false;
         //verifica si ambos vertices existen
@@ -330,12 +330,12 @@ public class Rutas {
         }
         if (auxO != null && auxD != null) {
             //si ambos vertices existen busca el camino mas corto entre ambos
-            caminoMasCortoAux(auxO, destino, salida);
+            caminoCortoCiudadesAux(auxO, destino, salida);
         }
         return salida;
     }
 
-    private void caminoMasCortoAux(NodoCiudad n, Object dest, Lista salida) {
+    private void caminoCortoCiudadesAux(NodoCiudad n, Object dest, Lista salida) {
         //Busca el camino mas corto en la lista de adyacentes del nodo n hacia el vertice dest
         Lista visitados = new Lista();
         NodoRuta nAdyacente = n.getPrimerRuta();
@@ -355,7 +355,7 @@ public class Rutas {
         }
     }
 
-    public Lista caminoMasLargo(Object origen, Object destino) {
+    public Lista caminoCortoDistancia(Object origen, Object destino) {
         Lista salida = new Lista();
         boolean exito = false;
         //verifica si ambos vertices existen
@@ -373,24 +373,28 @@ public class Rutas {
         }
         if (auxO != null && auxD != null) {
             //si ambos vertices existen busca el camino mas corto entre ambos
-            caminoMasLargoAux(auxO, destino, salida);
+            caminoCortoDistanciaAux(auxO, destino, salida);
         }
         return salida;
     }
 
-    private void caminoMasLargoAux(NodoCiudad n, Object dest, Lista salida) {
-        //Busca el camino mas largo en la lista de adyacentes del nodo n hacia el vertice dest
+    private void caminoCortoDistanciaAux(NodoCiudad n, Object dest, Lista salida) {
+        //Busca el camino mas corto en la lista de adyacentes del nodo n hacia el vertice dest
         Lista visitados = new Lista();
-        NodoRuta nRuta = n.getPrimerRuta();
+        NodoRuta nAdyacente = n.getPrimerRuta();
         boolean exito = false;
-        while (nRuta != null) {
+        while (nAdyacente != null) {
             exito = existeCaminoAux(n, dest, visitados);
             if (exito) {
-                if (salida.longitud() < visitados.longitud()) {
+                if (salida.longitud() == 0) {
                     salida = visitados;
+                } else {
+                    if (visitados.longitud() < salida.longitud()) {
+                        salida = visitados;
+                    }
                 }
             }
-            nRuta = nRuta.getSigRuta();
+            nAdyacente = nAdyacente.getSigRuta();
         }
     }
 
