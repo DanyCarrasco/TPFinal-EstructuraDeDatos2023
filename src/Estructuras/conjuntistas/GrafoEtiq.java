@@ -2,22 +2,21 @@ package Estructuras.conjuntistas;
 
 import Estructuras.lineales.dinamicas.Cola;
 import Estructuras.lineales.dinamicas.Lista;
-import EstructurasDelSistema.SistemaRutas.NodoCiudad;
-import EstructurasDelSistema.SistemaRutas.NodoRuta;
-import EstructurasDelSistema.SistemaRutas.Rutas;
+import Estructuras.conjuntistas.NodoVertEtiq;
+import Estructuras.conjuntistas.NodoAdyEtiq;
 
-public class Rutas {
-    private NodoCiudad inicio;
+public class GrafoEtiq {
+    private NodoVertEtiq inicio;
 
-    public Rutas() {
+    public GrafoEtiq() {
         this.inicio = null;
     }
 
-    private NodoCiudad ubicarVertice(Object buscado) {
+    private NodoVertEtiq ubicarVertice(Object buscado) {
         //Busca hasta encontrar el vertice buscado en la lista de vertice
-        NodoCiudad aux = this.inicio;
+        NodoVertEtiq aux = this.inicio;
         while (aux != null && !aux.getElem().equals(buscado)) {
-            aux = aux.getSigCiudad();
+            aux = aux.getSigVertice();
         }
         return aux;
     }
@@ -26,9 +25,9 @@ public class Rutas {
         /* Dado un elemento de TipoVertice se lo agrega a la estructura controlando que no se inserten
         vértices repetidos. Si puede realizar la inserción devuelve verdadero, en caso contrario devuelve falso.*/
         boolean exito = false;
-        NodoCiudad aux = this.ubicarVertice(nuevoVertice);
+        NodoVertEtiq aux = this.ubicarVertice(nuevoVertice);
         if (aux == null) {
-            this.inicio = new NodoCiudad(nuevoVertice, this.inicio);
+            this.inicio = new NodoVertEtiq(nuevoVertice, this.inicio);
             exito = true;
         }
         return exito;
@@ -428,42 +427,42 @@ public class Rutas {
         }
     }
 
-    public Rutas clone() {
+    public GrafoEtiq clone() {
         // Genera y devuelve un grafo que es equivalente (igual estructura y contenido de los nodos) al original.
-        Rutas clon = new Rutas();
-        clon = cloneAux(this.inicio);
+        GrafoEtiq clon = new GrafoEtiq();
+        clon.inicio = cloneAux(this.inicio);
         cloneAdy(clon.inicio, this.inicio, clon.inicio);
         return clon;
     }
 
-    private NodoCiudad cloneAux(NodoCiudad n) {
+    private NodoVertEtiq cloneAux(NodoVertEtiq n) {
         //Clona la lista de vertices del grafo original
-        NodoCiudad nuevo = null;
+        NodoVertEtiq nuevo = null;
         if (n != null) {
-            nuevo = new NodoCiudad(n.getElem(), cloneAux(n.getSigCiudad()));
+            nuevo = new NodoVertEtiq(n.getElem(), cloneAux(n.getSigVertice()));
         }
         return nuevo;
     }
 
-    private void cloneAdy(NodoCiudad nClon, NodoCiudad n, NodoCiudad clonInicio) {
+    private void cloneAdy(NodoVertEtiq nClon, NodoVertEtiq n, NodoVertEtiq clonInicio) {
         //Clona la lista de adyacentes de cada nodo del grafo clon
         if (nClon != null) {
-            nClon.setPrimerRuta(cloneAdyAux(nClon, n.getPrimerRuta(), clonInicio));
-            cloneAdy(nClon.getSigCiudad(), n.getSigCiudad(), clonInicio);
+            nClon.setPrimerAdy(cloneAdyAux(nClon, n.getPrimerAdy(), clonInicio));
+            cloneAdy(nClon.getSigVertice(), n.getSigVertice(), clonInicio);
         }
     }
 
-    private NodoRuta cloneAdyAux(NodoCiudad nOrigen, NodoRuta nAdy, NodoCiudad clonInicio) {
+    private NodoAdyEtiq cloneAdyAux(NodoVertEtiq nOrigen, NodoAdyEtiq nAdy, NodoVertEtiq clonInicio) {
         //Clona cada adyacente del grafo original en el grafo clon
         NodoAdyEtiq nuevo = null;
         if (nOrigen != null) {
-            NodoCiudad aux = clonInicio;
+            NodoVertEtiq aux = clonInicio;
             Object etiq = null;
             while (!nAdy.getVertice().getElem().equals(aux.getElem()) && aux != null) {
-                aux = aux.getSigCiudad();
+                aux = aux.getSigVertice();
             }
             if (aux != null) {
-                nuevo = new NodoAdyEtiq(aux, cloneAdyAux(nOrigen, nAdy.getSigRuta(), clonInicio), nAdy.getEtiqueta());
+                nuevo = new NodoAdyEtiq(aux, cloneAdyAux(nOrigen, nAdy.getSigAdyacente(), clonInicio), nAdy.getEtiqueta());
             }
         }
         return nuevo;
@@ -475,25 +474,25 @@ public class Rutas {
         return toStringAux(this.inicio);
     }
 
-    private String toStringAux(NodoCiudad n) {
+    private String toStringAux(NodoVertEtiq n) {
         //Modulo recursivo: crea una cadena y registra el nodo con sus nodos adyacentes
         String cad = "";
         if (n != null) {
-            NodoRuta nAdy = n.getPrimerRuta();
+            NodoAdyEtiq nAdy = n.getPrimerAdy();
             String cadAdyacentes = "";
             if (nAdy == null) {
                 cadAdyacentes = "-";
             } else {
                 while (nAdy != null) {
                     cadAdyacentes = cadAdyacentes + nAdy.getVertice().getElem().toString()+", etiqueta: "+ nAdy.getEtiqueta().toString();
-                    nAdy = nAdy.getSigRuta();
+                    nAdy = nAdy.getSigAdyacente();
                     if (nAdy != null) {
                         cadAdyacentes = cadAdyacentes + ";";
                     }
                 }
             }
             cad = "Nodo: " + n.getElem() + ", nodos adyacentes: " + cadAdyacentes + "\n";
-            cad = cad + toStringAux(n.getSigCiudad());
+            cad = cad + toStringAux(n.getSigVertice());
         }
         return cad;
     }
