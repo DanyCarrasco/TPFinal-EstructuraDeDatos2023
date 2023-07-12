@@ -8,7 +8,7 @@ import Estructuras.lineales.dinamicas.Lista;
 public class Rutas {
     private NodoCiudad inicio;
 
-    public Rutas(){
+    public Rutas() {
         this.inicio = null;
     }
 
@@ -292,16 +292,18 @@ public class Rutas {
     private boolean existeCaminoAux(NodoCiudad n, Object dest, Lista vis) {
         boolean exito = false;
         if (n != null) {
-            exito = true;
-        } else {
-            //si no es el destino verifica si hay camino entre n y destino
-            vis.insertar(n.getElem(), vis.longitud() + 1);
-            NodoRuta ruta = n.getPrimerRuta();
-            while (!exito && ruta != null) {
-                if (vis.localizar(ruta.getVertice().getElem()) < 0) {
-                    exito = existeCaminoAux(ruta.getVertice(), dest, vis);
+            if (n.getElem().equals(dest)) {
+                exito = true;
+            } else {
+                //si no es el destino verifica si hay camino entre n y destino
+                vis.insertar(n.getElem(), vis.longitud() + 1);
+                NodoRuta ruta = n.getPrimerRuta();
+                while (!exito && ruta != null) {
+                    if (vis.localizar(ruta.getVertice().getElem()) < 0) {
+                        exito = existeCaminoAux(ruta.getVertice(), dest, vis);
+                    }
+                    ruta = ruta.getSigRuta();
                 }
-                ruta = ruta.getSigRuta();
             }
         }
         return exito;
@@ -379,23 +381,44 @@ public class Rutas {
     }
 
     private void caminoCortoDistanciaAux(NodoCiudad n, Object dest, Lista salida) {
-        //Busca el camino mas corto en la lista de adyacentes del nodo n hacia el vertice dest
+        //Busca el camino con distancia mas corta en la lista de adyacentes del nodo n hacia el vertice dest
         Lista visitados = new Lista();
-        NodoRuta nAdyacente = n.getPrimerRuta();
-        boolean exito = false;
-        while (nAdyacente != null) {
-            exito = existeCaminoAux(n, dest, visitados);
-            if (exito) {
-                if (salida.longitud() == 0) {
+        NodoRuta nRuta = n.getPrimerRuta();
+        double distancia = 0, dist;
+        while (nRuta != null) {
+            dist = caminoDistanciaAux(n, dest, visitados);
+            if (salida.longitud() == 0) {
+                distancia = dist;
+                salida = visitados;
+            } else {
+                if (dist < distancia) {
+                    distancia = dist;
                     salida = visitados;
-                } else {
-                    if (visitados.longitud() < salida.longitud()) {
-                        salida = visitados;
-                    }
                 }
             }
-            nAdyacente = nAdyacente.getSigRuta();
+            nRuta = nRuta.getSigRuta();
         }
+    }
+
+
+    private double caminoDistanciaAux(NodoCiudad n, Object dest, Lista vis) {
+        double dist = -1;
+        if (n != null) {
+            if (n.getElem().equals(dest)) {
+                dist = 0;
+            } else {
+                //si no es el destino verifica si hay camino entre n y destino
+                vis.insertar(n.getElem(), vis.longitud() + 1);
+                NodoRuta ruta = n.getPrimerRuta();
+                while (ruta != null) {
+                    if (vis.localizar(ruta.getVertice().getElem()) < 0) {
+                        dist = ruta.getEtiqueta() + caminoDistanciaAux(ruta.getVertice(), dest, vis);
+                    }
+                    ruta = ruta.getSigRuta();
+                }
+            }
+        }
+        return dist;
     }
 
     public Lista listarEnAnchura() {
@@ -488,7 +511,7 @@ public class Rutas {
                 cadAdyacentes = "-";
             } else {
                 while (nRuta != null) {
-                    cadAdyacentes = cadAdyacentes + nRuta.getVertice().getElem().toString()+", etiqueta: "+ nRuta.getEtiqueta();
+                    cadAdyacentes = cadAdyacentes + nRuta.getVertice().getElem().toString() + ", etiqueta: " + nRuta.getEtiqueta();
                     nRuta = nRuta.getSigRuta();
                     if (nRuta != null) {
                         cadAdyacentes = cadAdyacentes + ";";
