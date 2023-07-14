@@ -519,7 +519,7 @@ public class Rutas {
                 }
             }
             cad = "Nodo: " + n.getElem() + ", nodos adyacentes: " + cadAdyacentes + "\n";
-            cad = cad + toStringAux(n.getSigCiudad());
+            cad = toStringAux(n.getSigCiudad()) + cad;
         }
         return cad;
     }
