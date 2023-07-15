@@ -242,7 +242,7 @@ public class GrafoEtiq {
         //define un vertice donde comenzar a recorrer
         NodoVertEtiq aux = this.inicio;
         while (aux != null) {
-            if (visitados.localizar(aux.getElem()) < 0) {
+            if (visitados.localizar(aux.getElem()) < 1) {
                 //si el vertice no fue visitados aun, avanza en profundidad
                 listarEnProfundidadAux(aux, visitados);
             }
@@ -309,7 +309,7 @@ public class GrafoEtiq {
 
     public boolean esVacio() {
         // Devuelve falso si hay al menos un vértice cargado en el grafo y verdadero en caso contrario.
-        return this.inicio != null;
+        return this.inicio == null;
     }
 
     public Lista caminoMasCorto(Object origen, Object destino) {
