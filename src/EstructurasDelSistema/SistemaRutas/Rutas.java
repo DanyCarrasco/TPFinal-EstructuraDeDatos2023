@@ -238,6 +238,8 @@ public class Rutas {
     }
 
     public Lista listarEnProfundidad() {
+        /*Devuelve una lista con los vértices del grafo visitados según el recorrido en profundidad explicado
+        en la sección anterior.*/
         Lista visitados = new Lista();
         //define un vertice donde comenzar a recorrer
         NodoCiudad aux = this.inicio;
@@ -267,6 +269,8 @@ public class Rutas {
     }
 
     public boolean existeCamino(Object origen, Object destino) {
+        /*Dados dos elementos de TipoVertice (origen y destino), devuelve verdadero si existe al menos
+        un camino que permite llegar del vértice origen al vértice destino y falso en caso contrario.*/
         boolean exito = false;
         //verifica si ambos vertices existen
         NodoCiudad auxO = null;
