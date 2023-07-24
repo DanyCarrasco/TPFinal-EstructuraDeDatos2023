@@ -345,7 +345,7 @@ public class Rutas {
         //Busca el camino mas corto en la lista de adyacentes del nodo n hacia el vertice dest
         Lista visitados = new Lista();
         NodoRuta nAdyacente = n.getPrimerRuta();
-        boolean exito = false;
+        boolean exito;
         while (nAdyacente != null) {
             exito = existeCaminoAux(n, dest, visitados);
             if (exito) {

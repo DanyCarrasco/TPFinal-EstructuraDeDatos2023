@@ -14,15 +14,14 @@ public class Descripcion {
     private boolean envioPagado;
 
 
-    public Descripcion(){
+    public Descripcion() {
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
         envioPagado = false;
     }
 
 
-    public Descripcion(int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega){
+    public Descripcion(int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega) {
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
-        this.persona = persona;
         this.cantMetrosCuadrados = cantMetrosCuadrados;
         this.cantBulto = cantBulto;
         this.domicilioRetiro = domicilioRetiro;
@@ -74,7 +73,11 @@ public class Descripcion {
         this.envioPagado = envioPagado;
     }
 
-    public void pagoEnvio(){
+    public void pagoEnvio() {
         this.envioPagado = true;
+    }
+
+    public boolean equals(String fecha) {
+        return this.fechaSolicitud.equals(fecha);
     }
 }

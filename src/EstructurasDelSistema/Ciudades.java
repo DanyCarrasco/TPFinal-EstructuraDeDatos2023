@@ -86,4 +86,8 @@ public class Ciudades {
         int codigoMax = ((prefijo+1)*100)-1;
         return arbol.listarRango(codigoMin,codigoMax);
     }
+
+    public String toString(){
+        return arbol.toString();
+    }
 }

@@ -9,9 +9,10 @@ public class TipoDocumento {
     public TipoDocumento() {
         tipos = new Lista();
         tipos.insertar("DNI", 1); //documento nacional de identidad
-        tipos.insertar("LC", 2); //libreta civica
-        tipos.insertar("LE", 3); //libreta de enrolamiento
-        tipos.insertar("CNF", 4); //certificado de nacionalidad con foto
+        tipos.insertar("PAS", 2); //pasaporte nacional
+        tipos.insertar("LC", 3); //libreta civica
+        tipos.insertar("LE", 4); //libreta de enrolamiento
+        tipos.insertar("CNF", 5); //certificado de nacionalidad con foto
     }
 
     public String getTipoDocumento(int num) {
@@ -32,5 +33,8 @@ public class TipoDocumento {
 
     public boolean existeTipoDocumento (String tipo){
         return tipos.localizar(tipo) != 0;
+    }
+    public int localizarTipoDocumento(String tipo){
+        return tipos.localizar(tipo);
     }
 }

@@ -1,27 +1,33 @@
 package EstructurasDelSistema;
+
 import clases.Cliente;
 import clases.Documento;
 import clases.TipoDocumento;
+
 import java.util.HashMap;
 import java.lang.Object;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Clientes {
-    private HashMap arbol;
+    private HashMap<Documento, Cliente> arbol;
 
-    public Clientes(){
-        arbol = new HashMap();
+    public Clientes() {
+        arbol = new HashMap<>();
     }
 
-    public boolean existeCliente(TipoDocumento tipo){
-        return arbol.containsKey(tipo);
+    public boolean existeCliente(int tipoDoc, int numDoc) {
+        Documento doc = new Documento(tipoDoc, numDoc);
+        return arbol.containsKey(doc);
     }
 
-    public boolean insertarCliente(int tipoDoc, int numeroDoc, String nombre, String apellido, int telefono, String email){
+    public boolean insertarCliente(int tipoDoc, int numeroDoc, String nombre, String apellido, int telefono, String email) {
         boolean exito = false;
         Documento clave = new Documento(tipoDoc, numeroDoc);
-        if (arbol.containsKey(clave)){
-            Cliente nuevo = new Cliente(tipoDoc, numeroDoc, nombre, apellido, telefono,email);
-            exito = arbol.put(clave, nuevo) != null;
+        if (!arbol.containsKey(clave)) {
+            Cliente nuevo = new Cliente(tipoDoc, numeroDoc, nombre, apellido, telefono, email);
+            arbol.put(clave, nuevo);
+            exito = true;
         }
         return exito;
     }
@@ -30,109 +36,140 @@ public class Clientes {
         boolean exito = false;
         Documento clave = new Documento(tipoDoc,numeroDoc);
         if (arbol.containsKey(clave)){
-            exito = arbol.remove(clave) != null;
+            arbol.remove(clave);
+            exito = true;
         }
         return exito;
     }
 
-    public Cliente getCliente(int tipoDoc, int numeroDoc){
+    public Cliente getCliente(int tipoDoc, int numeroDoc) {
         Cliente salida = null;
-        Documento clave = new Documento(tipoDoc,numeroDoc);
-        if (arbol.containsKey(clave)){
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
             salida = (Cliente) arbol.get(clave);
         }
         return salida;
     }
 
-    public String getNombreCliente(int tipoDoc, int numeroDoc){
+    public String getNombreCliente(int tipoDoc, int numeroDoc) {
         Cliente buscado = null;
         String nombre = "";
-        Documento clave = new Documento(tipoDoc,numeroDoc);
-        if (arbol.containsKey(clave)){
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
             buscado = (Cliente) arbol.get(clave);
             nombre = buscado.getNombre();
         }
         return nombre;
     }
 
-    public boolean setNombreCliente(int tipoDoc, int numeroDoc, String nombre){
+    public boolean setNombreCliente(int tipoDoc, int numeroDoc, String nombre) {
         boolean exito = false;
-        Documento clave = new Documento(tipoDoc,numeroDoc);
-        if (arbol.containsKey(clave)){
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
             Cliente original = (Cliente) arbol.get(clave);
             original.setNombre(nombre);
             arbol.remove(clave);
-            exito = arbol.put(clave,original) != null;
+            exito = arbol.put(clave, original) != null;
         }
         return exito;
     }
 
-    public String getApellidoCliente(int tipoDoc, int numeroDoc){
+    public String getApellidoCliente(int tipoDoc, int numeroDoc) {
         Cliente buscado = null;
         String apellido = "";
-        Documento clave = new Documento(tipoDoc,numeroDoc);
-        if (arbol.containsKey(clave)){
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
             buscado = (Cliente) arbol.get(clave);
             apellido = buscado.getApellido();
         }
         return apellido;
     }
 
-    public boolean setApellidoCliente(int tipoDoc, int numeroDoc, String apellido){
+    public boolean setApellidoCliente(int tipoDoc, int numeroDoc, String apellido) {
         boolean exito = false;
-        Documento clave = new Documento(tipoDoc,numeroDoc);
-        if (arbol.containsKey(clave)){
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
             Cliente original = (Cliente) arbol.get(clave);
             original.setApellido(apellido);
             arbol.remove(clave);
-            exito = arbol.put(clave,original) != null;
+            exito = arbol.put(clave, original) != null;
         }
         return exito;
     }
 
-    public int getTelefonoCliente(int tipoDoc, int numeroDoc){
+    public int getTelefonoCliente(int tipoDoc, int numeroDoc) {
         Cliente buscado = null;
         int telefono = 0;
-        Documento clave = new Documento(tipoDoc,numeroDoc);
-        if (arbol.containsKey(clave)){
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
             buscado = (Cliente) arbol.get(clave);
             telefono = buscado.getTelefono();
         }
         return telefono;
     }
 
-    public boolean setApellidoCliente(int tipoDoc, int numeroDoc, int telefono){
+    public boolean setTelefonoCliente(int tipoDoc, int numeroDoc, int telefono) {
         boolean exito = false;
-        Documento clave = new Documento(tipoDoc,numeroDoc);
-        if (arbol.containsKey(clave)){
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
             Cliente original = (Cliente) arbol.get(clave);
             original.setTelefono(telefono);
             arbol.remove(clave);
-            exito = arbol.put(clave,original) != null;
+            exito = arbol.put(clave, original) != null;
         }
         return exito;
     }
 
-    public String getEmailCliente(int tipoDoc, int numeroDoc){
+    public String getEmailCliente(int tipoDoc, int numeroDoc) {
         Cliente buscado = null;
         String email = "";
-        Documento clave = new Documento(tipoDoc,numeroDoc);
-        if (arbol.containsKey(clave)){
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
             buscado = (Cliente) arbol.get(clave);
             email = buscado.getEmail();
         }
         return email;
     }
 
-    public boolean setEmailCiudad(int tipoDoc, int numeroDoc, String email){
+    public boolean setEmailCliente(int tipoDoc, int numeroDoc, String email) {
         boolean exito = false;
-        Documento clave = new Documento(tipoDoc,numeroDoc);
-        if (arbol.containsKey(clave)){
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
             Cliente original = (Cliente) arbol.get(clave);
             original.setEmail(email);
             arbol.remove(clave);
-            exito = arbol.put(clave,original) != null;
+            exito = arbol.put(clave, original) != null;
         }
         return exito;
+    }
+
+    public String mostrarCliente(int tipoDoc, int numeroDoc) {
+        String cad = "No existe cliente";
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
+            cad = arbol.get(clave).toString();
+        }
+        return cad;
+    }
+
+    private String mostrarElementos(Iterable s) {
+        String cad = "";
+        Iterator it = s.iterator();
+        while (it.hasNext()) {
+            cad = cad + " - " + it.next() + "\n";
+        }
+        return cad;
+    }
+
+    public String toString() {
+        return "HashMap de clientes: \n" + mostrarElementos(arbol.entrySet());
+    }
+
+    public String toStringClave(){
+        return "Claves de HashMap de clientes: \n"+ mostrarElementos(arbol.keySet());
+    }
+
+    public void vaciar(){
+        arbol.clear();
     }
 }
