@@ -1,0 +1,4 @@
+San Miguel de Tucumán,Código Postal: 4000;
+Yerba Buena,Código Postal: 4107;
+Banda del Río Salí,Código Postal: 4132;
+Tafí Viejo,Código Postal: 4103

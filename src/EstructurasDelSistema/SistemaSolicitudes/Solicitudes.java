@@ -6,14 +6,15 @@ import clases.Descripcion;
 import java.util.TreeMap;
 
 public class Solicitudes {
-    private TreeMap arbol;
+    private TreeMap<CiudadesDeViaje, NodoCliente> arbol;
 
     public Solicitudes() {
-        arbol = new TreeMap<>();
+        arbol = new TreeMap<CiudadesDeViaje, NodoCliente>();
     }
 
-    public boolean agregarSolicitud(CiudadesDeViaje clave, Cliente persona, Descripcion des) {
+    public boolean agregarSolicitud(String origen, String destino, Cliente persona, Descripcion des) {
         boolean exito = false;
+        CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
         if (!arbol.containsKey(clave)) {
             arbol.put(clave, new NodoCliente(persona, des));
             exito = true;
@@ -21,7 +22,13 @@ public class Solicitudes {
         return exito;
     }
 
-    public boolean eliminarSolicitud(CiudadesDeViaje clave) {
-        return arbol.get(clave) == arbol.remove(clave);
+    public boolean eliminarSolicitud(String origen, String destino) {
+        boolean exito = false;
+        CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
+        if (arbol.containsKey(clave)) {
+            arbol.remove(clave);
+            exito = true;
+        }
+        return exito;
     }
 }

@@ -101,4 +101,9 @@ public class NodoSolicitud {
         }
         return existe;
     }
+
+    public boolean equals(Object obj){
+        CiudadesDeViaje clave = (CiudadesDeViaje) obj;
+        return this.clave.equals(clave);
+    }
 }

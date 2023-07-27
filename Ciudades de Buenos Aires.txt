@@ -1,28 +1,10 @@
-Ciudades altamente urbanizadas de Buenos Aires:
-Buenos Aires
-La Plata
-Mar del Plata
-Quilmes
-Merlo
-Florencio Varela
-González Catán
-Berazategui
-San Isidro
-Bahía Blanca
-San Miguel
-Vicente López
-José C. Paz
-Lanús
-Monte Grande
-Virrey del Pino
-Moreno
-San Nicolás de los Arroyos
-Ezeiza
-Ituzaingó
-Villa Madero
-Bernal
-Morón
-Temperley
-Lomas de Zamora
-Luján
-Berisso
+Buenos Aires,codigo postal: 1000;
+La Plata,codigo postal: 1900;
+Mar del Plata,codigo postal: 7600;
+Bahía Blanca,codigo postal: 8000;
+Quilmes,codigo postal: 1878;
+San Isidro,codigo postal: 1642;
+Lanús,codigo postal: 1824;
+Lomas de Zamora,codigo postal: 1832;
+Merlo,codigo postal: 1722;
+Moreno,codigo postal: 1744

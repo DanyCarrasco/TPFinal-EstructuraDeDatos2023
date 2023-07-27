@@ -1,0 +1,4 @@
+Santa Rosa,Código Postal: 6300;
+General Pico,Código Postal: 6360;
+General Acha,Código Postal: 6360;
+Eduardo Castex,Código Postal: 6385

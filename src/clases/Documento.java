@@ -1,6 +1,7 @@
 package clases;
 
 import javax.print.Doc;
+import java.util.Objects;
 
 public class Documento implements Comparable{
     private TipoDocumento tiposDoc;
@@ -10,6 +11,14 @@ public class Documento implements Comparable{
     private void asignarTipo(int num) {
         tiposDoc = new TipoDocumento();
         tipo = tiposDoc.getTipoDocumento(num);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.tipo);
+        hash = 53 * hash + this.numero;
+        return hash;
     }
 
     public Documento(int numTipo, int numero){
@@ -64,5 +73,9 @@ public class Documento implements Comparable{
             }
         }
         return salida;
+    }
+
+    public Documento clone(){
+        return (new Documento(this.tiposDoc.localizarTipoDocumento(this.tipo), this.getNumero()));
     }
 }

@@ -81,6 +81,28 @@ public class Ciudades {
         return exito;
     }
 
+    public Lista listarCodigosPostales(){
+        return arbol.listarClaves();
+    }
+
+    public Lista listarCiudades(){
+        return arbol.listarDatos();
+    }
+
+    public boolean esVacio(){
+        return arbol.esVacio();
+    }
+
+    public Ciudades clone(){
+        Ciudades clon = new Ciudades();
+        clon.arbol = arbol.clone();
+        return clon;
+    }
+
+    public void vaciar(){
+        arbol.vaciar();
+    }
+
     public Lista listarCiudades(int prefijo){
         int codigoMin = prefijo*100;
         int codigoMax = ((prefijo+1)*100)-1;

@@ -1,6 +1,6 @@
 package clases;
 
-public class Ciudad {
+public class Ciudad implements Comparable{
     private int codigoPostal;
     private String nombre;
     private String provincia;
@@ -31,7 +31,28 @@ public class Ciudad {
         this.provincia = provincia;
     }
 
-    public boolean equals(Ciudad ciudad){
-        return this.codigoPostal == ciudad.codigoPostal;
+    public boolean equals(Object obj){
+        Ciudad ciudad = (Ciudad) obj;
+        return this.codigoPostal == ciudad.getCodigoPostal();
+    }
+
+    public Ciudad clone(){
+        return (new Ciudad(this.getCodigoPostal(),this.getNombre(),this.getProvincia()));
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        int salida;
+        Ciudad ciudad = (Ciudad) o;
+        if (this.codigoPostal < ciudad.getCodigoPostal()){
+            salida = -1;
+        } else {
+            if (this.codigoPostal > ciudad.getCodigoPostal()){
+                salida = 1;
+            } else {
+                salida = 0;
+            }
+        }
+        return salida;
     }
 }

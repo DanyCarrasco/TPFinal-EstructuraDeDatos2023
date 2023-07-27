@@ -192,7 +192,7 @@ public class Lista {
         if (aux != null) {
             cad = cad + aux.getElem().toString();
             if (aux.getEnlace() != null) {
-                cad = cad + ",";
+                cad = cad + ";";
             }
             cad = cadenaRecursiva(cad, aux.getEnlace());
         }

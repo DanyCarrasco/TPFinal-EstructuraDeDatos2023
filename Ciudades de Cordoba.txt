@@ -1,9 +1,6 @@
-ciudades altamente urbanizadas o importantes de Cordoba
-Córdoba 
-Villa Carlos Paz, 
-Río Cuarto, 
-Villa María, 
-San Francisco, 
-Alta Gracia, 
-Jesús María 
-Bell Ville.
+Córdoba,Código Postal: 5000;
+Villa Carlos Paz,Código Postal: 5152;
+Río Cuarto,Código Postal: 5800;
+Villa María,Código Postal: 5900;
+San Francisco,Código Postal: 2400;
+Alta Gracia,Código Postal: 5186

@@ -1,3 +1,4 @@
-Ciudades altamente urbanizadas de Chubut:
-Comodoro Rivadavia, Puerto Madryn y Trelew.
-Esquel, Rawson, El Hoyo, Gaiman, Camarones y Trevelin
+Comodoro Rivadavia,Código Postal: 9000;
+Puerto Madryn,Código Postal: 9120;
+Trelew,Código Postal: 9100;
+Rawson,Código Postal: 9103

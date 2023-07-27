@@ -1,5 +1,6 @@
 package EstructurasDelSistema;
 
+import Estructuras.lineales.dinamicas.Lista;
 import clases.Cliente;
 import clases.Documento;
 import clases.TipoDocumento;
@@ -13,7 +14,7 @@ public class Clientes {
     private HashMap<Documento, Cliente> arbol;
 
     public Clientes() {
-        arbol = new HashMap<>();
+        arbol = new HashMap<Documento, Cliente>();
     }
 
     public boolean existeCliente(int tipoDoc, int numDoc) {
@@ -144,7 +145,7 @@ public class Clientes {
     }
 
     public String mostrarCliente(int tipoDoc, int numeroDoc) {
-        String cad = "No existe cliente";
+        String cad = "No se encuentra cliente";
         Documento clave = new Documento(tipoDoc, numeroDoc);
         if (arbol.containsKey(clave)) {
             cad = arbol.get(clave).toString();
@@ -161,15 +162,48 @@ public class Clientes {
         return cad;
     }
 
-    public String toString() {
-        return "HashMap de clientes: \n" + mostrarElementos(arbol.entrySet());
-    }
-
-    public String toStringClave(){
-        return "Claves de HashMap de clientes: \n"+ mostrarElementos(arbol.keySet());
+    public boolean esVacio(){
+        return arbol.isEmpty();
     }
 
     public void vaciar(){
         arbol.clear();
+    }
+
+    public String toString() {
+        String cad = "HashMap de clientes: \n";
+        if (arbol.isEmpty()) {
+            cad = cad + "vacio";
+        } else {
+            cad = cad +  mostrarElementos(arbol.entrySet());;
+        }
+        return cad;
+    }
+
+    public Lista obtenerConjuntoDominio(){
+        Lista salida = new Lista();
+        if (!arbol.isEmpty()){
+            guardarElementos(arbol.keySet(),salida);
+        }
+        return salida;
+    }
+
+    public Lista obtenerConjuntoRango(){
+        Lista salida = new Lista();
+        if (!arbol.isEmpty()){
+            guardarElementos(arbol.values(),salida);
+        }
+        return salida;
+    }
+
+    private void guardarElementos(Iterable t, Lista lis){
+        Iterator it= t.iterator();
+        while (it.hasNext()){
+            lis.insertar(it.next(),lis.longitud()+1);
+        }
+    }
+
+    public String toStringClave(){
+        return "Claves de HashMap de clientes: \n"+ mostrarElementos(arbol.keySet());
     }
 }

@@ -1,3 +1,4 @@
-Ciudades altamente urbanizadas de Catamarca
-San Fernando del Valle de Catamarca
-Tinogasta, Andalgalá, Belén, Santa María, Recreo y Fiambalá.
+San Fernando del Valle de Catamarca, Código Postal: 4700-4799;
+Tinogasta, Código Postal: 5340; 
+Andalgalá, Código Postal: 4740;
+Belén, Código Postal: 4741;

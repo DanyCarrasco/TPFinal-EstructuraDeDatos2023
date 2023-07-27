@@ -1,0 +1,3 @@
+San Salvador de Jujuy,Código Postal: 4600;
+San Pedro de Jujuy,Código Postal: 4500;
+Palpalá,Código Postal: 4612

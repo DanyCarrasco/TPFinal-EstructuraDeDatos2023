@@ -1,11 +1,5 @@
-ciudades altamente urbanizadas o importantes de Corrientes
-Corrientes 
-Goya, 
-Paso de los Libres, 
-Curuzú Cuatiá, 
-Esquina, 
-Itatí, 
-Mburucuyá, 
-Monte Caseros, 
-Virasoro 
-Yapeyú
+Corrientes,Código Postal: 3400;
+Goya,Código Postal: 3450;
+Paso de los Libres,Código Postal: 3230;
+Curuzú Cuatiá,Código Postal: 3220;
+Monte Caseros,Código Postal: 3223

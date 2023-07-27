@@ -9,10 +9,6 @@ public class Cliente {
     private int telefono;
     private String email;
 
-    public Cliente(int numTipo, int unNumDni) {
-        this.doc = new Documento(numTipo, unNumDni);
-    }
-
     public Cliente(int numTipo, int unNumDni, String nombre, String apellido, int telefono, String email) {
         this.doc = new Documento(numTipo, unNumDni);
         this.nombre = nombre;
@@ -75,13 +71,12 @@ public class Cliente {
     }
 
 
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         Documento doc = (Documento) obj;
         return this.doc.equals(doc);
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
+    public Cliente clone() {
+        return (new Cliente(this.doc.clone(), this.getNombre(), this.getApellido(), this.getTelefono(), this.getEmail()));
     }
 }

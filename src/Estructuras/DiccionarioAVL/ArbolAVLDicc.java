@@ -292,23 +292,23 @@ public class ArbolAVLDicc {
         return dato;
     }
 
-    public Lista listarClave() {
+    public Lista listarClaves() {
         Lista lis = new Lista();
         if (this.raiz != null) {
-            listarClaveAux(this.raiz, lis);
+            listarClavesAux(this.raiz, lis);
         }
         return lis;
     }
 
-    private void listarClaveAux(NodoAVLDicc n, Lista lis) {
+    private void listarClavesAux(NodoAVLDicc n, Lista lis) {
         if (n.getIzquierdo() != null) {
-            listarClaveAux(n.getIzquierdo(), lis);
+            listarClavesAux(n.getIzquierdo(), lis);
         }
 
         lis.insertar(n.getClave(), lis.longitud() + 1);
 
         if (n.getDerecho() != null) {
-            listarClaveAux(n.getDerecho(), lis);
+            listarClavesAux(n.getDerecho(), lis);
         }
     }
 

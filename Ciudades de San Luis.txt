@@ -1,0 +1,4 @@
+San Juan,Código Postal: 5400;
+Chimbas,Código Postal: 5413;
+Rivadavia,Código Postal: 5407;
+Santa Lucía,Código Postal: 5405

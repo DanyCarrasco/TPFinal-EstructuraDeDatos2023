@@ -1,25 +1,24 @@
 Buscar las ciudades altamente urbanizadas de:
-Buenos Aires X
-Ciudad Autonoma de Buenos Aires X
-Catamarca X
-Chaco X
-Chubut X
-Cordoba X
-Corrientes X
-Entre Rios
-Formosa
-Jujuy
-La Pampa
-La Rioja
-Mendoza
-Misiones
-Neuquen
-Rio Negro
-Salta
-San Juan
-San Luis
-Santa Cruz
-Santa Fe
-Santiago del Estero
-Tierra del Fuego
-Tucuman
+Buenos Aires X X V +
+Catamarca X X V +
+Chaco X X V +
+Chubut X X V +
+Cordoba X X V + 
+Corrientes X X V +
+Entre Rios X X V + 
+Formosa X X V +
+Jujuy X X V +
+La Pampa X X V +
+La Rioja X X V +
+Mendoza X X V +
+Misiones X X V +
+Neuquen X X V + 
+Rio Negro X X V +
+Salta X X V +
+San Juan X X V +
+San Luis X X V +
+Santa Cruz X X V +
+Santa Fe X X V +
+Santiago del Estero X X V +
+Tierra del Fuego X X V +
+Tucuman X X V +

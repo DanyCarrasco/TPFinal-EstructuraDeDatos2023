@@ -1,0 +1,4 @@
+Paraná,Código Postal: 3100;
+Concordia, Código Postal: 3200;
+Gualeguaychú,Código Postal: 2820;
+Colón,Código Postal: 3280
