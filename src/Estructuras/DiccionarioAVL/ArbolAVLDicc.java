@@ -99,20 +99,26 @@ public class ArbolAVLDicc {
                 if (balanceHI > -1) {
                     //rotar a la derecha
                     n = rotarDerecha(n);
+                    n.getDerecho().recalcularAltura();
                 } else {
                     //doble izquierda-derecha
                     n.setIzquierdo(rotarIzquierda(n.getIzquierdo()));
+                    n.getIzquierdo().getIzquierdo().recalcularAltura();
                     n = rotarDerecha(n);
+                    n.getDerecho().recalcularAltura();
                 }
             } else {
                 if (balance == -2) {
                     if (balanceHD < 1) {
                         //rotar a la izquierda
                         n = rotarIzquierda(n);
+                        n.getIzquierdo().recalcularAltura();
                     } else {
                         //doble derecha-izquierda
                         n.setDerecho(rotarDerecha(n.getDerecho()));
+                        n.getDerecho().getDerecho().recalcularAltura();
                         n = rotarIzquierda(n);
+                        n.getIzquierdo().recalcularAltura();
                     }
                 }
             }

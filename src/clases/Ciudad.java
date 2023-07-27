@@ -41,6 +41,13 @@ public class Ciudad implements Comparable{
     }
 
     @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 77 + hash * this.codigoPostal;
+        return hash;
+    }
+
+    @Override
     public int compareTo(Object o) {
         int salida;
         Ciudad ciudad = (Ciudad) o;
@@ -55,4 +62,6 @@ public class Ciudad implements Comparable{
         }
         return salida;
     }
+
+
 }

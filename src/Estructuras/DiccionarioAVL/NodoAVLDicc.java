@@ -42,7 +42,11 @@ public class NodoAVLDicc {
             if (this.izquierdo != null) {
                 this.altura = this.izquierdo.getAltura()+1;
             } else {
-                this.altura = this.derecho.getAltura()+1;
+                if (this.derecho != null){
+                    this.altura = this.derecho.getAltura()+1;
+                } else {
+                    this.altura = 0;
+                }
             }
         }
     }
