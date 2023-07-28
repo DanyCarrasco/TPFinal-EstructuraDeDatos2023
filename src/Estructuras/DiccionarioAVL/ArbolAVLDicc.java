@@ -106,6 +106,7 @@ public class ArbolAVLDicc {
                     n.getIzquierdo().getIzquierdo().recalcularAltura();
                     n = rotarDerecha(n);
                     n.getDerecho().recalcularAltura();
+                    n.recalcularAltura();
                 }
             } else {
                 if (balance == -2) {
@@ -119,6 +120,7 @@ public class ArbolAVLDicc {
                         n.getDerecho().getDerecho().recalcularAltura();
                         n = rotarIzquierda(n);
                         n.getIzquierdo().recalcularAltura();
+                        n.recalcularAltura();
                     }
                 }
             }
