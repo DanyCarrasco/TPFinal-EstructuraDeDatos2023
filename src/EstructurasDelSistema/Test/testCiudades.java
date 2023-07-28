@@ -35,5 +35,11 @@ public class testCiudades {
         System.out.println("Ciudad c2: \n" + c2.toString());
         System.out.println("Se ingresa ciudad SEIS: "+ c2.insertarCiudad(1120,"SEIS","UNIDAD"));
         System.out.println("Ciudad c2: \n" + c2.toString());
+        System.out.println("Se ingresa ciudad SIETE: "+ c2.insertarCiudad(1017,"SIETE","UNIDAD"));
+        System.out.println("Ciudad c2: \n" + c2.toString());
+        System.out.println("Se ingresa ciudad OCHO: "+ c2.insertarCiudad(6789,"OCHO","UNIDAD"));
+        System.out.println("Ciudad c2: \n" + c2.toString());
+        /*System.out.println("Se ingresa ciudad NUEVE: "+ c2.insertarCiudad(7890,"NUEVE","UNIDAD"));
+        System.out.println("Ciudad c2: \n" + c2.toString());*/
     }
 }
