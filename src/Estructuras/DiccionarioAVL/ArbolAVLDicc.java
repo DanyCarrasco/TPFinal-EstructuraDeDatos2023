@@ -182,10 +182,10 @@ public class ArbolAVLDicc {
                 if (n.getIzquierdo() == null || n.getDerecho() == null) {
                     caso2(clave, n, padre);
                 } else {
-                    caso3(n);
+                    caso3(clave, n, padre);
                 }
             }
-            autobalance(n, padre);
+            //autobalance(n, padre);
             exito = true;
         } else {
             if (clave.compareTo(n.getClave()) < 0) {
@@ -197,6 +197,7 @@ public class ArbolAVLDicc {
                     exito = eliminarAux(n.getDerecho(), n, clave);
                 }
             }
+            autobalance(n, padre);
         }
         return exito;
     }
@@ -254,18 +255,28 @@ public class ArbolAVLDicc {
      *
      * @param actual envia el nodo a eliminar.
      */
-    private void caso3(NodoAVLDicc actual) {
+    private void caso3(Comparable clave, NodoAVLDicc actual, NodoAVLDicc padre) {
         NodoAVLDicc nodoA = actual.getIzquierdo(), nodoPadreA = actual;
         while (nodoA.getDerecho() != null) {
             nodoPadreA = nodoA;
             nodoA = nodoA.getDerecho();
         }
-        actual.setDato(nodoA.getDato());
+        actual = new NodoAVLDicc(nodoA.getClave(),nodoA.getDato(),actual.getIzquierdo(),actual.getDerecho());
         NodoAVLDicc hijoDer = nodoA.getDerecho();
-        if (actual.getIzquierdo() == nodoA) {
+        if (actual.getIzquierdo().getDato().equals(nodoA.getDato())) {
             actual.setIzquierdo(hijoDer);
         } else {
-            nodoPadreA.setIzquierdo(hijoDer);
+            nodoPadreA.setDerecho(hijoDer);
+        }
+        if (padre == null){
+            this.raiz = actual;
+        } else {
+            int temp = clave.compareTo(padre.getClave());
+            if (temp < 0){
+                padre.setIzquierdo(actual);
+            } else {
+                padre.setDerecho(actual);
+            }
         }
     }
 
