@@ -31,6 +31,10 @@ public class Ciudad implements Comparable{
         this.provincia = provincia;
     }
 
+    public String toString(){
+        return "Codigo postal: "+this.codigoPostal+", nombre: "+this.nombre+", provincia: "+this.provincia;
+    }
+
     public boolean equals(Object obj){
         Ciudad ciudad = (Ciudad) obj;
         return this.codigoPostal == ciudad.getCodigoPostal();

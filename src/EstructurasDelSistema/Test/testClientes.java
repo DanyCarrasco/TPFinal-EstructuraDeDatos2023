@@ -12,9 +12,10 @@ public class testClientes {
         //testGetCliente();
         //testEsVacio();
         //testVaciar();
-        testObtenerConjuntoDominio();
+        //testObtenerConjuntoDominio();
         //testObtenerConjuntoRango();
         //testMostrarCliente();
+        testClone();
     }
 
     public static void testToString() {
@@ -200,4 +201,31 @@ public class testClientes {
             }
         }
     }
+
+    public static void testClone(){
+        System.out.println("Prueba clone:");
+        Clientes c8 = new Clientes();
+        System.out.println("Clientes c8: \n"+c8.toString());
+        System.out.println("Se hace un clone de Clientes vacio");
+        Clientes c9 = c8.clone();
+        System.out.println("Se ingresa elemento PERSONA UNO en Clientes original");
+        c8.insertarCliente(1, 43502849, "PERSONA", "UNO", 299237482, "persona1@gmail.com");
+        System.out.println("Clientes c8: \n"+c8.toString());
+        System.out.println("Clientes clone vacio: \n"+c9.toString());
+        c8.insertarCliente(1, 87623786, "PERSONA", "DOS", 299528282, "persona2@gmail.com");
+        c8.insertarCliente(1, 45367372, "PERSONA", "TRES", 299848773, "persona3@gmail.com");
+        c8.insertarCliente(2, 43526261, "PERSONA", "CUATRO", 546376722, "persona4@gmail.com");
+        System.out.println("Se insertaron clientes");
+        System.out.println("Se crea otro Clientes clone con clientes agregados");
+        Clientes c10 = c8.clone();
+        System.out.println("Se inserta otro cliente en Clientes original");
+        c8.insertarCliente(1, 46372729, "PERSONA", "CINCO", 299383872, "persona5@gmail.com");
+        System.out.println("Clientes c8: \n"+c8.toString());
+        System.out.println("Clientes clone con clientes: \n"+c10.toString());
+        System.out.println("Se inserta otro cliente en el ultimo clone creado");
+        c10.insertarCliente(2, 43512849, "PERSONA", "SEIS", 299237182, "persona6@gmail.com");
+        System.out.println("Clientes c8: \n"+c8.toString());
+        System.out.println("Ultimo Clientes clone: \n"+c10.toString());
+    }
+
 }

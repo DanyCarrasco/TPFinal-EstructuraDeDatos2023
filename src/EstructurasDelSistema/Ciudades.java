@@ -103,13 +103,17 @@ public class Ciudades {
         arbol.vaciar();
     }
 
-    public Lista listarCiudades(int prefijo){
+    public Lista listarCiudadesRango(int prefijo){
         int codigoMin = prefijo*100;
         int codigoMax = ((prefijo+1)*100)-1;
         return arbol.listarRango(codigoMin,codigoMax);
     }
 
     public String toString(){
-        return arbol.toString();
+        String cad = "No hay ciudades";
+        if (!arbol.esVacio()){
+            cad = arbol.toString();
+        }
+        return cad;
     }
 }

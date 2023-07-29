@@ -5,10 +5,9 @@ import clases.Cliente;
 import clases.Documento;
 import clases.TipoDocumento;
 
-import java.util.HashMap;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.lang.Object;
-import java.util.Iterator;
-import java.util.Map;
 
 public class Clientes {
     private HashMap<Documento, Cliente> arbol;
@@ -33,10 +32,10 @@ public class Clientes {
         return exito;
     }
 
-    public boolean eliminarCliente(int tipoDoc, int numeroDoc){
+    public boolean eliminarCliente(int tipoDoc, int numeroDoc) {
         boolean exito = false;
-        Documento clave = new Documento(tipoDoc,numeroDoc);
-        if (arbol.containsKey(clave)){
+        Documento clave = new Documento(tipoDoc, numeroDoc);
+        if (arbol.containsKey(clave)) {
             arbol.remove(clave);
             exito = true;
         }
@@ -162,11 +161,11 @@ public class Clientes {
         return cad;
     }
 
-    public boolean esVacio(){
+    public boolean esVacio() {
         return arbol.isEmpty();
     }
 
-    public void vaciar(){
+    public void vaciar() {
         arbol.clear();
     }
 
@@ -175,35 +174,38 @@ public class Clientes {
         if (arbol.isEmpty()) {
             cad = cad + "vacio";
         } else {
-            cad = cad +  mostrarElementos(arbol.entrySet());;
+            cad = cad + mostrarElementos(arbol.entrySet());
+            ;
         }
         return cad;
     }
 
-    public Lista obtenerConjuntoDominio(){
+    public Lista obtenerConjuntoDominio() {
         Lista salida = new Lista();
-        if (!arbol.isEmpty()){
-            guardarElementos(arbol.keySet(),salida);
+        if (!arbol.isEmpty()) {
+            guardarElementos(arbol.keySet(), salida);
         }
         return salida;
     }
 
-    public Lista obtenerConjuntoRango(){
+    public Lista obtenerConjuntoRango() {
         Lista salida = new Lista();
-        if (!arbol.isEmpty()){
-            guardarElementos(arbol.values(),salida);
+        if (!arbol.isEmpty()) {
+            guardarElementos(arbol.values(), salida);
         }
         return salida;
     }
 
-    private void guardarElementos(Iterable t, Lista lis){
-        Iterator it= t.iterator();
-        while (it.hasNext()){
-            lis.insertar(it.next(),lis.longitud()+1);
+    private void guardarElementos(Iterable t, Lista lis) {
+        Iterator it = t.iterator();
+        while (it.hasNext()) {
+            lis.insertar(it.next(), lis.longitud() + 1);
         }
     }
 
-    public String toStringClave(){
-        return "Claves de HashMap de clientes: \n"+ mostrarElementos(arbol.keySet());
+    public Clientes clone() {
+        Clientes clon = new Clientes();
+        clon.arbol.putAll(arbol);
+        return clon;
     }
 }
