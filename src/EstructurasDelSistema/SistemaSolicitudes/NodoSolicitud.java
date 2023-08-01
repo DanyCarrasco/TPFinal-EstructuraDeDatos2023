@@ -2,6 +2,7 @@ package EstructurasDelSistema.SistemaSolicitudes;
 
 import Estructuras.lineales.dinamicas.Lista;
 import clases.Cliente;
+import clases.Descripcion;
 import clases.Documento;
 
 public class NodoSolicitud {
@@ -48,5 +49,50 @@ public class NodoSolicitud {
     public boolean equals(Object obj){
         CiudadesDeViaje clave = (CiudadesDeViaje) obj;
         return this.clave.equals(clave);
+    }
+
+    public boolean agregarDescripcionCliente(Documento doc, String fecha){
+        boolean exito = false;
+        if (!nodoClientes.esVacia()){
+            NodoCliente n = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
+            exito = n.agregarDescripcion(new Descripcion(fecha));
+        }
+        return exito;
+    }
+
+    public boolean eliminarDescripcionCliente(Documento doc, String fecha){
+        boolean exito = false;
+        if (!nodoClientes.esVacia()){
+            NodoCliente n = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
+            exito = n.eliminarDescripcion(new Descripcion(fecha));
+        }
+        return exito;
+    }
+
+    public Descripcion getDescripcionCliente(Documento doc, String fecha){
+        Descripcion salida = null;
+        if (!nodoClientes.esVacia()){
+            NodoCliente n = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
+            salida = n.getDescripcion(fecha);
+        }
+        return salida;
+    }
+
+    public boolean existeDescripcionCliente(Documento doc, String fecha){
+        boolean exito = false;
+        if (!nodoClientes.esVacia()){
+            NodoCliente n = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
+            exito = n.existeDescripcion(fecha);
+        }
+        return exito;
+    }
+
+    public Lista getListaDescripcionCliente(Documento doc){
+        Lista salida = new Lista();
+        if (!nodoClientes.esVacia()){
+            NodoCliente n = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
+            salida = n.getListaDescripcion();
+        }
+        return salida;
     }
 }
