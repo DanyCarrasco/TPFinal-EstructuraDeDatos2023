@@ -25,6 +25,10 @@ public class Cliente {
         this.email = email;
     }
 
+    public Cliente(Documento doc){
+        this.doc = doc;
+    }
+
     public String getTipoDocumento() {
         return this.doc.getTipo();
     }
@@ -72,8 +76,8 @@ public class Cliente {
 
 
     public boolean equals(Object obj) {
-        Documento doc = (Documento) obj;
-        return this.doc.equals(doc);
+        Cliente persona = (Cliente) obj;
+        return this.doc.equals(persona.doc);
     }
 
     public Cliente clone() {

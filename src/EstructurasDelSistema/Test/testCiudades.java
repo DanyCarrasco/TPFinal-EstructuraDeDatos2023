@@ -17,8 +17,8 @@ public class testCiudades {
         //testListarCiudades();
         //testListarCiudadesRango();
         //testEsVacio();
-        testVaciar();
-
+        //testVaciar();
+        testClone();
     }
 
     public static void testToString() {
@@ -252,29 +252,29 @@ public class testCiudades {
         System.out.println("Ciudades esta vacio: " + c8.esVacio());
     }
 
-    public static void testClone(){
+    public static void testClone() {
         Ciudades c9 = new Ciudades();
         System.out.println("Se crea Ciudades vacio");
-        System.out.println("Clientes c9: \n"+c9.toString());
+        System.out.println("Ciudades c9: \n" + c9.toString());
         System.out.println("Se hace un clone de Ciudades vacio");
         Ciudades c10 = c9.clone();
         System.out.println("Se ingresa elemento PERSONA UNO en Clientes original");
         c9.insertarCiudad(1234, "UNO", "UNIDAD");
-        System.out.println("Ciudades c9: \n"+c9.toString());
-        System.out.println("Clientes clone vacio: \n"+c10.toString());
+        System.out.println("Ciudades c9: \n" + c9.toString());
+        System.out.println("Ciudades clone vacio: \n" + c10.toString());
         c9.insertarCiudad(5678, "DOS", "UNIDAD");
         c9.insertarCiudad(9012, "TRES", "UNIDAD");
         c9.insertarCiudad(1123, "CUATRO", "UNIDAD");
         System.out.println("Se insertaron ciudades");
         System.out.println("Se crea otro Ciudades clone con ciudades agregados");
         Ciudades c11 = c9.clone();
-        System.out.println("Se inserta otro cliente en Clientes original");
+        System.out.println("Se inserta otra ciudad en Ciudades original");
         c9.insertarCiudad(1015, "CINCO", "UNIDAD");
-        System.out.println("Ciudades c9: \n"+c9.toString());
-        System.out.println("Clientes clone con clientes: \n"+c11.toString());
-        System.out.println("Se inserta otro cliente en el ultimo clone creado");
+        System.out.println("Ciudades c9: \n" + c9.toString());
+        System.out.println("Ciudades clone con ciudades: \n" + c11.toString());
+        System.out.println("Se inserta otra ciudad en el ultimo clone creado");
         c11.insertarCiudad(1120, "SEIS", "UNIDAD");
-        System.out.println("Ciudades c9: \n"+c9.toString());
-        System.out.println("Ultimo Clientes clone: \n"+c11.toString());
+        System.out.println("Ciudades c9: \n" + c9.toString());
+        System.out.println("Ultimo Ciudades clone: \n" + c11.toString());
     }
 }

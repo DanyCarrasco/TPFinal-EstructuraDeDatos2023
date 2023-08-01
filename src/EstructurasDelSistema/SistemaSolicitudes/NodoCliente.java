@@ -14,23 +14,6 @@ public class NodoCliente {
         descripciones = new Lista();
     }
 
-    public NodoCliente(int numTipo, int unNumDni, String nombre, String apellido, int telefono, String email){
-        this.persona = new Cliente(numTipo,unNumDni, nombre, apellido, telefono, email);
-        descripciones = new Lista();
-    }
-
-    public NodoCliente(Cliente persona,Descripcion des){
-        this.persona = persona;
-        descripciones = new Lista();
-        descripciones.insertar(des, descripciones.longitud()+1);
-    }
-
-    public NodoCliente(int numTipo, int unNumDni, String nombre, String apellido, int telefono, String email, Descripcion des){
-        this.persona = new Cliente(numTipo,unNumDni, nombre, apellido, telefono, email);
-        descripciones = new Lista();
-        descripciones.insertar(des, descripciones.longitud()+1);
-    }
-
     public Cliente getCliente(){
         return this.persona;
     }
@@ -54,13 +37,25 @@ public class NodoCliente {
     public Descripcion getDescripcion(String fecha){
         Descripcion salida = null;
         if (persona != null && !this.descripciones.esVacia()) {
-            salida = (Descripcion) this.descripciones.recuperar(descripciones.localizar(fecha));
+            salida = (Descripcion) this.descripciones.recuperar(descripciones.localizar(new Descripcion(fecha)));
         }
         return salida;
     }
 
+    public Lista getListaDescripcion(){
+        return this.descripciones;
+    }
+
+    public boolean existeDescripcion(String fecha){
+        boolean exito = false;
+        if (persona != null){
+            exito = this.descripciones.localizar(new Descripcion(fecha)) > 0;
+        }
+        return exito;
+    }
+
     public boolean equals(Object obj){
-        Documento doc = (Documento) obj;
-        return this.persona.equals(doc);
+        NodoCliente nodo = (NodoCliente) obj;
+        return this.persona.equals(nodo.getCliente());
     }
 }

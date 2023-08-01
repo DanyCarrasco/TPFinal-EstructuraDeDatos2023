@@ -19,6 +19,11 @@ public class Descripcion {
         envioPagado = false;
     }
 
+    public Descripcion(String fecha) {
+        fechaSolicitud = fecha;
+        envioPagado = false;
+    }
+
 
     public Descripcion(int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega) {
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
@@ -77,7 +82,8 @@ public class Descripcion {
         this.envioPagado = true;
     }
 
-    public boolean equals(String fecha) {
-        return this.fechaSolicitud.equals(fecha);
+    public boolean equals(Object obj) {
+        Descripcion des = (Descripcion) obj;
+        return this.fechaSolicitud.equals(des.getFechaSolicitud());
     }
 }
