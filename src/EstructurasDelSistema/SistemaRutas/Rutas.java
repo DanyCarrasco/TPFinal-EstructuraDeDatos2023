@@ -351,8 +351,8 @@ public class Rutas {
         //Busca el camino mas corto en la lista de adyacentes del nodo n hacia el vertice dest
         Lista visitados = new Lista();
         NodoRuta nAdyacente = n.getPrimerRuta();
+        visitados.insertar(n.getElem(), visitados.longitud() + 1);
         while (nAdyacente != null) {
-            visitados.insertar(n.getElem(), visitados.longitud() + 1);
             caminoCortoCiudadesAdy(nAdyacente.getVertice(), dest, visitados, salida);
             nAdyacente = nAdyacente.getSigRuta();
         }
@@ -370,9 +370,11 @@ public class Rutas {
             while (nAdyacente != null) {
                 if (vis.localizar(nAdyacente.getVertice().getElem()) < 1) {
                     caminoCortoCiudadesAdy(nAdyacente.getVertice(), dest, vis, salida);
-                    vis.eliminar(vis.longitud());
                 }
                 nAdyacente = nAdyacente.getSigRuta();
+                if (nAdyacente == null) {
+                    vis.eliminar(vis.longitud());
+                }
             }
         }
     }
@@ -409,10 +411,10 @@ public class Rutas {
         Lista visitados = new Lista();
         NodoRuta nAdyacente = n.getPrimerRuta();
         double distanciaTotal, distanciaAux, distSalida = 0;
+        visitados.insertar(n.getElem(), visitados.longitud() + 1);
         while (nAdyacente != null) {
             distanciaTotal = nAdyacente.getEtiqueta();
             distanciaAux = nAdyacente.getEtiqueta();
-            visitados.insertar(n.getElem(), visitados.longitud() + 1);
             distSalida = caminoCortoDistanciasAdy(nAdyacente.getVertice(), dest, visitados, salida, distanciaTotal, distanciaAux,distSalida);
             nAdyacente = nAdyacente.getSigRuta();
         }
@@ -441,70 +443,6 @@ public class Rutas {
             }
         }
         return distSalida;
-    }
-
-    public Lista caminoCortoDistancia2(Object origen, Object destino) {
-        Lista salida = new Lista();
-        boolean exito = false;
-        //verifica si ambos vertices existen
-        NodoCiudad auxO = null;
-        NodoCiudad auxD = null;
-        NodoCiudad aux = this.inicio;
-        while ((auxO == null || auxD == null) && aux != null) {
-            if (aux.getElem().equals(origen)) {
-                auxO = aux;
-            }
-            if (aux.getElem().equals(destino)) {
-                auxD = aux;
-            }
-            aux = aux.getSigCiudad();
-        }
-        if (auxO != null && auxD != null) {
-            //si ambos vertices existen busca el camino mas corto entre ambos
-            caminoCortoDistanciaAux2(auxO, destino, salida);
-        }
-        return salida;
-    }
-
-    private void caminoCortoDistanciaAux2(NodoCiudad n, Object dest, Lista salida) {
-        //Busca el camino con distancia mas corta en la lista de adyacentes del nodo n hacia el vertice dest
-        Lista visitados = new Lista();
-        NodoRuta nRuta = n.getPrimerRuta();
-        double distancia = 0, dist;
-        while (nRuta != null) {
-            dist = caminoDistanciaAux(n, dest, visitados);
-            if (salida.longitud() == 0) {
-                distancia = dist;
-                salida = visitados;
-            } else {
-                if (dist < distancia) {
-                    distancia = dist;
-                    salida = visitados;
-                }
-            }
-            nRuta = nRuta.getSigRuta();
-        }
-    }
-
-
-    private double caminoDistanciaAux(NodoCiudad n, Object dest, Lista vis) {
-        double dist = -1;
-        if (n != null) {
-            if (n.getElem().equals(dest)) {
-                dist = 0;
-            } else {
-                //si no es el destino verifica si hay camino entre n y destino
-                vis.insertar(n.getElem(), vis.longitud() + 1);
-                NodoRuta ruta = n.getPrimerRuta();
-                while (ruta != null) {
-                    if (vis.localizar(ruta.getVertice().getElem()) < 0) {
-                        dist = ruta.getEtiqueta() + caminoDistanciaAux(ruta.getVertice(), dest, vis);
-                    }
-                    ruta = ruta.getSigRuta();
-                }
-            }
-        }
-        return dist;
     }
 
     public Lista listarEnAnchura() {

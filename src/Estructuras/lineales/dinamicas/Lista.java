@@ -179,6 +179,7 @@ public class Lista {
             this.cabecera = null;
         } else {
             this.cabecera = clonarNodo(dup.cabecera, this.cabecera);
+            this.longi = dup.longi;
         }
     }
 

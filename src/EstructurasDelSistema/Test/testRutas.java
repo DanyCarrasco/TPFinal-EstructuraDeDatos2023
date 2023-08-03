@@ -15,7 +15,8 @@ public class testRutas {
         //testListarEnProfundidad();
         //testListarEnAnchura();
         //testEsVacio();
-        testClone();
+        //testClone();
+        testCaminoCortoCiudades();
     }
 
     public static void testToString() {
@@ -291,5 +292,33 @@ public class testRutas {
         System.out.println("Se agrega un arco en el ultimo grafo clonado: " + r12.insertarRuta(tres, siete, 14.9));
         System.out.println("Rutas r9: \n" + r9.toString());
         System.out.println("Ultimo Rutas clonado: \n" + r12.toString());
+    }
+
+    public static void testCaminoCortoCiudades() {
+        Ciudad uno = new Ciudad(1234, "UNO", "UNIDAD");
+        Ciudad dos = new Ciudad(5678, "DOS", "UNIDAD");
+        Ciudad tres = new Ciudad(9012, "TRES", "UNIDAD");
+        Ciudad cuatro = new Ciudad(3456, "CUATRO", "UNIDAD");
+        Ciudad siete = new Ciudad(6789, "SIETE", "UNIDAD");
+        System.out.println("Prueba de camino corto ciudades:");
+        Rutas g5 = new Rutas();
+        System.out.println("Pruebo en Rutas vacio camino corto de UNO a DOS: " + g5.caminoCortoCiudades(uno, dos).toString());
+        System.out.println("Inserto ciudades en Rutas");
+        g5.insertarCiudad(uno);
+        g5.insertarCiudad(dos);
+        g5.insertarCiudad(tres);
+        g5.insertarCiudad(cuatro);
+        System.out.println("Rutas r13: \n" + g5.toString());
+        System.out.println("Pruebo en Rutas con ciudades camino corto de UNO a DOS: " + g5.caminoCortoCiudades(uno, dos).toString());
+        System.out.println("Inserto rutas de las ciudades en Rutas");
+        g5.insertarRuta(uno,dos,13.2);
+        g5.insertarRuta(uno,cuatro,15.4);
+        g5.insertarRuta(uno,tres,17.6);
+        g5.insertarRuta(dos,cuatro,19.8);
+        g5.insertarRuta(cuatro,tres, 21);
+        g5.insertarRuta(tres,dos,11.2);
+        System.out.println("Rutas r13: \n" + g5.toString());
+        System.out.println("Pruebo en Rutas con ciudades camino corto de UNO a TRES: " + g5.caminoCortoCiudades(uno, tres).toString());
+        System.out.println("Pruebo en Rutas con ciudades camino corto de UNO a SIETE: " + g5.caminoCortoCiudades(uno, siete).toString());
     }
 }
