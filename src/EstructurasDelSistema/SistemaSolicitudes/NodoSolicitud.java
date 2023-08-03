@@ -5,94 +5,122 @@ import clases.Cliente;
 import clases.Descripcion;
 import clases.Documento;
 
+import java.util.Iterator;
+import java.util.TreeMap;
+
 public class NodoSolicitud {
     private CiudadesDeViaje clave;
-    private Lista nodoClientes;
+    private TreeMap<Cliente, NodoCliente> arbolClientes;
 
     public NodoSolicitud(CiudadesDeViaje clave) {
         this.clave = clave;
-        this.nodoClientes = new Lista();
+        this.arbolClientes = new TreeMap<Cliente, NodoCliente>();
     }
 
     public boolean agregarNodoCliente(NodoCliente n) {
         boolean exito = false;
-        if (this.nodoClientes.localizar(n) < 1) {
-            exito = this.nodoClientes.insertar(n, nodoClientes.longitud() + 1);
+        if (!this.arbolClientes.containsKey(n.getCliente())) {
+            arbolClientes.put(n.getCliente(), n);
+            exito = true;
         }
         return exito;
     }
 
     public boolean eliminarNodoCliente(NodoCliente n) {
         boolean exito = false;
-        if (!this.nodoClientes.esVacia()) {
-            exito = nodoClientes.eliminar(nodoClientes.localizar(n));
+        if (this.arbolClientes.containsKey(n.getCliente())) {
+            arbolClientes.remove(n.getCliente());
+            exito = true;
         }
         return exito;
     }
 
     public NodoCliente getNodoCliente(Documento doc) {
         NodoCliente salida = null;
-        if (!this.nodoClientes.esVacia()) {
-            salida = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
+        Cliente clave = new Cliente(doc);
+        if (this.arbolClientes.containsKey(clave)) {
+            salida = this.arbolClientes.get(clave);
         }
         return salida;
     }
 
     public boolean existeNodoCliente(Documento doc) {
-        boolean existe = false;
-        if (!this.nodoClientes.esVacia()) {
-            existe = !(this.nodoClientes.localizar(new NodoCliente(new Cliente(doc))) < 1);
-        }
-        return existe;
+        Cliente clave = new Cliente(doc);
+        return this.arbolClientes.containsKey(clave);
     }
 
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         CiudadesDeViaje clave = (CiudadesDeViaje) obj;
         return this.clave.equals(clave);
     }
 
-    public boolean agregarDescripcionCliente(Documento doc, String fecha){
+    public boolean agregarDescripcionCliente(Cliente persona, Descripcion des) {
         boolean exito = false;
-        if (!nodoClientes.esVacia()){
-            NodoCliente n = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
-            exito = n.agregarDescripcion(new Descripcion(fecha));
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(persona);
+            exito = n.agregarDescripcion(des);
         }
         return exito;
     }
 
-    public boolean eliminarDescripcionCliente(Documento doc, String fecha){
+    public boolean eliminarDescripcionCliente(Cliente persona, Descripcion des) {
         boolean exito = false;
-        if (!nodoClientes.esVacia()){
-            NodoCliente n = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
-            exito = n.eliminarDescripcion(new Descripcion(fecha));
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(persona);
+            exito = n.eliminarDescripcion(des);
         }
         return exito;
     }
 
-    public Descripcion getDescripcionCliente(Documento doc, String fecha){
+    public Descripcion getDescripcionCliente(Documento doc, String fecha) {
         Descripcion salida = null;
-        if (!nodoClientes.esVacia()){
-            NodoCliente n = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
+        Cliente claveCliente = new Cliente(doc);
+        if (this.arbolClientes.containsKey(claveCliente)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(claveCliente);
             salida = n.getDescripcion(fecha);
         }
         return salida;
     }
 
-    public boolean existeDescripcionCliente(Documento doc, String fecha){
+    public boolean existeDescripcionCliente(Documento doc, String fecha) {
         boolean exito = false;
-        if (!nodoClientes.esVacia()){
-            NodoCliente n = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
+        Cliente claveCliente = new Cliente(doc);
+        if (this.arbolClientes.containsKey(claveCliente)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(claveCliente);
             exito = n.existeDescripcion(fecha);
         }
         return exito;
     }
 
-    public Lista getListaDescripcionCliente(Documento doc){
+    public Lista getListaDescripcionCliente(Documento doc) {
         Lista salida = new Lista();
-        if (!nodoClientes.esVacia()){
-            NodoCliente n = (NodoCliente) nodoClientes.recuperar(nodoClientes.localizar(new NodoCliente(new Cliente(doc))));
+        Cliente claveCliente = new Cliente(doc);
+        if (this.arbolClientes.containsKey(claveCliente)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(claveCliente);
             salida = n.getListaDescripcion();
         }
         return salida;
+    }
+
+    public String getListaDePedidos() {
+        String cad = "No hay pedidos de ningun cliente";
+        if (!arbolClientes.isEmpty()) {
+            cad = "";
+            Lista aux = new Lista();
+            guardarElementos(arbolClientes.entrySet(), aux);
+            for (int i = 0; i <= aux.longitud(); i++) {
+                NodoCliente nodo = (NodoCliente) aux.recuperar(i);
+                cad = cad + "Cliente: " + nodo.getCliente().toString() + "\n Lista de sus pedidos: \n";
+                cad = cad + nodo.getListaDescripcion().toString();
+            }
+        }
+        return cad;
+    }
+
+    private void guardarElementos(Iterable t, Lista lis) {
+        Iterator it = t.iterator();
+        while (it.hasNext()) {
+            lis.insertar(it.next(), lis.longitud() + 1);
+        }
     }
 }

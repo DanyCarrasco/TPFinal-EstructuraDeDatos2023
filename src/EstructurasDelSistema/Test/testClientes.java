@@ -7,7 +7,7 @@ import java.io.*;
 public class testClientes {
     public static void main(String[] args) {
         //testToString();
-        //testInsertarYEliminar();
+        testInsertarYEliminar();
         //testExisteCliente();
         //testGetCliente();
         //testEsVacio();
@@ -15,7 +15,7 @@ public class testClientes {
         //testObtenerConjuntoDominio();
         //testObtenerConjuntoRango();
         //testMostrarCliente();
-        testClone();
+        //testClone();
     }
 
     public static void testToString() {

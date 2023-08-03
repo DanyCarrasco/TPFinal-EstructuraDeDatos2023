@@ -44,7 +44,7 @@ public class Rutas {
         NodoCiudad auxAnterior = null;
         while (!exito && aux != null) {
             if (aux.getElem().equals(ciudad)) {
-                eliminarArcos(aux);
+                eliminarRutas(aux);
                 if (auxAnterior == null) {
                     this.inicio = aux.getSigCiudad();
                 } else {
@@ -65,7 +65,7 @@ public class Rutas {
         boolean exito = false;
         if (nCiudad != null) {
             if (nCiudad.getElem().equals(ciudadBuscada)) {
-                eliminarArcos(nCiudad);
+                eliminarRutas(nCiudad);
                 if (nCiudadAnterior == null) {
                     this.inicio = nCiudad.getSigCiudad();
                 } else {
@@ -79,17 +79,17 @@ public class Rutas {
         return exito;
     }
 
-    private void eliminarArcos(NodoCiudad n) {
+    private void eliminarRutas(NodoCiudad n) {
         //Modulo para eliminar los arcos del nodo "n"
         NodoRuta nRuta = n.getPrimerRuta();
         while (nRuta != null) {
-            eliminarUnArco(nRuta.getVertice(), n.getElem());
+            eliminarUnaRuta(nRuta.getVertice(), n.getElem());
             n.setPrimerRuta(nRuta.getSigRuta());
             nRuta = nRuta.getSigRuta();
         }
     }
 
-    private boolean eliminarUnArco(NodoCiudad n, Object buscado) {
+    private boolean eliminarUnaRuta(NodoCiudad n, Object buscado) {
         //Confirma la eliminacion del nodo adyacente "buscado" de la lista de adyacentes del nodo "n"
         boolean exito = false;
         if (n != null) {
@@ -98,14 +98,14 @@ public class Rutas {
                     n.setPrimerRuta(n.getPrimerRuta().getSigRuta());
                     exito = true;
                 } else {
-                    exito = eliminarUnArcoAux(n.getPrimerRuta().getSigRuta(), n.getPrimerRuta(), buscado);
+                    exito = eliminarUnaRutaAux(n.getPrimerRuta().getSigRuta(), n.getPrimerRuta(), buscado);
                 }
             }
         }
         return exito;
     }
 
-    private boolean eliminarUnArcoAux(NodoRuta n, NodoRuta nAnterior, Object buscado) {
+    private boolean eliminarUnaRutaAux(NodoRuta n, NodoRuta nAnterior, Object buscado) {
         //Modulo recursivo para moverse en la lista de adyacentes del nodo "n" hasta encontrar
         // y confirmar la eliminacion el nodo "buscado"
         boolean exito = false;
@@ -114,13 +114,13 @@ public class Rutas {
                 nAnterior.setSigRuta(n.getSigRuta());
                 exito = true;
             } else {
-                exito = eliminarUnArcoAux(n.getSigRuta(), n, buscado);
+                exito = eliminarUnaRutaAux(n.getSigRuta(), n, buscado);
             }
         }
         return exito;
     }
 
-    public boolean insertarArco(Object origen, Object destino, double etiqueta) {
+    public boolean insertarRuta(Object origen, Object destino, double etiqueta) {
         /* Dados dos elementos de TipoVertice (origen y destino) agrega el arco en la estructura, sólo si
         ambos vértices ya existen en el grafo. Si puede realizar la inserción devuelve verdadero, en caso
         contrario devuelve falso.*/
@@ -189,7 +189,7 @@ public class Rutas {
         }
     }
 
-    public boolean eliminarArco(Object origen, Object destino) {
+    public boolean eliminarRuta(Object origen, Object destino) {
         /* Dados dos elementos de TipoVertice (origen y destino) se quita de la estructura el arco que une
         ambos vértices. Si el arco existe y se puede realizar la eliminación con éxito devuelve verdadero, en
         caso contrario devuelve falso.*/
@@ -207,9 +207,9 @@ public class Rutas {
             aux = aux.getSigCiudad();
         }
         if (nOrigen != null && nDestino != null) {
-            exito = eliminarUnArco(nOrigen, destino);
+            exito = eliminarUnaRuta(nOrigen, destino);
             if (exito) {
-                exito = eliminarUnArco(nDestino, origen);
+                exito = eliminarUnaRuta(nDestino, origen);
             }
         }
         return exito;
@@ -221,7 +221,7 @@ public class Rutas {
         return ubicarCiudad(ciudad) != null;
     }
 
-    public boolean existeArco(Object origen, Object destino) {
+    public boolean existeRuta(Object origen, Object destino) {
         /* Dados dos elementos de TipoVertice (origen y destino), devuelve verdadero si existe un arco en
         la estructura que los une y falso en caso contrario.*/
         return ubicarCiudadRuta(ubicarCiudad(origen), destino) != null;
@@ -319,7 +319,7 @@ public class Rutas {
         // Devuelve falso si hay al menos un vértice cargado en el grafo y verdadero en caso contrario.
         return this.inicio == null;
     }
-/*
+
     public Lista caminoCortoCiudades(Object origen, Object destino) {
         //Dados dos elementos de TipoVertice (origen y destino), devuelve un camino (lista de vértices)
         //que indique el camino que pasa por menos vértices (sin ciclos) que permite llegar del vértice origen
@@ -342,54 +342,46 @@ public class Rutas {
         }
         if (auxO != null && auxD != null) {
             //si ambos vertices existen busca el camino mas corto entre ambos
-            salida = caminoCortoCiudadesAux(auxO, destino, salida);
+            caminoCortoCiudadesAux(auxO, destino, salida);
         }
         return salida;
     }
 
-    private Lista caminoCortoCiudadesAux(NodoCiudad n, Object dest, Lista salida) {
+    private void caminoCortoCiudadesAux(NodoCiudad n, Object dest, Lista salida) {
         //Busca el camino mas corto en la lista de adyacentes del nodo n hacia el vertice dest
         Lista visitados = new Lista();
         NodoRuta nAdyacente = n.getPrimerRuta();
-        double conador = 0;
         while (nAdyacente != null) {
             visitados.insertar(n.getElem(), visitados.longitud() + 1);
-            visitados = caminoCortoCiudadesAdy(nAdyacente.getVertice(), dest, visitados, conador, 0);
-            if (salida.longitud() > visitados.longitud()) {
-                salida = visitados.clone();
-            }
+            caminoCortoCiudadesAdy(nAdyacente.getVertice(), dest, visitados, salida);
             nAdyacente = nAdyacente.getSigRuta();
-            visitados.vaciar();
         }
-        return salida;
     }
 
-    private Lista caminoCortoCiudadesAdy(NodoCiudad n, Object dest, Lista vis, double con, double conVis) {
+    private void caminoCortoCiudadesAdy(NodoCiudad n, Object dest, Lista vis, Lista salida) {
         //Busca el camino mas largo en la lista de adyacentes del nodo n hacia el vertice dest
-        Lista salida = new Lista();
         NodoRuta nAdyacente = n.getPrimerRuta();
         if (n.getElem().equals(dest)) {
-            if (con == 0){
-                salida = vis.clone();
-            } else {
-                if (con > conVis) {
-                    salida = vis.clone();
-                }
+            if (salida.esVacia() || (vis.longitud() < salida.longitud())) {
+                salida.duplicar(vis);
             }
         } else {
             vis.insertar(n.getElem(), vis.longitud() + 1);
-            conVis = conVis;
             while (nAdyacente != null) {
-                if (vis.localizar(nAdyacente.getVertice().getElem()) < 1){
-                    salida = caminoCortoCiudadesAdy(nAdyacente.getVertice(), dest, vis);
+                if (vis.localizar(nAdyacente.getVertice().getElem()) < 1) {
+                    caminoCortoCiudadesAdy(nAdyacente.getVertice(), dest, vis, salida);
+                    vis.eliminar(vis.longitud());
                 }
                 nAdyacente = nAdyacente.getSigRuta();
             }
         }
-        return salida;
     }
 
-    public Lista caminoCortoCiudades2(Object origen, Object destino) {
+    public Lista caminoCortoDistancias(Object origen, Object destino) {
+        //Dados dos elementos de TipoVertice (origen y destino), devuelve un camino (lista de vértices)
+        //que indique el camino que pasa por menos vértices (sin ciclos) que permite llegar del vértice origen
+        //al vértice destino. Si hay más de un camino con igual cantidad de vértices, devuelve cualquiera de
+        //ellos. Si alguno de los vértices no existe o no hay camino posible entre ellos devuelve la lista vacía.
         Lista salida = new Lista();
         boolean exito = false;
         //verifica si ambos vertices existen
@@ -407,98 +399,48 @@ public class Rutas {
         }
         if (auxO != null && auxD != null) {
             //si ambos vertices existen busca el camino mas corto entre ambos
-            caminoCortoCiudadesAux2(auxO, destino, salida);
+            caminoCortoDistanciasAux(auxO, destino, salida);
         }
         return salida;
     }
-*/
-    private void caminoCortoCiudadesAux2(NodoCiudad n, Object dest, Lista salida) {
+
+    private void caminoCortoDistanciasAux(NodoCiudad n, Object dest, Lista salida) {
         //Busca el camino mas corto en la lista de adyacentes del nodo n hacia el vertice dest
         Lista visitados = new Lista();
         NodoRuta nAdyacente = n.getPrimerRuta();
-        boolean exito;
+        double distanciaTotal, distanciaAux, distSalida = 0;
         while (nAdyacente != null) {
-            exito = existeCaminoAux(n, dest, visitados);
-            if (exito) {
-                if (salida.longitud() == 0) {
-                    salida = visitados;
-                } else {
-                    if (visitados.longitud() < salida.longitud()) {
-                        salida = visitados;
+            distanciaTotal = nAdyacente.getEtiqueta();
+            distanciaAux = nAdyacente.getEtiqueta();
+            visitados.insertar(n.getElem(), visitados.longitud() + 1);
+            distSalida = caminoCortoDistanciasAdy(nAdyacente.getVertice(), dest, visitados, salida, distanciaTotal, distanciaAux,distSalida);
+            nAdyacente = nAdyacente.getSigRuta();
+        }
+    }
+
+    private double caminoCortoDistanciasAdy(NodoCiudad n, Object dest, Lista vis, Lista salida, double distTotal, double distParcial, double distSalida) {
+        //Busca el camino mas largo en la lista de adyacentes del nodo n hacia el vertice dest y retorna el double distSalida
+        NodoRuta nAdyacente = n.getPrimerRuta();
+        if (n.getElem().equals(dest)) {
+            if ((distSalida == 0) || (distTotal < distSalida)){
+                salida.duplicar(vis);
+                distSalida = distTotal;
+            }
+        } else {
+            vis.insertar(n.getElem(), vis.longitud() + 1);
+            while (nAdyacente != null) {
+                if (nAdyacente.getEtiqueta() < distParcial){
+                    if (vis.localizar(nAdyacente.getVertice().getElem()) < 1) {
+                        distTotal = distTotal + nAdyacente.getEtiqueta();
+                        distSalida = caminoCortoDistanciasAdy(nAdyacente.getVertice(), dest, vis, salida, distTotal, nAdyacente.getEtiqueta(), distSalida);
+                        vis.eliminar(vis.longitud());
+                        distTotal = distTotal - nAdyacente.getEtiqueta();
                     }
                 }
-            }
-            nAdyacente = nAdyacente.getSigRuta();
-        }
-    }
-
-    public Lista caminoCortoDistancia(Object origen, Object destino) {
-        /*Dados dos elementos de TipoVertice (origen y destino), devuelve un camino (lista de vértices)
-        que indique el camino que pasa por menos vértices (sin ciclos) que permite llegar del vértice origen
-        al vértice destino. Si hay más de un camino con igual cantidad de vértices, devuelve cualquiera de
-        ellos. Si alguno de los vértices no existe o no hay camino posible entre ellos devuelve la lista vacía.*/
-        Lista salida = new Lista();
-        boolean exito = false;
-        //verifica si ambos vertices existen
-        NodoCiudad auxO = null;
-        NodoCiudad auxD = null;
-        NodoCiudad aux = this.inicio;
-        while ((auxO == null || auxD == null) && aux != null) {
-            if (aux.getElem().equals(origen)) {
-                auxO = aux;
-            }
-            if (aux.getElem().equals(destino)) {
-                auxD = aux;
-            }
-            aux = aux.getSigCiudad();
-        }
-        if (auxO != null && auxD != null) {
-            //si ambos vertices existen busca el camino mas corto entre ambos
-            salida = caminoCortoDistanciaAux(auxO, destino, salida);
-        }
-        return salida;
-    }
-
-    private Lista caminoCortoDistanciaAux(NodoCiudad n, Object dest, Lista salida) {
-        //Busca el camino mas corto en la lista de adyacentes del nodo n hacia el vertice dest
-        Lista visitados = new Lista();
-        NodoRuta nAdyacente = n.getPrimerRuta();
-        PilaKm etiquetas = new PilaKm();
-        while (nAdyacente != null) {
-            visitados.insertar(n.getElem(), visitados.longitud() + 1);
-            etiquetas.apilar(nAdyacente.getEtiqueta());
-            visitados = caminoCortoDistanciaAdy(nAdyacente.getVertice(), dest, visitados);
-            if (salida.longitud() > visitados.longitud()) {
-                salida = visitados.clone();
-            }
-            nAdyacente = nAdyacente.getSigRuta();
-            visitados.vaciar();
-        }
-        return salida;
-    }
-
-    private Lista caminoCortoDistanciaAdy(NodoCiudad n, Object dest, Lista vis) {
-        //Busca el camino mas largo en la lista de adyacentes del nodo n hacia el vertice dest
-        Lista salida = new Lista();
-        NodoRuta nAdyacente = n.getPrimerRuta();
-        if (n.getElem().equals(dest)) {
-            if (salida.esVacia()){
-                salida = vis.clone();
-            } else {
-                if (salida.longitud() > vis.longitud()) {
-                    salida = vis.clone();
-                }
-            }
-        } else {
-            vis.insertar(n.getElem(), vis.longitud() + 1);
-            while (nAdyacente != null) {
-                if (vis.localizar(nAdyacente.getVertice().getElem()) < 1){
-                    salida = caminoCortoDistanciaAdy(nAdyacente.getVertice(), dest, vis);
-                }
                 nAdyacente = nAdyacente.getSigRuta();
             }
         }
-        return salida;
+        return distSalida;
     }
 
     public Lista caminoCortoDistancia2(Object origen, Object destino) {
@@ -571,7 +513,7 @@ public class Rutas {
         Lista visitados = new Lista();
         NodoCiudad u = this.inicio;
         while (u != null) {
-            if (visitados.localizar(u.getElem()) < 0) {
+            if (visitados.localizar(u) < 1) {
                 AnchuraDesde(u, visitados);
             }
             u = u.getSigCiudad();
@@ -626,10 +568,10 @@ public class Rutas {
     private NodoRuta cloneRutaAux(NodoCiudad nOrigen, NodoRuta nAdy, NodoCiudad clonInicio) {
         //Clona cada adyacente del grafo original en el grafo clon
         NodoRuta nuevo = null;
-        if (nOrigen != null) {
+        if (nAdy != null) {
             NodoCiudad aux = clonInicio;
             Object etiq = null;
-            while (!nAdy.getVertice().getElem().equals(aux.getElem()) && aux != null) {
+            while (!(nAdy.getVertice().getElem().equals(aux.getElem())) && aux != null) {
                 aux = aux.getSigCiudad();
             }
             if (aux != null) {
@@ -643,7 +585,7 @@ public class Rutas {
         // Con fines de debugging, este método genera y devuelve una cadena String que muestra los
         //vértices almacenados en el grafo y qué adyacentes tiene cada uno de ellos.
         String cad = "No hay ciudades agregados";
-        if (this.inicio != null){
+        if (this.inicio != null) {
             cad = toStringAux(this.inicio);
         }
         return cad;

@@ -16,23 +16,23 @@ public class Solicitudes {
     }
 
     public boolean insertarSolicitud(String origen, String destino) {
-        //Crea una nueva Lista de NodoClientes de una ciudad origen y una ciudad destino
+        //Crea un nuevo NodoSolicitud de una ciudad origen y una ciudad destino
         boolean exito = false;
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
         if (!arbol.containsKey(clave)) {
-            arbol.put(clave, (new Lista()));
+            arbol.put(clave, (new NodoSolicitud(clave)));
             exito = true;
         }
         return exito;
     }
 
     public boolean agregarCliente(String origen, String destino, Cliente persona){
-        //Agrega un NodoCliente en la Lista de una ciudad origen y una ciudad destino
+        //Agrega un NodoCliente en el arbol de NodoSolicitud de una ciudad origen y una ciudad destino
         boolean exito = false;
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
         if (arbol.containsKey(clave)){
-            Lista lis = arbol.get(clave);
-            exito = lis.insertar((new NodoCliente(persona)), lis.longitud()+1);
+            NodoSolicitud nodo = arbol.get(clave);
+            exito = nodo.agregarNodoCliente(new NodoCliente(persona));
         }
         return exito;
     }
@@ -42,9 +42,8 @@ public class Solicitudes {
         boolean exito = false;
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
         if (arbol.containsKey(clave)){
-            Lista lis = arbol.get(clave);
-            NodoCliente nodo = (NodoCliente) lis.recuperar(lis.localizar((new NodoCliente(persona))));
-            exito = nodo.agregarDescripcion(des);
+            NodoSolicitud nodo = arbol.get(clave);
+            exito = nodo.agregarDescripcionCliente(persona, des);
         }
         return exito;
     }
@@ -54,10 +53,8 @@ public class Solicitudes {
         boolean exito = false;
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
         if (arbol.containsKey(clave)) {
-            Lista lis = (Lista) arbol.get(clave);
-            NodoCliente n = (NodoCliente) lis.recuperar(lis.localizar(new NodoCliente(persona)));
-            n.eliminarDescripcion(des);
-            exito = true;
+            NodoSolicitud nodo = arbol.get(clave);
+            exito = nodo.eliminarDescripcionCliente(persona, des);
         }
         return exito;
     }
@@ -67,8 +64,8 @@ public class Solicitudes {
         boolean exito = true;
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
         if (arbol.containsKey(clave)){
-            Lista lis = arbol.get(clave);
-            exito = lis.eliminar(lis.localizar(new NodoCliente(persona)));
+            NodoSolicitud n = arbol.get(clave);
+            exito = n.eliminarNodoCliente(new NodoCliente(persona));
         }
         return exito;
     }
@@ -84,7 +81,8 @@ public class Solicitudes {
         return exito;
     }
 
-    public Descripcion getClienteDescricion(String origen, String destino, Cliente persona, String fecha){
+
+    /*public Descripcion getClienteDescricion(String origen, String destino, Cliente persona, String fecha){
         //Si existe en el arbol y si existe en la lista de NodoCliente, retorna la descripcion de la solicitud de un cliente
         Descripcion salida = null;
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
@@ -135,4 +133,5 @@ public class Solicitudes {
         }
         return salida;
     }
+    */
 }

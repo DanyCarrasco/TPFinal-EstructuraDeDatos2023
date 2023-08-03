@@ -1,8 +1,9 @@
 package clases;
 
 import javax.print.Doc;
+import java.util.Objects;
 
-public class Cliente {
+public class Cliente implements Comparable{
     private Documento doc;
     private String nombre;
     private String apellido;
@@ -82,5 +83,18 @@ public class Cliente {
 
     public Cliente clone() {
         return (new Cliente(this.doc.clone(), this.getNombre(), this.getApellido(), this.getTelefono(), this.getEmail()));
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Cliente persona = (Cliente) o;
+        return this.doc.compareTo(persona.doc);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 50 * hash + Objects.hashCode(this.doc);
+        return hash;
     }
 }

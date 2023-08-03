@@ -82,6 +82,11 @@ public class Descripcion {
         this.envioPagado = true;
     }
 
+    public String toString(){
+        return "Fecha: "+fechaSolicitud+", cantidad de metros cuadrados: "+ cantMetrosCuadrados+", cantidad de bultos: "+ cantBulto+
+                ", domicilio de retiro: "+ domicilioRetiro+", domicilio de entrega: "+ domicilioEntrega+", envio pagado :"+ envioPagado;
+    }
+
     public boolean equals(Object obj) {
         Descripcion des = (Descripcion) obj;
         return this.fechaSolicitud.equals(des.getFechaSolicitud());

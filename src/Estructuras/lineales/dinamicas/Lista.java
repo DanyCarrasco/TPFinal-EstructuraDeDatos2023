@@ -173,6 +173,15 @@ public class Lista {
         return clon;
     }
 
+    public void duplicar(Lista dup){
+        //Metodo que duplica la lista de dup en su estructura
+        if (dup.cabecera == null) {
+            this.cabecera = null;
+        } else {
+            this.cabecera = clonarNodo(dup.cabecera, this.cabecera);
+        }
+    }
+
     public String toString() {
         /* Crea y devuelve una cadena de caracteres formada por todos los elementos de la lista para poder
         mostrarla por pantalla*/
