@@ -46,6 +46,17 @@ public class NodoCliente {
         return this.descripciones;
     }
 
+    public double cantMetrosCuadradosDescripcion(){
+        double cantTotal = 0;
+        if(this.descripciones.esVacia()){
+            for (int j = 1; j <=this.descripciones.longitud() ; j++) {
+                Descripcion des = (Descripcion) descripciones.recuperar(j);
+                cantTotal = cantTotal + des.getCantMetrosCuadrados();
+            }
+        }
+        return cantTotal;
+    }
+
     public boolean existeDescripcion(String fecha){
         boolean exito = false;
         if (persona != null){

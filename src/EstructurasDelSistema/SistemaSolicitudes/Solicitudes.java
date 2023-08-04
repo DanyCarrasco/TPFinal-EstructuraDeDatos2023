@@ -6,6 +6,7 @@ import clases.Descripcion;
 import clases.Documento;
 import com.sun.java.accessibility.util.AccessibilityListenerList;
 
+import java.util.Iterator;
 import java.util.TreeMap;
 
 public class Solicitudes {
@@ -81,6 +82,59 @@ public class Solicitudes {
         return exito;
     }
 
+    public boolean existeCiudadesDeViaje(String origen, String destino){
+        CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
+        return arbol.containsKey(clave);
+    }
+
+    public boolean existeCliente(String origen, String destino, Documento doc){
+        CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
+        NodoSolicitud nodo = arbol.get(clave);
+        return nodo.existeNodoCliente(doc);
+    }
+
+    public boolean existeDescripcion(String origen, String destino, Documento doc, String fecha){
+        boolean exito = false;
+        CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
+        NodoSolicitud nodo = arbol.get(clave);
+        if (nodo.existeNodoCliente(doc)){
+            NodoCliente persona = (NodoCliente) nodo.getNodoCliente(doc);
+            exito = persona.existeDescripcion(fecha);
+        }
+        return exito;
+    }
+
+    public NodoSolicitud getNodoSolicitud(String origen, String destino){
+        return arbol.get(new CiudadesDeViaje(origen, destino));
+    }
+
+    public Cliente getCliente(String origen, String destino, Documento doc){
+        NodoSolicitud nodo = arbol.get(new CiudadesDeViaje(origen, destino));
+        return nodo.getNodoCliente(doc).getCliente();
+    }
+
+    public Descripcion getDescripcion(String origen, String destino, Documento doc, String fecha){
+        NodoSolicitud nodo = arbol.get(new CiudadesDeViaje(origen, destino));
+        NodoCliente persona = nodo.getNodoCliente(doc);
+        return persona.getDescripcion(fecha);
+    }
+
+
+    public Lista listarCiudadesDeViaje(){
+        Lista salida = new Lista();
+        if (!arbol.isEmpty()) {
+            guardarElementos(arbol.keySet(), salida);
+        }
+        return salida;
+    }
+
+    private void guardarElementos(Iterable t, Lista lis) {
+        Iterator it = t.iterator();
+        while (it.hasNext()) {
+            lis.insertar(it.next(), lis.longitud() + 1);
+        }
+    }
+
 
     /*public Descripcion getClienteDescricion(String origen, String destino, Cliente persona, String fecha){
         //Si existe en el arbol y si existe en la lista de NodoCliente, retorna la descripcion de la solicitud de un cliente
@@ -117,21 +171,55 @@ public class Solicitudes {
             salida = nPers.getCliente();
         }
         return salida;
+    }*/
+
+    public Lista listarClientes(String origen, String destino){
+        NodoSolicitud nodo = arbol.get((new CiudadesDeViaje(origen, destino)));
+        return nodo.getListaDeClientes();
     }
 
-    public Lista getListaClientes(String origen, String destino, Documento doc){
-        //Si existe en el arbol, retorna una lista de clientes de la lista de NodoCliente
-        Lista salida = new Lista();
-        CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
-        if (arbol.containsKey(clave)){
-            Lista lis = arbol.get(clave);
-            int cant = lis.longitud();
-            for (int i = 1; i <= cant; i++) {
-                NodoCliente nPers = (NodoCliente) lis.recuperar(i);
-                salida.insertar(nPers.getCliente(), i);
-            }
-        }
-        return salida;
+    public Lista listarDescripcionesCliente(String origen, String destino, Documento doc){
+        NodoSolicitud nodo = arbol.get((new CiudadesDeViaje(origen, destino)));
+        NodoCliente persona = nodo.getNodoCliente(doc);
+        return persona.getListaDescripcion();
     }
-    */
+
+    public String mostrarSolicitudes(String origen, String destino){
+        return arbol.get((new CiudadesDeViaje(origen, destino))).getListaDePedidos();
+    }
+
+    public boolean esCaminoPerfecto(Lista ciudades, int cantMetrosCuadrados){
+        String origen, destino;
+        int largo = ciudades.longitud();
+        boolean existeCamino = false, caminoPerfecto = true;
+        int i = 1;
+        while (caminoPerfecto && i <= largo){
+            int j = i + 1;
+            while (!existeCamino && j <= largo){
+                origen = (String) ciudades.recuperar(i);
+                destino = (String) ciudades.recuperar(j);
+                existeCamino = existePedidos(origen,destino);
+                if (existeCamino){
+                    existeCamino = existeCaminoPerfecto(origen,destino,cantMetrosCuadrados);
+                }
+                j++;
+            }
+            if (existeCamino){
+                caminoPerfecto = false;
+            }
+            i++;
+        }
+        return caminoPerfecto;
+    }
+
+    private boolean existeCaminoPerfecto(String origen, String destino, int cantMetrosCuadrados){
+        NodoSolicitud nodo = arbol.get(new CiudadesDeViaje(origen, destino));
+        double cantTotal = nodo.getCantMetrosCuadrados();
+        return cantTotal <= cantMetrosCuadrados;
+    }
+
+    private boolean existePedidos(String origen, String destino){
+        NodoSolicitud nodo = arbol.get(new CiudadesDeViaje(origen, destino));
+        return nodo.esVacio();
+    }
 }

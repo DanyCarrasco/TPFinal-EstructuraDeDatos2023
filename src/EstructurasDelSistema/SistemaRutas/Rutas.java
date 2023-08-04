@@ -431,15 +431,17 @@ public class Rutas {
         } else {
             vis.insertar(n.getElem(), vis.longitud() + 1);
             while (nAdyacente != null) {
-                if (nAdyacente.getEtiqueta() < distParcial){
-                    if (vis.localizar(nAdyacente.getVertice().getElem()) < 1) {
+                if (vis.localizar(nAdyacente.getVertice().getElem()) < 1){
+                    if (nAdyacente.getEtiqueta() < distParcial) {
                         distTotal = distTotal + nAdyacente.getEtiqueta();
                         distSalida = caminoCortoDistanciasAdy(nAdyacente.getVertice(), dest, vis, salida, distTotal, nAdyacente.getEtiqueta(), distSalida);
-                        vis.eliminar(vis.longitud());
                         distTotal = distTotal - nAdyacente.getEtiqueta();
                     }
                 }
                 nAdyacente = nAdyacente.getSigRuta();
+                if (nAdyacente == null) {
+                    vis.eliminar(vis.longitud());
+                }
             }
         }
         return distSalida;

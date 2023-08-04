@@ -123,4 +123,34 @@ public class NodoSolicitud {
             lis.insertar(it.next(), lis.longitud() + 1);
         }
     }
+
+    public Lista getListaDeClientes() {
+        Lista salida = new Lista();
+        if (!arbolClientes.isEmpty()) {
+            Lista aux = new Lista();
+            guardarElementos(arbolClientes.keySet(), aux);
+            for (int i = 1; i <= aux.longitud(); i++) {
+                NodoCliente persona = (NodoCliente) aux.recuperar(i);
+                salida.insertar(persona.getCliente(), i);
+            }
+        }
+        return salida;
+    }
+
+    public double getCantMetrosCuadrados() {
+        double cantTotal = 0;
+        if (!arbolClientes.isEmpty()) {
+            Lista aux = new Lista();
+            guardarElementos(arbolClientes.keySet(), aux);
+            for (int i = 1; i <= aux.longitud(); i++) {
+                NodoCliente persona = (NodoCliente) aux.recuperar(i);
+                cantTotal = cantTotal + persona.cantMetrosCuadradosDescripcion();
+            }
+        }
+        return cantTotal;
+    }
+
+    public boolean esVacio(){
+        return this.arbolClientes.isEmpty();
+    }
 }

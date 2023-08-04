@@ -21,6 +21,11 @@ public class CiudadesDeViaje implements Comparable {
         return destino;
     }
 
+    @Override
+    public String toString() {
+        return "Ciudad origen: "+this.origen+", ciudad destino: "+this.destino;
+    }
+
     public boolean equals(Object obj) {
         CiudadesDeViaje clave = (CiudadesDeViaje) obj;
         return this.origen.equals(clave.getOrigen()) && this.destino.equals(clave.getDestino());
