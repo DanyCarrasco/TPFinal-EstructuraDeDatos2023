@@ -9,7 +9,7 @@ import java.io.*;
 
 public class testCiudades {
     public static void main(String[] args) {
-        //testToString();
+        testToString();
         //testInsertarYEliminar();
         //testExisteCiudad();
         //testGetCliente();
@@ -18,7 +18,7 @@ public class testCiudades {
         //testListarCiudadesRango();
         //testEsVacio();
         //testVaciar();
-        testClone();
+        //testClone();
     }
 
     public static void testToString() {

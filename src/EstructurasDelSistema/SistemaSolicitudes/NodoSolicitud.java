@@ -12,41 +12,45 @@ public class NodoSolicitud {
     private CiudadesDeViaje clave;
     private TreeMap<Cliente, NodoCliente> arbolClientes;
 
-    public NodoSolicitud(CiudadesDeViaje clave) {
+    public NodoSolicitud(CiudadesDeViaje clave, Cliente persona, Descripcion des) {
         this.clave = clave;
         this.arbolClientes = new TreeMap<Cliente, NodoCliente>();
+        this.arbolClientes.put(persona, (new NodoCliente(persona, des)));
     }
 
-    public boolean agregarNodoCliente(NodoCliente n) {
+    public boolean agregarNodoCliente(Cliente persona, Descripcion des) {
         boolean exito = false;
-        if (!this.arbolClientes.containsKey(n.getCliente())) {
-            arbolClientes.put(n.getCliente(), n);
+        if (!this.arbolClientes.containsKey(persona)) {
+            arbolClientes.put(persona, new NodoCliente(persona, des));
             exito = true;
         }
         return exito;
     }
 
-    public boolean eliminarNodoCliente(NodoCliente n) {
+    public boolean eliminarNodoCliente(Cliente persona) {
         boolean exito = false;
-        if (this.arbolClientes.containsKey(n.getCliente())) {
-            arbolClientes.remove(n.getCliente());
+        if (this.arbolClientes.containsKey(persona)) {
+            arbolClientes.remove(persona);
             exito = true;
+            this.actualizar();
         }
         return exito;
     }
 
-    public NodoCliente getNodoCliente(Documento doc) {
+    public CiudadesDeViaje getCiudadesDeViaje() {
+        return this.clave;
+    }
+
+    public NodoCliente getNodoCliente(Cliente persona) {
         NodoCliente salida = null;
-        Cliente clave = new Cliente(doc);
-        if (this.arbolClientes.containsKey(clave)) {
-            salida = this.arbolClientes.get(clave);
+        if (this.arbolClientes.containsKey(persona)) {
+            salida = this.arbolClientes.get(persona);
         }
         return salida;
     }
 
-    public boolean existeNodoCliente(Documento doc) {
-        Cliente clave = new Cliente(doc);
-        return this.arbolClientes.containsKey(clave);
+    public boolean existeNodoCliente(Cliente persona) {
+        return this.arbolClientes.containsKey(persona);
     }
 
     public boolean equals(Object obj) {
@@ -68,26 +72,29 @@ public class NodoSolicitud {
         if (this.arbolClientes.containsKey(persona)) {
             NodoCliente n = (NodoCliente) arbolClientes.get(persona);
             exito = n.eliminarDescripcion(des);
+            if (exito) {
+                this.actualizar();
+            }
         }
         return exito;
     }
 
-    public Descripcion getDescripcionCliente(Documento doc, String fecha) {
+    public Descripcion getDescripcionCliente(Documento doc, String fecha, String domRetiro) {
         Descripcion salida = null;
         Cliente claveCliente = new Cliente(doc);
         if (this.arbolClientes.containsKey(claveCliente)) {
             NodoCliente n = (NodoCliente) arbolClientes.get(claveCliente);
-            salida = n.getDescripcion(fecha);
+            salida = n.getDescripcion(fecha, domRetiro);
         }
         return salida;
     }
 
-    public boolean existeDescripcionCliente(Documento doc, String fecha) {
+    public boolean existeDescripcionCliente(Documento doc, Descripcion des) {
         boolean exito = false;
         Cliente claveCliente = new Cliente(doc);
         if (this.arbolClientes.containsKey(claveCliente)) {
             NodoCliente n = (NodoCliente) arbolClientes.get(claveCliente);
-            exito = n.existeDescripcion(fecha);
+            exito = n.existeDescripcion(des);
         }
         return exito;
     }
@@ -107,11 +114,10 @@ public class NodoSolicitud {
         if (!arbolClientes.isEmpty()) {
             cad = "";
             Lista aux = new Lista();
-            guardarElementos(arbolClientes.entrySet(), aux);
-            for (int i = 0; i <= aux.longitud(); i++) {
+            guardarElementos(arbolClientes.values(), aux);
+            for (int i = 1; i <= aux.longitud(); i++) {
                 NodoCliente nodo = (NodoCliente) aux.recuperar(i);
-                cad = cad + "Cliente: " + nodo.getCliente().toString() + "\n Lista de sus pedidos: \n";
-                cad = cad + nodo.getListaDescripcion().toString();
+                cad = cad + nodo.toString();
             }
         }
         return cad;
@@ -130,8 +136,8 @@ public class NodoSolicitud {
             Lista aux = new Lista();
             guardarElementos(arbolClientes.keySet(), aux);
             for (int i = 1; i <= aux.longitud(); i++) {
-                NodoCliente persona = (NodoCliente) aux.recuperar(i);
-                salida.insertar(persona.getCliente(), i);
+                Cliente persona = (Cliente) aux.recuperar(i);
+                salida.insertar(persona, i);
             }
         }
         return salida;
@@ -141,7 +147,7 @@ public class NodoSolicitud {
         double cantTotal = 0;
         if (!arbolClientes.isEmpty()) {
             Lista aux = new Lista();
-            guardarElementos(arbolClientes.keySet(), aux);
+            guardarElementos(arbolClientes.values(), aux);
             for (int i = 1; i <= aux.longitud(); i++) {
                 NodoCliente persona = (NodoCliente) aux.recuperar(i);
                 cantTotal = cantTotal + persona.cantMetrosCuadradosDescripcion();
@@ -150,7 +156,58 @@ public class NodoSolicitud {
         return cantTotal;
     }
 
-    public boolean esVacio(){
+    public boolean esVacio() {
         return this.arbolClientes.isEmpty();
+    }
+
+    public boolean esVacioCliente(Cliente persona) {
+        boolean vacio = false;
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente nodo = this.arbolClientes.get(persona);
+            vacio = nodo.esVacio();
+        }
+        return vacio;
+    }
+
+    private void actualizar() {
+        if (!this.arbolClientes.isEmpty()) {
+            Lista aux = new Lista();
+            guardarElementos(this.arbolClientes.keySet(), aux);
+            int largo = aux.longitud();
+            for (int i = 1; i <= largo; i++) {
+                Cliente persona = (Cliente) aux.recuperar(i);
+                if (this.arbolClientes.get(persona).esVacio()) {
+                    this.arbolClientes.remove(persona);
+                }
+            }
+        }
+    }
+
+    public void vaciar() {
+        this.arbolClientes.clear();
+    }
+
+    public void vaciarSolicitudesCliente(Cliente persona) {
+        if (this.arbolClientes.containsKey(persona)) {
+            this.arbolClientes.get(persona).vaciar();
+            this.actualizar();
+        }
+    }
+
+    public String toString() {
+        String cad = this.clave.toString() + "\n Lista de clientes con sus pedidos:\n";
+        Lista aux = new Lista();
+        if (arbolClientes.isEmpty()) {
+            cad = cad + "No hay pedidos de ningun cliente";
+        } else {
+            guardarElementos(arbolClientes.values(), aux);
+            for (int i = 1; i <= aux.longitud(); i++) {
+                NodoCliente persona = (NodoCliente) aux.recuperar(i);
+                if (persona != null) {
+                    cad = cad + persona.toString() + "\n";
+                }
+            }
+        }
+        return cad;
     }
 }

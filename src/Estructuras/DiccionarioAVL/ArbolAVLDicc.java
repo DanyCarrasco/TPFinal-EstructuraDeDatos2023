@@ -444,11 +444,11 @@ public class ArbolAVLDicc {
     private String toStringAux(NodoAVLDicc nodo) {
         String cadenaNodo = "";
         if (nodo != null) {
-            cadenaNodo = nodo.getClave().toString();
+            cadenaNodo = "Nodo: "+ nodo.getClave().toString()+", altura: "+nodo.getAltura();
             if (nodo.getIzquierdo() != null) {
-                cadenaNodo = cadenaNodo + ": HI: " + nodo.getIzquierdo().getClave().toString();
+                cadenaNodo = cadenaNodo + "; HI: " + nodo.getIzquierdo().getClave().toString();
             } else {
-                cadenaNodo = cadenaNodo + ": HI:--";
+                cadenaNodo = cadenaNodo + "; HI:--";
             }
             if (nodo.getDerecho() != null) {
                 cadenaNodo = cadenaNodo + ", HD: " + nodo.getDerecho().getClave().toString() + "\n";

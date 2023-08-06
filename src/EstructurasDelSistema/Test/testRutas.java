@@ -1,5 +1,6 @@
 package EstructurasDelSistema.Test;
 
+import EstructurasDelSistema.Ciudades;
 import EstructurasDelSistema.SistemaRutas.NodoCiudad;
 import EstructurasDelSistema.SistemaRutas.Rutas;
 import clases.Ciudad;
@@ -7,6 +8,8 @@ import Estructuras.lineales.dinamicas.Lista;
 
 public class testRutas {
     public static void main(String[] args) {
+        Ciudades info = new Ciudades();
+        cargarCiudades(info);
         //testToString();
         //testInsertarYEliminar();
         //testExisteCiudad();
@@ -20,78 +23,79 @@ public class testRutas {
         testCaminoCortoDistancias();
     }
 
-    public static void testToString() {
+    public static void cargarCiudades(Ciudades info){
+        info.insertarCiudad(1234, "UNO", "UNIDAD");
+        info.insertarCiudad(5678, "DOS", "UNIDAD");
+        info.insertarCiudad(9012, "TRES", "UNIDAD");
+        info.insertarCiudad(3456, "CUATRO", "UNIDAD");
+        info.insertarCiudad(7890, "CINCO", "UNIDAD");
+        info.insertarCiudad(2345, "SEIS", "UNIDAD");
+        info.insertarCiudad(6789, "SIETE", "UNIDAD");
+    }
+
+    public static void testToString(Ciudades info) {
         System.out.println("Prueba de toString");
-        Ciudad uno = new Ciudad(1234, "UNO", "UNIDAD");
-        Ciudad dos = new Ciudad(5678, "DOS", "UNIDAD");
         Rutas r1 = new Rutas();
         System.out.println("Rutas r1 vacio: \n" + r1.toString());
         System.out.println("Ingreso una ciudad");
-        r1.insertarCiudad(uno);
+        r1.insertarCiudad(info.getCiudad(1234));
         System.out.println("Rutas r1: \n" + r1.toString());
         System.out.println("Ingreso otra ciudad");
-        r1.insertarCiudad(dos);
+        r1.insertarCiudad(info.getCiudad(1234));
         System.out.println("Rutas r1: \n" + r1.toString());
         System.out.println("Ingreso una ruta de UNO a DOS");
-        r1.insertarRuta(uno, dos, 24.5);
+        r1.insertarRuta( info.getCiudad(1234),info.getCiudad(5678), 24.5);
         System.out.println("Rutas r1: \n" + r1.toString());
     }
 
-    public static void testInsertarYEliminar() {
+    public static void testInsertarYEliminar(Ciudades info) {
         System.out.println("Prueba de insertar y eliminar ciudades");
-        Ciudad uno = new Ciudad(1234, "UNO", "UNIDAD");
-        Ciudad dos = new Ciudad(5678, "DOS", "UNIDAD");
-        Ciudad tres = new Ciudad(9012, "TRES", "UNIDAD");
-        Ciudad cuatro = new Ciudad(3456, "CUATRO", "UNIDAD");
-        Ciudad cinco = new Ciudad(7890, "CINCO", "UNIDAD");
-        Ciudad seis = new Ciudad(2345, "SEIS", "UNIDAD");
-        Ciudad siete = new Ciudad(6789, "SIETE", "UNIDAD");
         Rutas r2 = new Rutas();
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto UNO en Rutas: " + r2.insertarCiudad(uno));
+        System.out.println("Inserto UNO en Rutas: " + r2.insertarCiudad(info.getCiudad(1234)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto UNO en Rutas: " + r2.insertarCiudad(uno));
+        System.out.println("Inserto UNO en Rutas: " + r2.insertarCiudad(info.getCiudad(1234)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto DOS en Rutas: " + r2.insertarCiudad(dos));
+        System.out.println("Inserto DOS en Rutas: " + r2.insertarCiudad(info.getCiudad(5678)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto TRES en Rutas: " + r2.insertarCiudad(tres));
+        System.out.println("Inserto TRES en Rutas: " + r2.insertarCiudad(info.getCiudad(9012)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto CUATRO en Rutas: " + r2.insertarCiudad(cuatro));
+        System.out.println("Inserto CUATRO en Rutas: " + r2.insertarCiudad(info.getCiudad(3456)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto CINCO en Rutas: " + r2.insertarCiudad(cinco));
+        System.out.println("Inserto CINCO en Rutas: " + r2.insertarCiudad(info.getCiudad(7890)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto SEIS en Rutas: " + r2.insertarCiudad(seis));
+        System.out.println("Inserto SEIS en Rutas: " + r2.insertarCiudad(info.getCiudad(2345)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Elimino SEIS en Rutas: " + r2.eliminarCiudad(seis));
+        System.out.println("Elimino SEIS en Rutas: " + r2.eliminarCiudad(info.getCiudad(2345)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Elimino CINCO en Rutas: " + r2.eliminarCiudad(cinco));
+        System.out.println("Elimino CINCO en Rutas: " + r2.eliminarCiudad(info.getCiudad(7890)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto SIETE en Rutas: " + r2.insertarCiudad(siete));
+        System.out.println("Inserto SIETE en Rutas: " + r2.insertarCiudad(info.getCiudad(6789)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Elimino CINCO en Rutas (no se encuentra en Rutas): " + r2.eliminarCiudad(cinco));
+        System.out.println("Elimino CINCO en Rutas (no se encuentra en Rutas): " + r2.eliminarCiudad(7890));
         System.out.println("Rutas r2: \n" + r2.toString());
         System.out.println("-----------------------------------------------------");
 
         System.out.println("Insertar y eliminar rutas");
-        System.out.println("Inserto ruta de UNO a DOS con 10.5: " + r2.insertarRuta(uno, dos, 10.5));
+        System.out.println("Inserto ruta de UNO a DOS con 10.5: " + r2.insertarRuta(info.getCiudad(1234), info.getCiudad(5678), 10.5));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto ruta de UNO a CUATRO con 11.6: " + r2.insertarRuta(uno, cuatro, 11.6));
+        System.out.println("Inserto ruta de UNO a CUATRO con 11.6: " + r2.insertarRuta(info.getCiudad(1234), info.getCiudad(3456), 11.6));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto ruta de CUATRO a DOS con 12.7: " + r2.insertarRuta(cuatro, dos, 12.7));
+        System.out.println("Inserto ruta de CUATRO a DOS con 12.7: " + r2.insertarRuta( info.getCiudad(3456),  info.getCiudad(5678), 12.7));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto ruta de DOS a TRES con 13.8: " + r2.insertarRuta(dos, tres, 13.8));
+        System.out.println("Inserto ruta de DOS a TRES con 13.8: " + r2.insertarRuta(info.getCiudad(5678), info.getCiudad(9012), 13.8));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto ruta de TRES a SIETE con 14.9: " + r2.insertarRuta(tres, siete, 14.9));
+        System.out.println("Inserto ruta de TRES a SIETE con 14.9: " + r2.insertarRuta(info.getCiudad(9012), info.getCiudad(6789), 14.9));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Elimino ruta de UNO a CUATRO: " + r2.eliminarRuta(uno, cuatro));
+        System.out.println("Elimino ruta de UNO a CUATRO: " + r2.eliminarRuta(info.getCiudad(1234), info.getCiudad(3456)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Elimino vertice SIETE: " + r2.eliminarCiudad(siete));
+        System.out.println("Elimino vertice SIETE: " + r2.eliminarCiudad(info.getCiudad(6789)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto ruta de TRES a SIETE con 14.9: " + r2.insertarRuta(tres, siete, 14.9));
+        System.out.println("Inserto ruta de TRES a SIETE con 14.9: " + r2.insertarRuta(info.getCiudad(9012), info.getCiudad(6789), 14.9));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Elimino ruta de TRES a SIETE: " + r2.eliminarRuta(tres, siete));
+        System.out.println("Elimino ruta de TRES a SIETE: " + r2.eliminarRuta(info.getCiudad(9012), info.getCiudad(6789)));
         System.out.println("Rutas r2: \n" + r2.toString());
-        System.out.println("Inserto ruta de UNO a TRES con 15: " + r2.insertarRuta(uno, tres, 15));
+        System.out.println("Inserto ruta de UNO a TRES con 15: " + r2.insertarRuta(info.getCiudad(1234), info.getCiudad(9012), 15));
         System.out.println("Rutas r2: \n" + r2.toString());
     }
 
@@ -123,7 +127,7 @@ public class testRutas {
         System.out.println("Pruebo en Rutas con rutas ingresadas buscar ciudad SIETE: " + r3.existeCiudad(siete));
     }
 
-    public static void testExisteRuta() {
+    public static void testExisteRuta(Ciudades info) {
         System.out.println("Prueba de existe arco:");
         Ciudad uno = new Ciudad(1234, "UNO", "UNIDAD");
         Ciudad dos = new Ciudad(5678, "DOS", "UNIDAD");
@@ -296,6 +300,7 @@ public class testRutas {
     }
 
     public static void testCaminoCortoCiudades() {
+        Ciudades sistema = new Ciudades();
         Ciudad uno = new Ciudad(1234, "UNO", "UNIDAD");
         Ciudad dos = new Ciudad(5678, "DOS", "UNIDAD");
         Ciudad tres = new Ciudad(9012, "TRES", "UNIDAD");
@@ -303,7 +308,7 @@ public class testRutas {
         Ciudad siete = new Ciudad(6789, "SIETE", "UNIDAD");
         System.out.println("Prueba de camino corto ciudades:");
         Rutas g5 = new Rutas();
-        System.out.println("Pruebo en Rutas vacio camino corto de UNO a DOS: " + g5.caminoCortoCiudades(uno, dos).toString());
+        System.out.println("Pruebo en Rutas vacio camino corto de UNO a DOS: " + g5.caminoCortoCiudades(1234, 5678).toString());
         System.out.println("Inserto ciudades en Rutas");
         g5.insertarCiudad(uno);
         g5.insertarCiudad(dos);

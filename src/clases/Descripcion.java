@@ -3,9 +3,11 @@ package clases;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Descripcion {
     //Descripcion de la solicitud
+    private int codigoUnico;
     private final String fechaSolicitud;
     private int cantMetrosCuadrados;
     private int cantBulto;
@@ -14,14 +16,18 @@ public class Descripcion {
     private boolean envioPagado;
 
 
-    public Descripcion() {
+    public Descripcion(String domicilioRetiro) {
         fechaSolicitud = (new SimpleDateFormat("d/MM/y", Locale.ENGLISH)).format(new Date());
         envioPagado = false;
+        generarCodigo();
     }
 
-    public Descripcion(String fecha) {
-        fechaSolicitud = fecha;
+    public Descripcion(String fecha, String domicilioRetiro) {
+        this.fechaSolicitud = fecha;
+        this.domicilioRetiro = domicilioRetiro;
+        this.domicilioEntrega = domicilioEntrega;
         envioPagado = false;
+        generarCodigo();
     }
 
 
@@ -32,6 +38,21 @@ public class Descripcion {
         this.domicilioRetiro = domicilioRetiro;
         this.domicilioEntrega = domicilioEntrega;
         this.envioPagado = false;
+        generarCodigo();
+    }
+
+    public Descripcion(String fecha, int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega) {
+        fechaSolicitud = fecha;
+        this.cantMetrosCuadrados = cantMetrosCuadrados;
+        this.cantBulto = cantBulto;
+        this.domicilioRetiro = domicilioRetiro;
+        this.domicilioEntrega = domicilioEntrega;
+        this.envioPagado = false;
+        generarCodigo();
+    }
+
+    private void generarCodigo() {
+        this.codigoUnico = this.fechaSolicitud.hashCode() + this.domicilioRetiro.hashCode();
     }
 
     public String getFechaSolicitud() {
@@ -82,13 +103,13 @@ public class Descripcion {
         this.envioPagado = true;
     }
 
-    public String toString(){
-        return "Fecha: "+fechaSolicitud+", cantidad de metros cuadrados: "+ cantMetrosCuadrados+", cantidad de bultos: "+ cantBulto+
-                ", domicilio de retiro: "+ domicilioRetiro+", domicilio de entrega: "+ domicilioEntrega+", envio pagado :"+ envioPagado;
+    public String toString() {
+        return "Fecha: " + fechaSolicitud + ", cantidad de metros cuadrados: " + cantMetrosCuadrados + ", cantidad de bultos: " + cantBulto +
+                ", domicilio de retiro: " + domicilioRetiro + ", domicilio de entrega: " + domicilioEntrega + ", envio pagado: " + envioPagado;
     }
 
     public boolean equals(Object obj) {
         Descripcion des = (Descripcion) obj;
-        return this.fechaSolicitud.equals(des.getFechaSolicitud());
+        return this.codigoUnico == des.codigoUnico;
     }
 }
