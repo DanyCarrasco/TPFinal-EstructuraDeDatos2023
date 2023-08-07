@@ -51,6 +51,16 @@ public class Descripcion {
         generarCodigo();
     }
 
+    public Descripcion(String fecha, int cantMetrosCuadrados, int cantBulto, String domicilioRetiro, String domicilioEntrega, boolean pago) {
+        fechaSolicitud = fecha;
+        this.cantMetrosCuadrados = cantMetrosCuadrados;
+        this.cantBulto = cantBulto;
+        this.domicilioRetiro = domicilioRetiro;
+        this.domicilioEntrega = domicilioEntrega;
+        this.envioPagado = pago;
+        generarCodigo();
+    }
+
     private void generarCodigo() {
         this.codigoUnico = this.fechaSolicitud.hashCode() + this.domicilioRetiro.hashCode();
     }

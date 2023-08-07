@@ -79,31 +79,37 @@ public class NodoSolicitud {
         return exito;
     }
 
-    public Descripcion getDescripcionCliente(Documento doc, String fecha, String domRetiro) {
+    public Descripcion getDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
         Descripcion salida = null;
-        Cliente claveCliente = new Cliente(doc);
-        if (this.arbolClientes.containsKey(claveCliente)) {
-            NodoCliente n = (NodoCliente) arbolClientes.get(claveCliente);
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(persona);
             salida = n.getDescripcion(fecha, domRetiro);
         }
         return salida;
     }
 
-    public boolean existeDescripcionCliente(Documento doc, Descripcion des) {
+    public boolean pagoEnvioDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
         boolean exito = false;
-        Cliente claveCliente = new Cliente(doc);
-        if (this.arbolClientes.containsKey(claveCliente)) {
-            NodoCliente n = (NodoCliente) arbolClientes.get(claveCliente);
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(persona);
+            exito = n.pagoEnvioDescripcion(fecha, domRetiro);
+        }
+        return exito;
+    }
+
+    public boolean existeDescripcionCliente(Cliente persona, Descripcion des) {
+        boolean exito = false;
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(persona);
             exito = n.existeDescripcion(des);
         }
         return exito;
     }
 
-    public Lista getListaDescripcionCliente(Documento doc) {
+    public Lista getListaDescripcionCliente(Cliente persona) {
         Lista salida = new Lista();
-        Cliente claveCliente = new Cliente(doc);
-        if (this.arbolClientes.containsKey(claveCliente)) {
-            NodoCliente n = (NodoCliente) arbolClientes.get(claveCliente);
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(persona);
             salida = n.getListaDescripcion();
         }
         return salida;

@@ -11,7 +11,7 @@ public class Prueba2 {
     public static void main(String args[]) throws FileNotFoundException {
 
         try {
-            FileReader fr = new FileReader("C:\\Users\\danyc\\OneDrive\\Documentos\\gitProjects\\TPFinal-EstructuraDeDatos2023.v1\\Ciudades de La Rioja.txt");
+            FileReader fr = new FileReader("C:\\Users\\danyc\\OneDrive\\Escritorio\\Hola.txt");
             BufferedReader br = new BufferedReader(fr);
             String texto = "", linea = "";
             while ((linea = br.readLine()) != null) {
@@ -24,7 +24,7 @@ public class Prueba2 {
             // Again creating object of class inside main()
             // method
             StringTokenizer st2 = new StringTokenizer(
-                    texto, " ,");
+                    texto, ";");
 
             // If tokens are present
             while (st2.hasMoreTokens())

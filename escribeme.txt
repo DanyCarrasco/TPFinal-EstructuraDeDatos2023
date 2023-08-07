@@ -1,0 +1,116 @@
+Se creo una ciudad BUENOS AIRES exitosamente
+Se creo una ciudad LA PLATA exitosamente
+Se creo una ciudad CATAMARCA exitosamente
+Se creo una ciudad TINOGASTA exitosamente
+Se creo una ciudad RESISTENCIA exitosamente
+Se creo una ciudad PRESIDENCIA ROQUE SAENZ PEÑA exitosamente
+Se creo una ciudad COMODORO RIVADAVIA exitosamente
+Se creo una ciudad PUERTO MADRYN exitosamente
+Se creo una ciudad CORDOBA exitosamente
+Se creo una ciudad VILLA CARLOS PAZ exitosamente
+Se creo una ciudad CORRIENTES exitosamente
+Se creo una ciudad GOYA exitosamente
+Se creo una ciudad PARANA exitosamente
+Se creo una ciudad CONCORDIA exitosamente
+Se creo una ciudad FORMOSA exitosamente
+Se creo una ciudad CLORINDA exitosamente
+Se creo una ciudad SAN SALVADOR DE JUJUY exitosamente
+Se creo una ciudad SAN PEDRO DE JUJUY exitosamente
+Se creo una ciudad SANTA ROSA exitosamente
+Se creo una ciudad GENERAL PICO exitosamente
+Se creo una ciudad LA RIOJA exitosamente
+Se creo una ciudad MENDOZA exitosamente
+Se creo una ciudad GODOY CRUZ exitosamente
+Se creo una ciudad POSADAS exitosamente
+Se creo una ciudad OBERA exitosamente
+Se creo una ciudad NEUQUEN CAPITAL exitosamente
+Se creo una ciudad CUTRAL CO exitosamente
+Se creo una ciudad GENERAL ROCA exitosamente
+Se creo una ciudad CIPOLLETTI exitosamente
+Se creo una ciudad SALTA exitosamente
+Se creo una ciudad SAN LORENZO exitosamente
+Se creo una ciudad SAN JUAN exitosamente
+Se creo una ciudad CHIMBAS exitosamente
+Se creo un cliente YERAY exitosamente
+Se creo un cliente MARCOS exitosamente
+Se creo un cliente JOEL exitosamente
+Se creo un cliente ALBERTO exitosamente
+Se creo un cliente YAGO exitosamente
+Se creo un cliente ABRIL exitosamente
+Se creo un cliente JOSE ANTONIO exitosamente
+Se creo un cliente ELSA exitosamente
+Se creo un cliente JUAN exitosamente
+Se creo un cliente MARIA exitosamente
+Se creo un cliente CARLOS exitosamente
+Se creo un cliente RUIZ exitosamente
+Se creo un cliente TORRES exitosamente
+Se creo un cliente DELGADO exitosamente
+Se creo un cliente JORGE exitosamente
+Se creo un cliente ROMERO exitosamente
+Se creo un cliente LUIS exitosamente
+Se creo un cliente CARMEN exitosamente
+Se creo un cliente SILVIA exitosamente
+Se creo un cliente DAVID exitosamente
+Se creo un cliente TORRES exitosamente
+Se creo una ruta entre las ciudades BUENOS AIRES y LA PLATA exitosamente
+Se creo una ruta entre las ciudades CATAMARCA y TINOGASTA exitosamente
+Se creo una ruta entre las ciudades RESISTENCIA y PRESIDENCIA ROQUE SAENZ PEÑA exitosamente
+Se creo una ruta entre las ciudades PRESIDENCIA ROQUE SAENZ PEÑA y COMODORO RIVADAVIA exitosamente
+Se creo una ruta entre las ciudades PUERTO MADRYN y CORDOBA exitosamente
+Se creo una ruta entre las ciudades VILLA CARLOS PAZ y CORRIENTES exitosamente
+Se creo una ruta entre las ciudades CORRIENTES y GOYA exitosamente
+Se creo una ruta entre las ciudades PARANA y CONCORDIA exitosamente
+Se creo una ruta entre las ciudades FORMOSA y CLORINDA exitosamente
+Se creo una ruta entre las ciudades SAN SALVADOR DE JUJUY y SAN PEDRO DE JUJUY exitosamente
+Se creo una ruta entre las ciudades SANTA ROSA y GENERAL PICO exitosamente
+Se creo una ruta entre las ciudades LA RIOJA y MENDOZA exitosamente
+Se creo una ruta entre las ciudades GODOY CRUZ y POSADAS exitosamente
+Se creo una ruta entre las ciudades OBERA y NEUQUEN CAPITAL exitosamente
+Se creo una ruta entre las ciudades CUTRAL CO y GENERAL ROCA exitosamente
+Se creo una ruta entre las ciudades CIPOLLETTI y SALTA exitosamente
+Se creo una ruta entre las ciudades SAN LORENZO y SAN JUAN exitosamente
+Se creo una ruta entre las ciudades CHIMBAS y SAN JUAN exitosamente
+Se creo una ruta entre las ciudades SANTA ROSA y LA PLATA exitosamente
+Se creo una ruta entre las ciudades VILLA CARLOS PAZ y GENERAL ROCA exitosamente
+Se creo una ruta entre las ciudades BUENOS AIRES y GENERAL PICO exitosamente
+Se creo una ruta entre las ciudades CATAMARCA y MENDOZA exitosamente
+Se creo una ruta entre las ciudades RESISTENCIA y POSADAS exitosamente
+Se creo una ruta entre las ciudades PRESIDENCIA ROQUE SAENZ PEÑA y NEUQUEN CAPITAL exitosamente
+Se creo una ruta entre las ciudades PUERTO MADRYN y GENERAL ROCA exitosamente
+Se creo una ruta entre las ciudades VILLA CARLOS PAZ y SALTA exitosamente
+Se creo una ruta entre las ciudades CORRIENTES y SAN JUAN exitosamente
+Se creo una ruta entre las ciudades PARANA y CHIMBAS exitosamente
+Se creo una ruta entre las ciudades FORMOSA y LA PLATA exitosamente
+Se creo una ruta entre las ciudades SAN SALVADOR DE JUJUY y GENERAL ROCA exitosamente
+Se creo una ruta entre las ciudades LA PLATA y SANTA ROSA exitosamente
+Se creo una ruta entre las ciudades TINOGASTA y LA RIOJA exitosamente
+Se creo una ruta entre las ciudades PRESIDENCIA ROQUE SAENZ PEÑA y POSADAS exitosamente
+Se creo una ruta entre las ciudades COMODORO RIVADAVIA y OBERA exitosamente
+Se creo una ruta entre las ciudades CORDOBA y CUTRAL CO exitosamente
+Se creo una ruta entre las ciudades CORRIENTES y SALTA exitosamente
+Se creo una ruta entre las ciudades GOYA y SAN JUAN exitosamente
+Se creo una ruta entre las ciudades CONCORDIA y SAN JUAN exitosamente
+Se creo una ruta entre las ciudades CLORINDA y SANTA ROSA exitosamente
+Se creo una ruta entre las ciudades SAN PEDRO DE JUJUY y VILLA CARLOS PAZ exitosamente
+Se creo una solicitud de BUENOS AIRES a LA PLATA de cliente YERAY ingresado exitosamente
+Se creo una solicitud de CATAMARCA a TINOGASTA de cliente MARCOS ingresado exitosamente
+Se creo una solicitud de RESISTENCIA a PRESIDENCIA ROQUE SAENZ PEÑA de cliente JOEL ingresado exitosamente
+Se creo una solicitud de PRESIDENCIA ROQUE SAENZ PEÑA a COMODORO RIVADAVIA de cliente ALBERTO ingresado exitosamente
+Se creo una solicitud de PUERTO MADRYN a CORDOBA de cliente YAGO ingresado exitosamente
+Se creo una solicitud de VILLA CARLOS PAZ a CORRIENTES de cliente ABRIL ingresado exitosamente
+Se creo una solicitud de CORRIENTES a GOYA de cliente JOSE ANTONIO ingresado exitosamente
+Se creo una solicitud de PARANA a CONCORDIA de cliente ELSA ingresado exitosamente
+Se creo una solicitud de FORMOSA a CLORINDA de cliente JUAN ingresado exitosamente
+Se creo una solicitud de SAN SALVADOR DE JUJUY a SAN PEDRO DE JUJUY de cliente MARIA ingresado exitosamente
+Se creo una solicitud de SANTA ROSA a GENERAL PICO de cliente CARLOS ingresado exitosamente
+Se creo una solicitud de LA RIOJA a MENDOZA de cliente RUIZ ingresado exitosamente
+Se creo una solicitud de GODOY CRUZ a POSADAS de cliente TORRES ingresado exitosamente
+Se creo una solicitud de OBERA a NEUQUEN CAPITAL de cliente DELGADO ingresado exitosamente
+Se creo una solicitud de CUTRAL CO a GENERAL ROCA de cliente JORGE ingresado exitosamente
+Se creo una solicitud de CIPOLLETTI a SALTA de cliente ROMERO ingresado exitosamente
+Se creo una solicitud de SAN LORENZO a SAN JUAN de cliente LUIS ingresado exitosamente
+Se creo una solicitud de CHIMBAS a SAN JUAN de cliente CARMEN ingresado exitosamente
+Se creo una solicitud de SANTA ROSA a LA PLATA de cliente SILVIA ingresado exitosamente
+Se creo una solicitud de VILLA CARLOS PAZ a GENERAL ROCA de cliente TORRES ingresado exitosamente
+Se muestra el sistema cargado al usuario
+El usuario termina la ejecucion del menu principal de Mudanzas Compartidas

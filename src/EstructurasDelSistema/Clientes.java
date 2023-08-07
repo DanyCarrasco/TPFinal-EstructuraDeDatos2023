@@ -3,11 +3,8 @@ package EstructurasDelSistema;
 import Estructuras.lineales.dinamicas.Lista;
 import clases.Cliente;
 import clases.Documento;
-import clases.TipoDocumento;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.lang.Object;
 
 public class Clientes {
     private HashMap<Documento, Cliente> arbol;
@@ -53,7 +50,7 @@ public class Clientes {
 
     public String getNombreCliente(int tipoDoc, int numeroDoc) {
         Cliente buscado = null;
-        String nombre = "";
+        String nombre = "No se encuentra el cliente buscado";
         Documento clave = new Documento(tipoDoc, numeroDoc);
         if (arbol.containsKey(clave)) {
             buscado = (Cliente) arbol.get(clave);
@@ -76,7 +73,7 @@ public class Clientes {
 
     public String getApellidoCliente(int tipoDoc, int numeroDoc) {
         Cliente buscado = null;
-        String apellido = "";
+        String apellido = "No se encuentra el cliente buscado";
         Documento clave = new Documento(tipoDoc, numeroDoc);
         if (arbol.containsKey(clave)) {
             buscado = (Cliente) arbol.get(clave);

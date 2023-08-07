@@ -5,29 +5,29 @@ public class Provincia {
 
     public Provincia() {
         provincias = new String[24];
-        provincias[1] = "Buenos Aires";
-        provincias[2] = "Catamarca";
-        provincias[3] = "Chaco";
-        provincias[4] = "Chubut";
-        provincias[5] = "Cordoba";
-        provincias[6] = "Corrientes";
-        provincias[7] = "Entre Rios";
-        provincias[8] = "Formosa";
-        provincias[9] = "Jujuy";
-        provincias[10] = "La Pampa";
-        provincias[11] = "La Rioja";
-        provincias[12] = "Mendoza";
-        provincias[13] = "Misiones";
-        provincias[14] = "Neuquen";
-        provincias[15] = "Rio Negro";
-        provincias[16] = "Salta";
-        provincias[17] = "San Juan";
-        provincias[18] = "San Luis";
-        provincias[19] = "Santa Cruz";
-        provincias[20] = "Santa Fe";
-        provincias[21] = "Santiago del Estero";
-        provincias[22] = "Tierra del Fuego";
-        provincias[23] = "Tucuman";
+        provincias[1] = "BUENOS AIRES";
+        provincias[2] = "CATAMARCA";
+        provincias[3] = "CHACO";
+        provincias[4] = "CHUBUT";
+        provincias[5] = "CORDOBA";
+        provincias[6] = "CORRIENTES";
+        provincias[7] = "ENTRE RIOS";
+        provincias[8] = "FORMOSA";
+        provincias[9] = "JUJUY";
+        provincias[10] = "LA PAMPA";
+        provincias[11] = "LA RIOJA";
+        provincias[12] = "MENDOZA";
+        provincias[13] = "MISIONES";
+        provincias[14] = "NEUQUEN";
+        provincias[15] = "RIO NEGRO";
+        provincias[16] = "SALTA";
+        provincias[17] = "SAN JUAN";
+        provincias[18] = "SAN LUIS";
+        provincias[19] = "SANTA CRUZ";
+        provincias[20] = "SANTA FE";
+        provincias[21] = "SANTIAGO DEL ESTERO";
+        provincias[22] = "TIERRA DEL FUEGO";
+        provincias[23] = "TUCUMAN";
     }
 
     public int cantidadProvincias(){

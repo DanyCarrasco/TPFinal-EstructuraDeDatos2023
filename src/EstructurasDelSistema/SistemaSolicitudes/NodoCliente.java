@@ -43,6 +43,18 @@ public class NodoCliente {
         return salida;
     }
 
+    public boolean pagoEnvioDescripcion(String fecha, String domRetiro){
+        boolean exito = false;
+        if (persona != null && !this.descripciones.esVacia()) {
+            int pos = descripciones.localizar(new Descripcion(fecha,domRetiro));
+            Descripcion des = (Descripcion) this.descripciones.recuperar(pos);
+            des.pagoEnvio();
+            this.descripciones.eliminar(pos);
+            exito = this.descripciones.insertar(des,this.descripciones.longitud()+1);
+        }
+        return exito;
+    }
+
     public Lista getListaDescripcion(){
         return this.descripciones;
     }

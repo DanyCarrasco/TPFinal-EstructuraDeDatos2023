@@ -41,7 +41,7 @@ public class Ciudades {
 
     public String getNombreCiudad(int codigoPostal) {
         Ciudad buscado = null;
-        String nombre = "";
+        String nombre = "No se encontro ciudad buscada";
         if (arbol.existeClave(codigoPostal)) {
             buscado = (Ciudad) arbol.obtenerInformacion(codigoPostal);
             nombre = buscado.getNombre();
@@ -62,7 +62,7 @@ public class Ciudades {
 
     public String getProvinciaCiudad(int codigoPostal) {
         Ciudad buscado = null;
-        String provincia = "";
+        String provincia = "No se encuentra ciudad buscada";
         if (arbol.existeClave(codigoPostal)) {
             buscado = (Ciudad) arbol.obtenerInformacion(codigoPostal);
             provincia = buscado.getProvincia();
@@ -101,6 +101,15 @@ public class Ciudades {
 
     public void vaciar(){
         arbol.vaciar();
+    }
+
+    public String mostrarCiudad(int codigo){
+        String cad = "No se encuentra la ciudad buscada";
+        if (this.arbol.existeClave(codigo)){
+            Ciudad c1 = (Ciudad) this.arbol.obtenerInformacion(codigo);
+            cad = c1.toString();
+        }
+        return cad;
     }
 
     public Lista listarCiudadesRango(int prefijo){

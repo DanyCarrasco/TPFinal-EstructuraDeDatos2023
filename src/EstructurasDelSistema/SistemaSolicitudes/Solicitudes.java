@@ -21,7 +21,7 @@ public class Solicitudes {
         boolean exito = false;
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
         if (!arbol.containsKey(clave)) {
-            NodoSolicitud nodo = arbol.put(clave, (new NodoSolicitud(clave,persona,des)));
+            NodoSolicitud nodo = arbol.put(clave, (new NodoSolicitud(clave, persona, des)));
             exito = true;
         }
         return exito;
@@ -68,7 +68,7 @@ public class Solicitudes {
         if (arbol.containsKey(clave)) {
             NodoSolicitud n = arbol.get(clave);
             exito = n.eliminarNodoCliente(persona);
-            if (exito){
+            if (exito) {
                 this.actualizar();
             }
         }
@@ -87,14 +87,14 @@ public class Solicitudes {
         return exito;
     }
 
-    private void actualizar(){
-        if (!this.arbol.isEmpty()){
+    private void actualizar() {
+        if (!this.arbol.isEmpty()) {
             Lista aux = new Lista();
-            guardarElementos(this.arbol.values(),aux);
+            guardarElementos(this.arbol.values(), aux);
             int largo = aux.longitud();
             for (int i = 1; i <= largo; i++) {
                 NodoSolicitud nodo = (NodoSolicitud) aux.recuperar(i);
-                if (this.arbol.get(nodo.getCiudadesDeViaje()).esVacio()){
+                if (this.arbol.get(nodo.getCiudadesDeViaje()).esVacio()) {
                     this.arbol.remove(nodo.getCiudadesDeViaje());
                 }
             }
@@ -143,6 +143,15 @@ public class Solicitudes {
         return salida;
     }
 
+    public boolean pagoEnvioDescripcion(String origen, String destino, Cliente persona, String fecha, String domRetiro){
+        boolean exito = false;
+        if (!this.arbol.isEmpty()) {
+            NodoSolicitud nodo = arbol.get(new CiudadesDeViaje(origen, destino));
+            exito = nodo.pagoEnvioDescripcionCliente(persona, fecha, domRetiro);
+        }
+        return exito;
+    }
+
 
     public Lista listarCiudadesDeViaje() {
         Lista salida = new Lista();
@@ -189,17 +198,18 @@ public class Solicitudes {
     }
 
     public String mostrarSolicitudes(String origen, String destino) {
-        String cad = "No hay solicitudes de ningun cliente desde "+ origen + " a "+destino;
+        String cad = "No hay solicitudes de ningun cliente desde " + origen + " a " + destino;
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
         if (this.arbol.containsKey(clave)) {
             NodoSolicitud nodo = arbol.get(clave);
-            cad =  nodo.getListaDePedidos() + "\n La cantidad total de metros cuadrados que necesita el camion es: " + nodo.getCantMetrosCuadrados() + "\n\n";
+            cad = nodo.getListaDePedidos() + "\n La cantidad total de metros cuadrados que necesita el camion es: " + nodo.getCantMetrosCuadrados() + "\n\n";
         }
         return cad;
     }
 
-    public boolean esCaminoPerfecto(Lista ciudades, int cantMetrosCuadrados) {
+    public boolean esCaminoPerfecto(Lista ciudades, double cantMetrosCuadrados) {
         boolean existeCamino = false, caminoPerfecto = true;
+        double cantTotal = 0;
         String origen, destino;
         int largo = ciudades.longitud();
         int i = 1;
@@ -211,6 +221,9 @@ public class Solicitudes {
                 existeCamino = existePedidos(origen, destino);
                 if (existeCamino) {
                     existeCamino = existeCaminoPerfecto(origen, destino, cantMetrosCuadrados);
+                    if (existeCamino){
+                        cantTotal = contador(origen,destino,cantTotal);
+                    }
                 }
                 j++;
             }
@@ -223,7 +236,7 @@ public class Solicitudes {
         return caminoPerfecto;
     }
 
-    private boolean existeCaminoPerfecto(String origen, String destino, int cantMetrosCuadrados) {
+    private boolean existeCaminoPerfecto(String origen, String destino, double cantMetrosCuadrados) {
         NodoSolicitud nodo = arbol.get(new CiudadesDeViaje(origen, destino));
         double cantTotal = nodo.getCantMetrosCuadrados();
         return cantTotal <= cantMetrosCuadrados;
@@ -231,6 +244,12 @@ public class Solicitudes {
 
     private boolean existePedidos(String origen, String destino) {
         return this.arbol.containsKey(new CiudadesDeViaje(origen, destino));
+    }
+
+    private double contador(String origen, String destino, double cantTotal) {
+        NodoSolicitud nodo = arbol.get(new CiudadesDeViaje(origen, destino));
+        cantTotal = cantTotal + nodo.getCantMetrosCuadrados();
+        return cantTotal;
     }
 
     public String toString() {
@@ -260,17 +279,17 @@ public class Solicitudes {
         this.arbol.clear();
     }
 
-    public void vaciarSolicitudes(String origen, String destino){
+    public void vaciarSolicitudes(String origen, String destino) {
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
-        if (this.arbol.containsKey(clave)){
+        if (this.arbol.containsKey(clave)) {
             this.arbol.get(clave).vaciar();
             this.actualizar();
         }
     }
 
-    public void vaciarSolicitudesCliente(String origen, String destino, Cliente persona){
+    public void vaciarSolicitudesCliente(String origen, String destino, Cliente persona) {
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
-        if (this.arbol.containsKey(clave)){
+        if (this.arbol.containsKey(clave)) {
             this.arbol.get(clave).vaciarSolicitudesCliente(persona);
         }
     }

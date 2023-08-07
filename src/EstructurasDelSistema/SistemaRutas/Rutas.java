@@ -254,6 +254,11 @@ public class Rutas {
         return this.inicio == null;
     }
 
+    public void vaciar(){
+        //Vacia Rutas sin dejar ningun nodoCiudad y nodoRuta
+        this.inicio = null;
+    }
+
     public Lista caminoCortoCiudades(Object origen, Object destino) {
         //Dados dos elementos de TipoVertice (origen y destino), devuelve un camino (lista de vértices)
         //que indique el camino que pasa por menos vértices (sin ciclos) que permite llegar del vértice origen
