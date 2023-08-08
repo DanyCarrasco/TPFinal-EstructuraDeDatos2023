@@ -21,7 +21,7 @@ public class Solicitudes {
         boolean exito = false;
         CiudadesDeViaje clave = new CiudadesDeViaje(origen, destino);
         if (!arbol.containsKey(clave)) {
-            NodoSolicitud nodo = arbol.put(clave, (new NodoSolicitud(clave, persona, des)));
+            NodoSolicitud nodo = arbol.put(clave, (new NodoSolicitud(persona, des)));
             exito = true;
         }
         return exito;
@@ -90,12 +90,12 @@ public class Solicitudes {
     private void actualizar() {
         if (!this.arbol.isEmpty()) {
             Lista aux = new Lista();
-            guardarElementos(this.arbol.values(), aux);
+            guardarElementos(this.arbol.keySet(), aux);
             int largo = aux.longitud();
             for (int i = 1; i <= largo; i++) {
-                NodoSolicitud nodo = (NodoSolicitud) aux.recuperar(i);
-                if (this.arbol.get(nodo.getCiudadesDeViaje()).esVacio()) {
-                    this.arbol.remove(nodo.getCiudadesDeViaje());
+                CiudadesDeViaje nodo = (CiudadesDeViaje) aux.recuperar(i);
+                if (this.arbol.get(nodo).esVacio()) {
+                    this.arbol.remove(nodo);
                 }
             }
         }

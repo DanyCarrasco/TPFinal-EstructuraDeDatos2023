@@ -9,11 +9,9 @@ import java.util.Iterator;
 import java.util.TreeMap;
 
 public class NodoSolicitud {
-    private CiudadesDeViaje clave;
     private TreeMap<Cliente, NodoCliente> arbolClientes;
 
-    public NodoSolicitud(CiudadesDeViaje clave, Cliente persona, Descripcion des) {
-        this.clave = clave;
+    public NodoSolicitud(Cliente persona, Descripcion des) {
         this.arbolClientes = new TreeMap<Cliente, NodoCliente>();
         this.arbolClientes.put(persona, (new NodoCliente(persona, des)));
     }
@@ -37,10 +35,6 @@ public class NodoSolicitud {
         return exito;
     }
 
-    public CiudadesDeViaje getCiudadesDeViaje() {
-        return this.clave;
-    }
-
     public NodoCliente getNodoCliente(Cliente persona) {
         NodoCliente salida = null;
         if (this.arbolClientes.containsKey(persona)) {
@@ -51,11 +45,6 @@ public class NodoSolicitud {
 
     public boolean existeNodoCliente(Cliente persona) {
         return this.arbolClientes.containsKey(persona);
-    }
-
-    public boolean equals(Object obj) {
-        CiudadesDeViaje clave = (CiudadesDeViaje) obj;
-        return this.clave.equals(clave);
     }
 
     public boolean agregarDescripcionCliente(Cliente persona, Descripcion des) {
@@ -201,7 +190,7 @@ public class NodoSolicitud {
     }
 
     public String toString() {
-        String cad = this.clave.toString() + "\n Lista de clientes con sus pedidos:\n";
+        String cad = "Lista de clientes con sus pedidos:\n";
         Lista aux = new Lista();
         if (arbolClientes.isEmpty()) {
             cad = cad + "No hay pedidos de ningun cliente";

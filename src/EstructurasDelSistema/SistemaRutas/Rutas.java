@@ -111,7 +111,7 @@ public class Rutas {
                 NodoCiudad nodoOrigen = ubicarCiudad(nOrigen);
                 NodoCiudad nodoDestino = ubicarCiudad(nDestino);
                 insertarRuta(nodoOrigen, nodoDestino, etiqueta);
-                insertarRuta(nodoDestino, nodoDestino, etiqueta);
+                insertarRuta(nodoDestino, nodoOrigen, etiqueta);
                 exito = true;
             }
         }

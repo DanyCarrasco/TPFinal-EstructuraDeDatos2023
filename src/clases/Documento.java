@@ -4,12 +4,11 @@ import javax.print.Doc;
 import java.util.Objects;
 
 public class Documento implements Comparable{
-    private TipoDocumento tiposDoc;
     private String tipo;
     private int numero;
 
     private void asignarTipo(int num) {
-        tiposDoc = new TipoDocumento();
+        TipoDocumento tiposDoc = new TipoDocumento();
         tipo = tiposDoc.getTipoDocumento(num);
     }
 
@@ -76,6 +75,7 @@ public class Documento implements Comparable{
     }
 
     public Documento clone(){
-        return (new Documento(this.tiposDoc.localizarTipoDocumento(this.tipo), this.getNumero()));
+        TipoDocumento doc = new TipoDocumento();
+        return (new Documento(doc.localizarTipoDocumento(this.tipo), this.getNumero()));
     }
 }

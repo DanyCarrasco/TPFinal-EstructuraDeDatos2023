@@ -70,7 +70,7 @@ Se creo una ruta entre las ciudades CUTRAL CO y GENERAL ROCA exitosamente
 Se creo una ruta entre las ciudades CIPOLLETTI y SALTA exitosamente
 Se creo una ruta entre las ciudades SAN LORENZO y SAN JUAN exitosamente
 Se creo una ruta entre las ciudades CHIMBAS y SAN JUAN exitosamente
-Se creo una ruta entre las ciudades SANTA ROSA y LA PLATA exitosamente
+Se creo una ruta entre las ciudades VILLA CARLOS PAZ y LA PLATA exitosamente
 Se creo una ruta entre las ciudades VILLA CARLOS PAZ y GENERAL ROCA exitosamente
 Se creo una ruta entre las ciudades BUENOS AIRES y GENERAL PICO exitosamente
 Se creo una ruta entre las ciudades CATAMARCA y MENDOZA exitosamente
@@ -113,4 +113,209 @@ Se creo una solicitud de CHIMBAS a SAN JUAN de cliente CARMEN ingresado exitosam
 Se creo una solicitud de SANTA ROSA a LA PLATA de cliente SILVIA ingresado exitosamente
 Se creo una solicitud de VILLA CARLOS PAZ a GENERAL ROCA de cliente TORRES ingresado exitosamente
 Se muestra el sistema cargado al usuario
+Se elimino la ciudad CLORINDA con exito
+Se elimino la ciudad CATAMARCA con exito
+Ingresa un numero erroneo en la eleccion de opciones de menu principal
 El usuario termina la ejecucion del menu principal de Mudanzas Compartidas
+ Estado del sistema: 
+
+Sistema de Ciudades: 
+
+Nodo: 6300, altura: 4; HI: 4600, HD: 8322
+Nodo: 4600, altura: 0; HI: 3200, HD: 5340
+Nodo: 3200, altura: 2; HI: 1900, HD: 3400
+Nodo: 1900, altura: 1; HI: 1000, HD: 3100
+Nodo: 1000, altura: 0; HI:--, HD:--
+Nodo: 3100, altura: 0; HI:--, HD:--
+Nodo: 3400, altura: 2; HI: 3300, HD: 3600
+Nodo: 3300, altura: 1; HI:--, HD: 3360
+Nodo: 3360, altura: 0; HI:--, HD:--
+Nodo: 3600, altura: 0; HI: 3500, HD: 4500
+Nodo: 3500, altura: 1; HI: 3450, HD:--
+Nodo: 3450, altura: 0; HI:--, HD:--
+Nodo: 4500, altura: 2; HI: 4400, HD:--
+Nodo: 4400, altura: 1; HI: 3700, HD: 4403
+Nodo: 3700, altura: 0; HI:--, HD:--
+Nodo: 4403, altura: 0; HI:--, HD:--
+Nodo: 5340, altura: 3; HI: 5152, HD: 5500
+Nodo: 5152, altura: 1; HI: 5000, HD: 5300
+Nodo: 5000, altura: 0; HI:--, HD:--
+Nodo: 5300, altura: 0; HI:--, HD:--
+Nodo: 5500, altura: 2; HI: 5400, HD: 5501
+Nodo: 5400, altura: 1; HI:--, HD: 5413
+Nodo: 5413, altura: 0; HI:--, HD:--
+Nodo: 5501, altura: 0; HI:--, HD:--
+Nodo: 8322, altura: 3; HI: 8300, HD: 9000
+Nodo: 8300, altura: 1; HI: 6360, HD:--
+Nodo: 6360, altura: 0; HI:--, HD:--
+Nodo: 9000, altura: 2; HI: 8332, HD: 9120
+Nodo: 8332, altura: 1; HI: 8324, HD:--
+Nodo: 8324, altura: 0; HI:--, HD:--
+Nodo: 9120, altura: 0; HI:--, HD:--
+
+
+Red de rutas: 
+
+Nodo: Codigo postal: 1000, nombre: BUENOS AIRES, provincia: BUENOS AIRES, nodos adyacentes: 1900, etiqueta: 36.9; 6360, etiqueta: 367.3
+Nodo: Codigo postal: 1900, nombre: LA PLATA, provincia: BUENOS AIRES, nodos adyacentes: 1000, etiqueta: 36.9; 5152, etiqueta: 57.6; 3600, etiqueta: 363.8; 6300, etiqueta: 28.2
+Nodo: Codigo postal: 5340, nombre: TINOGASTA, provincia: CATAMARCA, nodos adyacentes: 5300, etiqueta: 27.3
+Nodo: Codigo postal: 3500, nombre: RESISTENCIA, provincia: CHACO, nodos adyacentes: 3700, etiqueta: 262.6; 3300, etiqueta: 73.7
+Nodo: Codigo postal: 3700, nombre: PRESIDENCIA ROQUE SAENZ PEÑA, provincia: CHACO, nodos adyacentes: 3500, etiqueta: 262.6; 9000, etiqueta: 236.3; 8300, etiqueta: 362.8; 3300, etiqueta: 272.7
+Nodo: Codigo postal: 9000, nombre: COMODORO RIVADAVIA, provincia: CHUBUT, nodos adyacentes: 3700, etiqueta: 236.3; 3360, etiqueta: 37.3
+Nodo: Codigo postal: 9120, nombre: PUERTO MADRYN, provincia: CHUBUT, nodos adyacentes: 5000, etiqueta: 25.7; 8332, etiqueta: 278.2
+Nodo: Codigo postal: 5000, nombre: CORDOBA, provincia: CORDOBA, nodos adyacentes: 9120, etiqueta: 25.7; 8322, etiqueta: 37.1
+Nodo: Codigo postal: 5152, nombre: VILLA CARLOS PAZ, provincia: CORDOBA, nodos adyacentes: 3400, etiqueta: 64.4; 1900, etiqueta: 57.6; 8332, etiqueta: 85.9; 4400, etiqueta: 37.7; 4500, etiqueta: 47.5
+Nodo: Codigo postal: 3400, nombre: CORRIENTES, provincia: CORRIENTES, nodos adyacentes: 5152, etiqueta: 64.4; 3450, etiqueta: 42.6; 5400, etiqueta: 38.3; 4400, etiqueta: 27.2
+Nodo: Codigo postal: 3450, nombre: GOYA, provincia: CORRIENTES, nodos adyacentes: 3400, etiqueta: 42.6; 5400, etiqueta: 26.5
+Nodo: Codigo postal: 3100, nombre: PARANA, provincia: ENTRE RIOS, nodos adyacentes: 3200, etiqueta: 13.4; 5413, etiqueta: 37.3
+Nodo: Codigo postal: 3200, nombre: CONCORDIA, provincia: ENTRE RIOS, nodos adyacentes: 3100, etiqueta: 13.4; 5400, etiqueta: 26.7
+Nodo: Codigo postal: 3600, nombre: FORMOSA, provincia: FORMOSA, nodos adyacentes: 1900, etiqueta: 363.8
+Nodo: Codigo postal: 4600, nombre: SAN SALVADOR DE JUJUY, provincia: JUJUY, nodos adyacentes: 4500, etiqueta: 10.5; 8332, etiqueta: 373.2
+Nodo: Codigo postal: 4500, nombre: SAN PEDRO DE JUJUY, provincia: JUJUY, nodos adyacentes: 4600, etiqueta: 10.5; 5152, etiqueta: 47.5
+Nodo: Codigo postal: 6300, nombre: SANTA ROSA, provincia: LA PAMPA, nodos adyacentes: 6360, etiqueta: 5.7; 1900, etiqueta: 28.2
+Nodo: Codigo postal: 6360, nombre: GENERAL PICO, provincia: LA PAMPA, nodos adyacentes: 6300, etiqueta: 5.7; 1000, etiqueta: 367.3
+Nodo: Codigo postal: 5300, nombre: LA RIOJA, provincia: LA RIOJA, nodos adyacentes: 5500, etiqueta: 47.6; 5340, etiqueta: 27.3
+Nodo: Codigo postal: 5500, nombre: MENDOZA, provincia: MENDOZA, nodos adyacentes: 5300, etiqueta: 47.6
+Nodo: Codigo postal: 5501, nombre: GODOY CRUZ, provincia: MENDOZA, nodos adyacentes: 3300, etiqueta: 74.6
+Nodo: Codigo postal: 3300, nombre: POSADAS, provincia: MISIONES, nodos adyacentes: 5501, etiqueta: 74.6; 3500, etiqueta: 73.7; 3700, etiqueta: 272.7
+Nodo: Codigo postal: 3360, nombre: OBERA, provincia: MISIONES, nodos adyacentes: 8300, etiqueta: 73.7; 9000, etiqueta: 37.3
+Nodo: Codigo postal: 8300, nombre: NEUQUEN CAPITAL, provincia: NEUQUEN, nodos adyacentes: 3360, etiqueta: 73.7; 3700, etiqueta: 362.8
+Nodo: Codigo postal: 8322, nombre: CUTRAL CO, provincia: NEUQUEN, nodos adyacentes: 8332, etiqueta: 46.5; 5000, etiqueta: 37.1
+Nodo: Codigo postal: 8332, nombre: GENERAL ROCA, provincia: RIO NEGRO, nodos adyacentes: 8322, etiqueta: 46.5; 5152, etiqueta: 85.9; 9120, etiqueta: 278.2; 4600, etiqueta: 373.2
+Nodo: Codigo postal: 8324, nombre: CIPOLLETTI, provincia: RIO NEGRO, nodos adyacentes: 4400, etiqueta: 64.7
+Nodo: Codigo postal: 4400, nombre: SALTA, provincia: SALTA, nodos adyacentes: 8324, etiqueta: 64.7; 5152, etiqueta: 37.7; 3400, etiqueta: 27.2
+Nodo: Codigo postal: 4403, nombre: SAN LORENZO, provincia: SALTA, nodos adyacentes: 5400, etiqueta: 36.3
+Nodo: Codigo postal: 5400, nombre: SAN JUAN, provincia: SAN JUAN, nodos adyacentes: 4403, etiqueta: 36.3; 5413, etiqueta: 12.5; 3400, etiqueta: 38.3; 3450, etiqueta: 26.5; 3200, etiqueta: 26.7
+Nodo: Codigo postal: 5413, nombre: CHIMBAS, provincia: SAN JUAN, nodos adyacentes: 5400, etiqueta: 12.5; 3100, etiqueta: 37.3
+
+
+Sistema de Clientes: 
+
+HashMap de clientes: 
+ - tipo: PAS, numero: 54461816=Documento: tipo: PAS, numero: 54461816, Nombre: ABRIL, Apellido: REQUENA, Telefono: 936789947, Email: VGAMEZ@MATEO.ES
+ - tipo: PAS, numero: 74747373=Documento: tipo: PAS, numero: 74747373, Nombre: ROMERO, Apellido: CRUZ, Telefono: 383838902, Email: RCRUZ33@GMAIL.COM
+ - tipo: DNI, numero: 23456789=Documento: tipo: DNI, numero: 23456789, Nombre: JUAN, Apellido: PEREZ, Telefono: 111235678, Email: JUAN.PEREZ@EXAMPLE.COM
+ - tipo: DNI, numero: 56789012=Documento: tipo: DNI, numero: 56789012, Nombre: TORRES, Apellido: CASTRO, Telefono: 237828287, Email: TORRES.CASTRO@GMAIL.COM
+ - tipo: PAS, numero: 12345678=Documento: tipo: PAS, numero: 12345678, Nombre: MARIA, Apellido: GARCIA, Telefono: 91234589, Email: MARIA.GARCIA@EXAMPLE.COM
+ - tipo: DNI, numero: 43567133=Documento: tipo: DNI, numero: 43567133, Nombre: JOSE ANTONIO, Apellido: CASERES, Telefono: 976828883, Email: DELATORRE.ALEIX@HOTMAIL.COM
+ - tipo: DNI, numero: 51535389=Documento: tipo: DNI, numero: 51535389, Nombre: YAGO, Apellido: GALVAN, Telefono: 939222992, Email: RODRIGO.BADILLO@HOTMAIL.COM
+ - tipo: PAS, numero: 78901234=Documento: tipo: PAS, numero: 78901234, Nombre: RUIZ, Apellido: HERNANDEZ, Telefono: 3838383, Email: RIUZ.HERN@GMAIL.COM
+ - tipo: DNI, numero: 45678901=Documento: tipo: DNI, numero: 45678901, Nombre: JORGE, Apellido: GONZALES, Telefono: 47474722, Email: JORG423@GMAIL.COM
+ - tipo: PAS, numero: 89012345=Documento: tipo: PAS, numero: 89012345, Nombre: DAVID, Apellido: RUIZ, Telefono: 363737378, Email: DAVID262@GMAIL.COM
+ - tipo: PAS, numero: 47819279=Documento: tipo: PAS, numero: 47819279, Nombre: ELSA, Apellido: VIERA, Telefono: 923362567, Email: CORDOBA.EVA@MEJIA.NET
+ - tipo: DNI, numero: 56760280=Documento: tipo: DNI, numero: 56760280, Nombre: JOEL, Apellido: BRIONES, Telefono: 945286576, Email: OSCAR.ROSALES@LINARES.ES
+ - tipo: PAS, numero: 23486323=Documento: tipo: PAS, numero: 23486323, Nombre: YERAY, Apellido: ARAÑA, Telefono: 954763239, Email: DBARAJAS@HOTMAIL.COM
+ - tipo: DNI, numero: 34567890=Documento: tipo: DNI, numero: 34567890, Nombre: CARLOS, Apellido: RODRIGUEZ, Telefono: 93567890, Email: CARLOS434@GMAIL.COM
+ - tipo: PAS, numero: 1234567=Documento: tipo: PAS, numero: 1234567, Nombre: CARMEN, Apellido: HERNANDEZ, Telefono: 3838322, Email: CARM.HERNANDEZ@HOTMAIL.COM
+ - tipo: DNI, numero: 48484383=Documento: tipo: DNI, numero: 48484383, Nombre: LUIS, Apellido: SANCHEZ, Telefono: 95963749, Email: LUIS83@GMAIL.COM
+ - tipo: PAS, numero: 57270608=Documento: tipo: PAS, numero: 57270608, Nombre: MARCOS, Apellido: LORENZO, Telefono: 930496008, Email: JIMENA.CHAVARRIA@DUARTE.COM
+ - tipo: PAS, numero: 67890123=Documento: tipo: PAS, numero: 67890123, Nombre: DELGADO, Apellido: RAMOS, Telefono: 38383821, Email: DELG181@GMAIL.COM
+ - tipo: DNI, numero: 90123456=Documento: tipo: DNI, numero: 90123456, Nombre: SILVIA, Apellido: GOMEZ, Telefono: 95836438, Email: SIL267@GMAIL.COM
+ - tipo: PAS, numero: 47219496=Documento: tipo: PAS, numero: 47219496, Nombre: ALBERTO, Apellido: DURAN, Telefono: 949349126, Email: AITANA.NAVA@TERRA.COM
+
+
+Sistema de Solicitudes: 
+
+Sistema Solicitudes
+Ciudad origen: BUENOS AIRES, ciudad destino: LA PLATA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: PAS, numero: 23486323, Nombre: YERAY, Apellido: ARAÑA, Telefono: 954763239, Email: DBARAJAS@HOTMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 23/05/2023, cantidad de metros cuadrados: 1, cantidad de bultos: 1, domicilio de retiro: CHILE 23, domicilio de entrega: URUGUAY 121, envio pagado: true]
+
+Ciudad origen: CATAMARCA, ciudad destino: TINOGASTA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: PAS, numero: 57270608, Nombre: MARCOS, Apellido: LORENZO, Telefono: 930496008, Email: JIMENA.CHAVARRIA@DUARTE.COM
+ Lista de sus pedidos:
+[Fecha: 24/05/2023, cantidad de metros cuadrados: 2, cantidad de bultos: 4, domicilio de retiro: PARAGUAY 36, domicilio de entrega: PANAMA 27, envio pagado: false]
+
+Ciudad origen: CHIMBAS, ciudad destino: SAN JUAN=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: PAS, numero: 1234567, Nombre: CARMEN, Apellido: HERNANDEZ, Telefono: 3838322, Email: CARM.HERNANDEZ@HOTMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 9/06/2023, cantidad de metros cuadrados: 3, cantidad de bultos: 9, domicilio de retiro: HONDURAS 32, domicilio de entrega:  NICARAGUA 11, envio pagado: false]
+
+Ciudad origen: CIPOLLETTI, ciudad destino: SALTA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: PAS, numero: 74747373, Nombre: ROMERO, Apellido: CRUZ, Telefono: 383838902, Email: RCRUZ33@GMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 7/06/2023, cantidad de metros cuadrados: 5, cantidad de bultos: 25, domicilio de retiro: MEXICO 31, domicilio de entrega: GUATEMALA 45, envio pagado: false]
+
+Ciudad origen: CORRIENTES, ciudad destino: GOYA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: DNI, numero: 43567133, Nombre: JOSE ANTONIO, Apellido: CASERES, Telefono: 976828883, Email: DELATORRE.ALEIX@HOTMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 29/05/2023, cantidad de metros cuadrados: 7, cantidad de bultos: 49, domicilio de retiro: COLOMBIA 11, domicilio de entrega:  VENEZUELA 89, envio pagado: true]
+
+Ciudad origen: CUTRAL CO, ciudad destino: GENERAL ROCA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: DNI, numero: 45678901, Nombre: JORGE, Apellido: GONZALES, Telefono: 47474722, Email: JORG423@GMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 6/06/2023, cantidad de metros cuadrados: 6, cantidad de bultos: 36, domicilio de retiro: CUBA 16, domicilio de entrega:  ECUADOR 67, envio pagado: true]
+
+Ciudad origen: FORMOSA, ciudad destino: CLORINDA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: DNI, numero: 23456789, Nombre: JUAN, Apellido: PEREZ, Telefono: 111235678, Email: JUAN.PEREZ@EXAMPLE.COM
+ Lista de sus pedidos:
+[Fecha: 31/05/2023, cantidad de metros cuadrados: 9, cantidad de bultos: 81, domicilio de retiro: ROCA 62, domicilio de entrega:  SAN MARTIN 53, envio pagado: true]
+
+Ciudad origen: GODOY CRUZ, ciudad destino: POSADAS=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: DNI, numero: 56789012, Nombre: TORRES, Apellido: CASTRO, Telefono: 237828287, Email: TORRES.CASTRO@GMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 4/06/2023, cantidad de metros cuadrados: 8, cantidad de bultos: 64, domicilio de retiro: EL SALVADOR 49, domicilio de entrega:  PERU 43, envio pagado: true]
+
+Ciudad origen: LA RIOJA, ciudad destino: MENDOZA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: PAS, numero: 78901234, Nombre: RUIZ, Apellido: HERNANDEZ, Telefono: 3838383, Email: RIUZ.HERN@GMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 3/06/2023, cantidad de metros cuadrados: 9, cantidad de bultos: 81, domicilio de retiro: ROCA 62, domicilio de entrega:  SAN MARTIN 73, envio pagado: false]
+
+Ciudad origen: OBERA, ciudad destino: NEUQUEN CAPITAL=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: PAS, numero: 67890123, Nombre: DELGADO, Apellido: RAMOS, Telefono: 38383821, Email: DELG181@GMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 5/06/2023, cantidad de metros cuadrados: 7, cantidad de bultos: 49, domicilio de retiro: COLOMBIA 11, domicilio de entrega: VENEZUELA 29, envio pagado: false]
+
+Ciudad origen: PARANA, ciudad destino: CONCORDIA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: PAS, numero: 47819279, Nombre: ELSA, Apellido: VIERA, Telefono: 923362567, Email: CORDOBA.EVA@MEJIA.NET
+ Lista de sus pedidos:
+[Fecha: 30/05/2023, cantidad de metros cuadrados: 8, cantidad de bultos: 64, domicilio de retiro: EL SALVADOR 89, domicilio de entrega:  PERU 43, envio pagado: false]
+
+Ciudad origen: PRESIDENCIA ROQUE SAENZ PEÑA, ciudad destino: COMODORO RIVADAVIA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: PAS, numero: 47219496, Nombre: ALBERTO, Apellido: DURAN, Telefono: 949349126, Email: AITANA.NAVA@TERRA.COM
+ Lista de sus pedidos:
+[Fecha: 26/05/2023, cantidad de metros cuadrados: 4, cantidad de bultos: 16, domicilio de retiro: CANADA 12, domicilio de entrega: ESTADOS UNIDOS 23, envio pagado: false]
+
+Ciudad origen: PUERTO MADRYN, ciudad destino: CORDOBA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: DNI, numero: 51535389, Nombre: YAGO, Apellido: GALVAN, Telefono: 939222992, Email: RODRIGO.BADILLO@HOTMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 27/05/2023, cantidad de metros cuadrados: 5, cantidad de bultos: 25, domicilio de retiro: MEXICO 34, domicilio de entrega: GUATEMALA 45, envio pagado: true]
+
+Ciudad origen: RESISTENCIA, ciudad destino: PRESIDENCIA ROQUE SAENZ PEÑA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: DNI, numero: 56760280, Nombre: JOEL, Apellido: BRIONES, Telefono: 945286576, Email: OSCAR.ROSALES@LINARES.ES
+ Lista de sus pedidos:
+[Fecha: 25/05/2023, cantidad de metros cuadrados: 3, cantidad de bultos: 9, domicilio de retiro: HONDURAS 62, domicilio de entrega:  NICARAGUA 11, envio pagado: true]
+
+Ciudad origen: SAN LORENZO, ciudad destino: SAN JUAN=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: DNI, numero: 48484383, Nombre: LUIS, Apellido: SANCHEZ, Telefono: 95963749, Email: LUIS83@GMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 8/06/2023, cantidad de metros cuadrados: 4, cantidad de bultos: 16, domicilio de retiro: CANADA 12, domicilio de entrega: ESTADOS UNIDOS 83, envio pagado: true]
+
+Ciudad origen: SAN SALVADOR DE JUJUY, ciudad destino: SAN PEDRO DE JUJUY=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: PAS, numero: 12345678, Nombre: MARIA, Apellido: GARCIA, Telefono: 91234589, Email: MARIA.GARCIA@EXAMPLE.COM
+ Lista de sus pedidos:
+[Fecha: 1/06/2023, cantidad de metros cuadrados: 10, cantidad de bultos: 100, domicilio de retiro: SARMIENTO 73, domicilio de entrega:  BRASIL 72, envio pagado: false]
+
+Ciudad origen: SANTA ROSA, ciudad destino: GENERAL PICO=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: DNI, numero: 34567890, Nombre: CARLOS, Apellido: RODRIGUEZ, Telefono: 93567890, Email: CARLOS434@GMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 2/06/2023, cantidad de metros cuadrados: 10, cantidad de bultos: 100, domicilio de retiro: SARMIENTO 21, domicilio de entrega:  BRASIL 72, envio pagado: true]
+
+Ciudad origen: SANTA ROSA, ciudad destino: LA PLATA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: DNI, numero: 90123456, Nombre: SILVIA, Apellido: GOMEZ, Telefono: 95836438, Email: SIL267@GMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 10/06/2023, cantidad de metros cuadrados: 2, cantidad de bultos: 4, domicilio de retiro: PARAGUAY 36, domicilio de entrega: PANAMA 57, envio pagado: true]
+
+Ciudad origen: VILLA CARLOS PAZ, ciudad destino: CORRIENTES=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: PAS, numero: 54461816, Nombre: ABRIL, Apellido: REQUENA, Telefono: 936789947, Email: VGAMEZ@MATEO.ES
+ Lista de sus pedidos:
+[Fecha: 28/05/2023, cantidad de metros cuadrados: 6, cantidad de bultos: 36, domicilio de retiro: CUBA 56, domicilio de entrega:  ECUADOR 67, envio pagado: false]
+
+Ciudad origen: VILLA CARLOS PAZ, ciudad destino: GENERAL ROCA=Lista de clientes con sus pedidos:
+Cliente: Documento: tipo: DNI, numero: 56789012, Nombre: TORRES, Apellido: CASTRO, Telefono: 237828287, Email: TORRES.CASTRO@GMAIL.COM
+ Lista de sus pedidos:
+[Fecha: 11/06/2023, cantidad de metros cuadrados: 1, cantidad de bultos: 1, domicilio de retiro: CHILE 23, domicilio de entrega: URUGUAY 11, envio pagado: false]
+
+
+
