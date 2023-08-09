@@ -62,7 +62,8 @@ public class Funcionamiento {
         Ciudad c = this.c1.getCiudad(codigo);
         exito = this.c1.eliminarCiudad(codigo);
         if (exito) {
-            exito = this.r1.eliminarCiudad(c);
+            this.r1.eliminarCiudad(c);
+            this.s1.vaciarSolicitudesCiudad(codigo);
         }
         return exito;
     }
@@ -98,6 +99,7 @@ public class Funcionamiento {
     public boolean vaciarCiudades() {
         this.c1.vaciar();
         this.r1.vaciar();
+        this.s1.vaciar();
         return this.c1.esVacio();
     }
 
@@ -164,7 +166,11 @@ public class Funcionamiento {
     }
 
     public boolean eliminarCliente(int tipoDoc, int numDoc) {
-        return this.p1.eliminarCliente(tipoDoc, numDoc);
+        boolean exito = this.p1.eliminarCliente(tipoDoc, numDoc);
+        if (exito) {
+            this.s1.vaciarSolicitudesCliente(tipoDoc, numDoc);
+        }
+        return exito;
     }
 
     public String getNombreCliente(int tipoDoc, int numDoc) {
@@ -180,7 +186,7 @@ public class Funcionamiento {
     }
 
     public boolean setApellidoCliente(int tipoDoc, int numDoc, String apellido) {
-        return this.p1.setNombreCliente(tipoDoc, numDoc, apellido);
+        return this.p1.setApellidoCliente(tipoDoc, numDoc, apellido);
     }
 
     public int getTelefonoCliente(int tipoDoc, int numDoc) {
@@ -214,19 +220,17 @@ public class Funcionamiento {
     public boolean insertarSolicitud(int codOrigen, int codDestino, int tipoDoc, int numDoc, String fecha, int cantMetros, int cantBultos, String domRetiro, String domEntrega, boolean pagado) {
         boolean exito = false;
         if (this.c1.existeCiudad(codOrigen) && this.c1.existeCiudad(codDestino)) {
-            String origen = this.c1.getNombreCiudad(codOrigen);
-            String destino = this.c1.getNombreCiudad(codDestino);
             if (this.p1.existeCliente(tipoDoc, numDoc)) {
                 Cliente persona = this.p1.getCliente(tipoDoc, numDoc);
                 Descripcion des = new Descripcion(fecha, cantMetros, cantBultos, domRetiro, domEntrega, pagado);
-                if (!this.s1.existeCiudadesDeViaje(origen, destino)) {
-                    exito = this.s1.insertarSolicitud(origen, destino, persona, des);
+                if (!this.s1.existeCiudadesDeViaje(codOrigen, codDestino)) {
+                    exito = this.s1.insertarSolicitud(codOrigen, codDestino, persona, des);
                 } else {
-                    if (!this.s1.existeCliente(origen, destino, persona)) {
-                        exito = this.s1.agregarCliente(origen, destino, persona, des);
+                    if (!this.s1.existeCliente(codOrigen, codDestino, tipoDoc, numDoc)) {
+                        exito = this.s1.agregarCliente(codOrigen, codDestino, persona, des);
                     } else {
-                        if (!this.s1.existeDescripcion(origen, destino, persona, des)) {
-                            exito = this.s1.agregarDescripcion(origen, destino, persona, des);
+                        if (!this.s1.existeDescripcion(codOrigen, codDestino, persona, fecha, domRetiro)) {
+                            exito = this.s1.agregarDescripcion(codOrigen, codDestino, persona, des);
                         }
                     }
                 }
@@ -238,13 +242,10 @@ public class Funcionamiento {
     public boolean eliminarSolicitud(int codOrigen, int codDestino, int tipoDoc, int numDoc, String fecha, String domRetiro) {
         boolean exito = false;
         if (this.c1.existeCiudad(codOrigen) && this.c1.existeCiudad(codDestino)) {
-            String origen = this.c1.getNombreCiudad(codOrigen);
-            String destino = this.c1.getNombreCiudad(codDestino);
             if (this.p1.existeCliente(tipoDoc, numDoc)) {
                 Cliente persona = this.p1.getCliente(tipoDoc, numDoc);
-                Descripcion des = new Descripcion(fecha, domRetiro);
-                if (this.s1.existeDescripcion(origen, destino, persona, des)) {
-                    exito = this.s1.eliminarSolicitud(origen, destino, persona, des);
+                if (this.s1.existeDescripcion(codOrigen, codDestino, persona, fecha, domRetiro)) {
+                    exito = this.s1.eliminarSolicitud(codOrigen, codDestino, persona, fecha, domRetiro);
                 }
             }
         }
@@ -254,11 +255,10 @@ public class Funcionamiento {
     public boolean eliminarSolicitudesCliente(int codOrigen, int codDestino, int tipoDoc, int numDoc) {
         boolean exito = false;
         if (this.c1.existeCiudad(codOrigen) && this.c1.existeCiudad(codDestino)) {
-            String origen = this.c1.getNombreCiudad(codOrigen);
-            String destino = this.c1.getNombreCiudad(codDestino);
+            ;
             if (this.p1.existeCliente(tipoDoc, numDoc)) {
                 Cliente persona = this.p1.getCliente(tipoDoc, numDoc);
-                exito = this.s1.eliminarSolicitudesCliente(origen, destino, persona);
+                exito = this.s1.eliminarSolicitudesCliente(codOrigen, codDestino, persona);
             }
         }
         return exito;
@@ -267,9 +267,7 @@ public class Funcionamiento {
     public boolean eliminarSolicitudes(int codOrigen, int codDestino) {
         boolean exito = false;
         if (this.c1.existeCiudad(codOrigen) && this.c1.existeCiudad(codDestino)) {
-            String origen = this.c1.getNombreCiudad(codOrigen);
-            String destino = this.c1.getNombreCiudad(codDestino);
-            exito = this.s1.eliminarSolicitudes(origen, destino);
+            exito = this.s1.eliminarSolicitudes(codOrigen, codDestino);
         }
         return exito;
     }
@@ -277,9 +275,7 @@ public class Funcionamiento {
     public boolean existeCiudadesDeViaje(int codOrigen, int codDestino) {
         boolean exito = false;
         if (this.c1.existeCiudad(codOrigen) && this.c1.existeCiudad(codDestino)) {
-            String origen = this.c1.getNombreCiudad(codOrigen);
-            String destino = this.c1.getNombreCiudad(codDestino);
-            exito = this.s1.existeCiudadesDeViaje(origen, destino);
+            exito = this.s1.existeCiudadesDeViaje(codOrigen, codDestino);
         }
         return exito;
     }
@@ -287,11 +283,9 @@ public class Funcionamiento {
     public boolean existeClienteSolicitud(int codOrigen, int codDestino, int tipoDoc, int numDoc) {
         boolean exito = false;
         if (this.c1.existeCiudad(codOrigen) && this.c1.existeCiudad(codDestino)) {
-            String origen = this.c1.getNombreCiudad(codOrigen);
-            String destino = this.c1.getNombreCiudad(codDestino);
             if (this.p1.existeCliente(tipoDoc, numDoc)) {
                 Cliente persona = this.p1.getCliente(tipoDoc, numDoc);
-                exito = this.s1.existeCliente(origen, destino, persona);
+                exito = this.s1.existeCliente(codOrigen, codDestino, tipoDoc, numDoc);
             }
         }
         return exito;
@@ -300,40 +294,132 @@ public class Funcionamiento {
     public boolean existeSolicitud(int codOrigen, int codDestino, int tipoDoc, int numDoc, String fecha, String domRetiro) {
         boolean exito = false;
         if (this.c1.existeCiudad(codOrigen) && this.c1.existeCiudad(codDestino)) {
-            String origen = this.c1.getNombreCiudad(codOrigen);
-            String destino = this.c1.getNombreCiudad(codDestino);
             if (this.p1.existeCliente(tipoDoc, numDoc)) {
                 Cliente persona = this.p1.getCliente(tipoDoc, numDoc);
-                Descripcion des = new Descripcion(fecha, domRetiro);
-                exito = this.s1.existeDescripcion(origen, destino, persona, des);
+                exito = this.s1.existeDescripcion(codOrigen, codDestino, persona, fecha, domRetiro);
             }
         }
         return exito;
     }
 
-    public boolean esVacioSolicitudes(){
+    public int getCantMetrosCuadradosDescripcion(int origen, int destino, int tipoDoc, int numDoc, String fecha, String domRetiro){
+        int cantMetros = 0;
+        if (this.c1.existeCiudad(origen) && this.c1.existeCiudad(destino)){
+            if (this.p1.existeCliente(tipoDoc, numDoc)){
+                Cliente persona = this.p1.getCliente(tipoDoc,numDoc);
+                if (this.s1.existeDescripcion(origen,destino,persona,fecha,domRetiro)){
+                    cantMetros = this.s1.getCantMetrosDescripcion(origen,destino,persona,fecha,domRetiro);
+                }
+            }
+        }
+        return cantMetros;
+    }
+
+    public boolean setCantMetrosCuadradosDescripcion(int origen, int destino, int tipoDoc, int numDoc, String fecha, String domRetiro, int cantMetros){
+        boolean exito = false;
+        if (this.c1.existeCiudad(origen) && this.c1.existeCiudad(destino)){
+            if (this.p1.existeCliente(tipoDoc, numDoc)){
+                Cliente persona = this.p1.getCliente(tipoDoc,numDoc);
+                if (this.s1.existeDescripcion(origen,destino,persona,fecha,domRetiro)){
+                    exito = this.s1.setCantMetrosDescripcion(origen,destino,persona,fecha,domRetiro,cantMetros);
+                }
+            }
+        }
+        return exito;
+    }
+
+    public int getCantBultosDescripcion(int origen, int destino, int tipoDoc, int numDoc, String fecha, String domRetiro){
+        int cantBultos = 0;
+        if (this.c1.existeCiudad(origen) && this.c1.existeCiudad(destino)){
+            if (this.p1.existeCliente(tipoDoc, numDoc)){
+                Cliente persona = this.p1.getCliente(tipoDoc,numDoc);
+                if (this.s1.existeDescripcion(origen,destino,persona,fecha,domRetiro)){
+                    cantBultos = this.s1.getCantMetrosDescripcion(origen,destino,persona,fecha,domRetiro);
+                }
+            }
+        }
+        return cantBultos;
+    }
+
+    public boolean setCantBultosDescripcion(int origen, int destino, int tipoDoc, int numDoc, String fecha, String domRetiro, int cantBultos){
+        boolean exito = false;
+        if (this.c1.existeCiudad(origen) && this.c1.existeCiudad(destino)){
+            if (this.p1.existeCliente(tipoDoc, numDoc)){
+                Cliente persona = this.p1.getCliente(tipoDoc,numDoc);
+                if (this.s1.existeDescripcion(origen,destino,persona,fecha,domRetiro)){
+                    exito = this.s1.setCantBultosDescripcion(origen,destino,persona,fecha,domRetiro,cantBultos);
+                }
+            }
+        }
+        return exito;
+    }
+
+    public String getDomicilioEntregaDescripcion(int origen, int destino, int tipoDoc, int numDoc, String fecha, String domRetiro){
+        String domEntrega = "";
+        if (this.c1.existeCiudad(origen) && this.c1.existeCiudad(destino)){
+            if (this.p1.existeCliente(tipoDoc, numDoc)){
+                Cliente persona = this.p1.getCliente(tipoDoc,numDoc);
+                if (this.s1.existeDescripcion(origen,destino,persona,fecha,domRetiro)){
+                    domEntrega = this.s1.getDomicilioEntregaDescripcion(origen,destino,persona,fecha,domRetiro);
+                }
+            }
+        }
+        return domEntrega;
+    }
+
+    public boolean setDomicilioEntregaDescripcion(int origen, int destino, int tipoDoc, int numDoc, String fecha, String domRetiro, String domEntrega){
+        boolean exito = false;
+        if (this.c1.existeCiudad(origen) && this.c1.existeCiudad(destino)){
+            if (this.p1.existeCliente(tipoDoc, numDoc)){
+                Cliente persona = this.p1.getCliente(tipoDoc,numDoc);
+                if (this.s1.existeDescripcion(origen,destino,persona,fecha,domRetiro)){
+                    exito = this.s1.setDomicilioEntregaDescripcion(origen,destino,persona,fecha,domRetiro,domEntrega);
+                }
+            }
+        }
+        return exito;
+    }
+
+    public boolean getEnvioPagadoDescripcion(int origen, int destino, int tipoDoc, int numDoc, String fecha, String domRetiro){
+        boolean pagado = false;
+        if (this.c1.existeCiudad(origen) && this.c1.existeCiudad(destino)){
+            if (this.p1.existeCliente(tipoDoc, numDoc)){
+                Cliente persona = this.p1.getCliente(tipoDoc,numDoc);
+                if (this.s1.existeDescripcion(origen,destino,persona,fecha,domRetiro)){
+                    pagado = this.s1.getEnvioPagadoDescripcion(origen,destino,persona,fecha,domRetiro);
+                }
+            }
+        }
+        return pagado;
+    }
+
+    public boolean setEnvioPagadoDescripcion(int origen, int destino, int tipoDoc, int numDoc, String fecha, String domRetiro, boolean pagado){
+        boolean exito = false;
+        if (this.c1.existeCiudad(origen) && this.c1.existeCiudad(destino)){
+            if (this.p1.existeCliente(tipoDoc, numDoc)){
+                Cliente persona = this.p1.getCliente(tipoDoc,numDoc);
+                if (this.s1.existeDescripcion(origen,destino,persona,fecha,domRetiro)){
+                    exito = this.s1.setEnvioPagadoDescripcion(origen,destino,persona,fecha,domRetiro,pagado);
+                }
+            }
+        }
+        return exito;
+    }
+
+    public boolean esVacioSolicitudes() {
         return this.s1.esVacio();
     }
 
     public String mostrarSolicitudes(int codOrigen, int codDestino) {
         String cad = "No se encuentran las ciudades en el sistema";
         if (this.c1.existeCiudad(codOrigen) && this.c1.existeCiudad(codDestino)) {
-            String origen = this.c1.getNombreCiudad(codOrigen);
-            String destino = this.c1.getNombreCiudad(codDestino);
-            cad = this.s1.mostrarSolicitudes(origen, destino);
+            cad = this.s1.mostrarSolicitudes(codOrigen, codDestino);
         }
         return cad;
     }
 
-    public boolean esCaminoPerfecto(Lista lis, double cantCamion){
-        int largo = lis.longitud();
-        for (int i = 1; i <= largo; i++) {
-            int codigo = (int) lis.recuperar(i);
-            lis.eliminar(i);
-            String ciudad = this.c1.getNombreCiudad(codigo);
-            lis.insertar(ciudad,i);
-        }
-        return this.s1.esCaminoPerfecto(lis,cantCamion);
+    public boolean esCaminoPerfecto(Lista lis, double cantCamion) {
+        return this.s1.esCaminoPerfecto(lis, cantCamion);
     }
 
     public String mostrarSistema() {

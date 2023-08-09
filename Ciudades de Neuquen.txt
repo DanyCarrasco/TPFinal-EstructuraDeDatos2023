@@ -1,5 +1,0 @@
-Neuquén capital,Código Postal: 8300;
-Cutral Co,Código Postal: 8322;
-Plottier,Código Postal: 8316;
-Zapala,Código Postal: 8340;
-San Martín de los Andes,Código Postal: 8370

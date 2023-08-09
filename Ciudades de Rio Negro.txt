@@ -1,4 +1,0 @@
-General Roca,Código Postal: 8332;
-Cipolletti,Código Postal: 8324;
-Viedma,Código Postal: 8500;
-San Carlos de Bariloche,Código Postal: 8400

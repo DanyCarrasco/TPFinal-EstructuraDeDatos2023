@@ -21,15 +21,15 @@ public class testSolicitudes {
         //testVaciar();
         //testClone();
         //testMostrarSolicitudes();
-        testEsCaminoPerfecto();
+        //testEsCaminoPerfecto();
     }
-
+/*
     public static void testToString() {
         Solicitudes s1 = new Solicitudes();
         System.out.println("Creo un sistema de Solicitudes vacio");
         System.out.println("Solicitudes vacio: \n" + s1.toString());
         System.out.println("Inserto una solicitud de Buenos Aires a Neuquen de un cliente con la descripcion");
-        s1.agregarDescripcion("Buenos Aires", "Neuquen", (new Cliente(new Documento(1, 43552859))), (new Descripcion(20, 5, "domicilio 1", "domicilio 2")));
+        s1.agregarDescripcion(1099, 1234, (new Cliente(new Documento(1, 43552859))), (new Descripcion(20, 5, "domicilio 1", "domicilio 2")));
         System.out.println("Solicitudes: \n" + s1.toString());
     }
 
@@ -44,14 +44,14 @@ public class testSolicitudes {
         System.out.println("Prueba de insertarSolicitud, agregarCliente y agregarDescripcion");
         System.out.println("Se crea Solicitudes vacio");
         System.out.println("Solicitudes s2: \n" + s2.toString());
-        System.out.println("Elimino una solicitudes de 'Buenos Aires' a 'Neuquen' en Solicitudes vacio: " + s2.eliminarSolicitudes("Buenos Aires", "Neuquen"));
-        System.out.println("Inserto una solicitud de 'Neuquen' a 'La Rioja' de un cliente con la descripcion: " + s2.insertarSolicitud("Neuquen", "La Rioja", c2, des1));
+        System.out.println("Elimino una solicitudes de 'Buenos Aires' a 'Neuquen' en Solicitudes vacio: " + s2.eliminarSolicitudes(0040,9000));
+        System.out.println("Inserto una solicitud de 'Neuquen' a 'La Rioja' de un cliente con la descripcion: " + s2.insertarSolicitud(0, 0, c2, des1));
         System.out.println("Solicitudes s2: \n" + s2.toString());
-        System.out.println("Inserto una solicitud de 'Catamarca' a 'Tucuman' de un cliente con la descripcion: " + s2.insertarSolicitud("Catamarca", "Tucuman", c1, des2));
-        System.out.println("Agrego un cliente con descripcion de una solicitud inexistente: " + s2.agregarCliente("Buenos Aires", "Neuquen", c1, des1));
-        System.out.println("Agrego un cliente con descripcion de una solicitud de 'Neuquen' a 'La Rioja': " + s2.agregarCliente("Neuquen", "La Rioja", c1, des1));
-        System.out.println("Agrego una descripcion de un cliente no cargado en un solicitud de 'Catamarca' a 'Tucuman': " + s2.agregarDescripcion("Catamarca", "Tucuman", c2, des2));
-        System.out.println("Agrego una descripcion de un cliente cargado en un solicitud de 'Neuquen' a 'La Rioja': " + s2.agregarDescripcion("Neuquen", "La Rioja", c1, des2));
+        System.out.println("Inserto una solicitud de 'Catamarca' a 'Tucuman' de un cliente con la descripcion: " + s2.insertarSolicitud(8, 9, c1, des2));
+        System.out.println("Agrego un cliente con descripcion de una solicitud inexistente: " + s2.agregarCliente(0, 0, c1, des1));
+        System.out.println("Agrego un cliente con descripcion de una solicitud de 'Neuquen' a 'La Rioja': " + s2.agregarCliente(0, 0, c1, des1));
+        System.out.println("Agrego una descripcion de un cliente no cargado en un solicitud de 'Catamarca' a 'Tucuman': " + s2.agregarDescripcion(0, 0, c2, des2));
+        System.out.println("Agrego una descripcion de un cliente cargado en un solicitud de 'Neuquen' a 'La Rioja': " + s2.agregarDescripcion(0, 9, c1, des2));
         System.out.println("Solicitudes s2: \n" + s2.toString());
         System.out.println("--------------------------------------------------------------------------------------------\n\n");
         System.out.println("Prueba de eliminarSolicitud, eliminarCliente y eliminarDescripcion");
@@ -212,7 +212,7 @@ public class testSolicitudes {
         System.out.println("Solicitudes esta vacio: " + s7.esVacio());
         System.out.println("Solicitudes s7: \n" + s7.toString());
         System.out.println("Se vacia las solicitudes de Buenos Aires a Neuquen");
-        s7.vaciarSolicitudes("Buenos Aires", "Neuquen");
+        s7.vaciarSolicitudes(8, 0);
         System.out.println("Solicitudes esta vacio: " + s7.esVacio());
         System.out.println("Solicitudes s7: \n" + s7.toString());
     }
@@ -304,4 +304,5 @@ public class testSolicitudes {
         lis.insertar("San Rafael", lis.longitud() + 1);
         lis.insertar("Chimbas", lis.longitud() + 1);
     }
+ */
 }

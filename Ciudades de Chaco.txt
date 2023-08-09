@@ -1,4 +1,0 @@
-Resistencia,Código Postal: 3500;
-Presidencia Roque Sáenz Peña,Código Postal: 3700;
-Villa Ángela,Código Postal: 3540;
-Charata,Código Postal: 3730;

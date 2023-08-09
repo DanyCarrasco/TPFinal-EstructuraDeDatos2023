@@ -1,6 +1,0 @@
-Mendoza,Código Postal: 5500;
-Godoy Cruz,Código Postal: 5501;
-Guaymallén,Código Postal: 5521;
-San Rafael,Código Postal: 5600;
-Maipú,Código Postal: 5515;
-Luján de Cuyo,Código Postal: 5507

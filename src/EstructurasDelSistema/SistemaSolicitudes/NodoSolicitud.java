@@ -35,16 +35,8 @@ public class NodoSolicitud {
         return exito;
     }
 
-    public NodoCliente getNodoCliente(Cliente persona) {
-        NodoCliente salida = null;
-        if (this.arbolClientes.containsKey(persona)) {
-            salida = this.arbolClientes.get(persona);
-        }
-        return salida;
-    }
-
-    public boolean existeNodoCliente(Cliente persona) {
-        return this.arbolClientes.containsKey(persona);
+    public boolean existeNodoCliente(int tipoDoc, int numDoc) {
+        return this.arbolClientes.containsKey(new Cliente(new Documento(tipoDoc,numDoc)));
     }
 
     public boolean agregarDescripcionCliente(Cliente persona, Descripcion des) {
@@ -56,11 +48,11 @@ public class NodoSolicitud {
         return exito;
     }
 
-    public boolean eliminarDescripcionCliente(Cliente persona, Descripcion des) {
+    public boolean eliminarDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
         boolean exito = false;
         if (this.arbolClientes.containsKey(persona)) {
             NodoCliente n = (NodoCliente) arbolClientes.get(persona);
-            exito = n.eliminarDescripcion(des);
+            exito = n.eliminarDescripcion(fecha, domRetiro);
             if (exito) {
                 this.actualizar();
             }
@@ -68,32 +60,115 @@ public class NodoSolicitud {
         return exito;
     }
 
-    public Descripcion getDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
-        Descripcion salida = null;
+    public int getCantMetrosDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
+        int salida = 0;
         if (this.arbolClientes.containsKey(persona)) {
-            NodoCliente n = (NodoCliente) arbolClientes.get(persona);
-            salida = n.getDescripcion(fecha, domRetiro);
+            NodoCliente n = arbolClientes.get(persona);
+            if (n.existeDescripcion(fecha, domRetiro)){
+                salida = n.getCantMetrosDescripcion(fecha,domRetiro);
+            }
         }
         return salida;
     }
 
-    public boolean pagoEnvioDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
-        boolean exito = false;
+    public boolean setCantMetrosDescripcionCliente(Cliente persona, String fecha, String domRetiro, int cantMetros) {
+        boolean  salida = false;
         if (this.arbolClientes.containsKey(persona)) {
             NodoCliente n = (NodoCliente) arbolClientes.get(persona);
-            exito = n.pagoEnvioDescripcion(fecha, domRetiro);
+            if (n.existeDescripcion(fecha, domRetiro)){
+                salida = n.setCantMetrosDescripcion(fecha,domRetiro,cantMetros);
+            }
         }
-        return exito;
+        return salida;
     }
 
-    public boolean existeDescripcionCliente(Cliente persona, Descripcion des) {
-        boolean exito = false;
+    public int getCantBultosDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
+        int salida = 0;
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = arbolClientes.get(persona);
+            if (n.existeDescripcion(fecha, domRetiro)){
+                salida = n.getCantBultosDescripcion(fecha,domRetiro);
+            }
+        }
+        return salida;
+    }
+
+    public boolean setCantBultosDescripcionCliente(Cliente persona, String fecha, String domRetiro, int cantMetros) {
+        boolean  salida = false;
         if (this.arbolClientes.containsKey(persona)) {
             NodoCliente n = (NodoCliente) arbolClientes.get(persona);
-            exito = n.existeDescripcion(des);
+            if (n.existeDescripcion(fecha, domRetiro)){
+                salida = n.setCantBultosDescripcion(fecha,domRetiro,cantMetros);
+            }
         }
-        return exito;
+        return salida;
     }
+
+    public String getDomicilioEntregaDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
+        String salida = "";
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = arbolClientes.get(persona);
+            if (n.existeDescripcion(fecha, domRetiro)){
+                salida = n.getDomicilioEntregaDescripcion(fecha,domRetiro);
+            }
+        }
+        return salida;
+    }
+
+    public boolean setDomicilioEntregaDescripcionCliente(Cliente persona, String fecha, String domRetiro, String domEntrega) {
+        boolean salida = false;
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(persona);
+            if (n.existeDescripcion(fecha, domRetiro)){
+                salida = n.setDomicilioEntregaDescripcion(fecha,domRetiro,domEntrega);
+            }
+        }
+        return salida;
+    }
+
+    public boolean getEnvioPagadoDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
+        boolean salida = false;
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = arbolClientes.get(persona);
+            if (n.existeDescripcion(fecha, domRetiro)){
+                salida = n.getPagoEnvioDescripcion(fecha,domRetiro);
+            }
+        }
+        return salida;
+    }
+
+    public boolean setEnvioPagadoDescripcionCliente(Cliente persona, String fecha, String domRetiro, boolean pago) {
+        boolean salida = false;
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(persona);
+            if (n.existeDescripcion(fecha, domRetiro)){
+                salida = n.setPagoEnvioDescripcion(fecha,domRetiro,pago);
+            }
+        }
+        return salida;
+    }
+
+    public boolean existeDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
+        boolean salida = false;
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = arbolClientes.get(persona);
+            salida = n.existeDescripcion(fecha,domRetiro);
+        }
+        return salida;
+    }
+
+    public String mostrarDescripcionCliente(Cliente persona, String fecha, String domRetiro) {
+        String salida = "";
+        if (this.arbolClientes.containsKey(persona)) {
+            NodoCliente n = (NodoCliente) arbolClientes.get(persona);
+            if (n.existeDescripcion(fecha, domRetiro)){
+                salida = n.mostrarDescripcion(fecha,domRetiro);
+            }
+        }
+        return salida;
+    }
+
+
 
     public Lista getListaDescripcionCliente(Cliente persona) {
         Lista salida = new Lista();
@@ -182,9 +257,9 @@ public class NodoSolicitud {
         this.arbolClientes.clear();
     }
 
-    public void vaciarSolicitudesCliente(Cliente persona) {
-        if (this.arbolClientes.containsKey(persona)) {
-            this.arbolClientes.get(persona).vaciar();
+    public void vaciarSolicitudesCliente(int tipoDoc, int numDoc) {
+        if (this.arbolClientes.containsKey(new Cliente(new Documento(tipoDoc, numDoc)))) {
+            this.arbolClientes.get(new Cliente(new Documento(tipoDoc, numDoc))).vaciar();
             this.actualizar();
         }
     }

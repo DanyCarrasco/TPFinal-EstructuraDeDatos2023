@@ -5,46 +5,46 @@ import clases.Ciudad;
 import java.util.Objects;
 
 public class CiudadesDeViaje implements Comparable {
-    private String origen;
-    private String destino;
+    private int origen;
+    private int destino;
 
-    public CiudadesDeViaje(String origen, String destino) {
+    public CiudadesDeViaje(int origen, int destino) {
         this.origen = origen;
         this.destino = destino;
     }
 
-    public String getOrigen() {
+    public int getOrigen() {
         return origen;
     }
 
-    public String getDestino() {
+    public int getDestino() {
         return destino;
     }
 
     @Override
     public String toString() {
-        return "Ciudad origen: "+this.origen+", ciudad destino: "+this.destino;
+        return "Ciudad origen: " + this.origen + ", ciudad destino: " + this.destino;
     }
 
     public boolean equals(Object obj) {
         CiudadesDeViaje clave = (CiudadesDeViaje) obj;
-        return this.origen.equals(clave.getOrigen()) && this.destino.equals(clave.getDestino());
+        return this.origen == clave.origen && this.destino == clave.destino;
     }
 
     @Override
     public int compareTo(Object obj) {
         int salida;
         CiudadesDeViaje clave = (CiudadesDeViaje) obj;
-        if (this.origen.compareTo(clave.getOrigen()) < 0) {
+        if (this.origen < clave.origen) {
             salida = -1;
         } else {
-            if (this.origen.compareTo(clave.getOrigen()) > 0) {
+            if (this.origen > clave.origen) {
                 salida = 1;
             } else {
-                if (this.destino.compareTo(clave.getDestino()) < 0) {
+                if (this.destino < clave.destino) {
                     salida = -2;
                 } else {
-                    if (this.destino.compareTo(clave.getDestino()) > 0) {
+                    if (this.destino > clave.destino) {
                         salida = 2;
                     } else {
                         salida = 0;

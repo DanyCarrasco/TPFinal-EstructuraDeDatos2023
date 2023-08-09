@@ -37,7 +37,7 @@ public class Ciudad implements Comparable{
 
     public boolean equals(Object obj){
         Ciudad ciudad = (Ciudad) obj;
-        return this.codigoPostal == ciudad.getCodigoPostal();
+        return this.codigoPostal == ciudad.codigoPostal;
     }
 
     public Ciudad clone(){

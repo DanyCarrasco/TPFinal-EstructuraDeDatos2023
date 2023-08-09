@@ -1,4 +1,0 @@
-Santiago del Estero,Código Postal: 4200;
-La Banda,Código Postal: 4300;
-Frías,Código Postal: 4250;
-Termas de Río Hondo,Código Postal: 4220

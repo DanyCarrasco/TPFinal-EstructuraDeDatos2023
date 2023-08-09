@@ -66,7 +66,8 @@ public class Clientes {
             Cliente original = (Cliente) arbol.get(clave);
             original.setNombre(nombre);
             arbol.remove(clave);
-            exito = arbol.put(clave, original) != null;
+            arbol.put(clave, original);
+            exito = true;
         }
         return exito;
     }
@@ -89,7 +90,8 @@ public class Clientes {
             Cliente original = (Cliente) arbol.get(clave);
             original.setApellido(apellido);
             arbol.remove(clave);
-            exito = arbol.put(clave, original) != null;
+            arbol.put(clave, original);
+            exito = true;
         }
         return exito;
     }
@@ -112,7 +114,8 @@ public class Clientes {
             Cliente original = (Cliente) arbol.get(clave);
             original.setTelefono(telefono);
             arbol.remove(clave);
-            exito = arbol.put(clave, original) != null;
+            arbol.put(clave, original);
+            exito = true;
         }
         return exito;
     }
@@ -135,7 +138,8 @@ public class Clientes {
             Cliente original = (Cliente) arbol.get(clave);
             original.setEmail(email);
             arbol.remove(clave);
-            exito = arbol.put(clave, original) != null;
+            arbol.put(clave, original);
+            exito = true;
         }
         return exito;
     }

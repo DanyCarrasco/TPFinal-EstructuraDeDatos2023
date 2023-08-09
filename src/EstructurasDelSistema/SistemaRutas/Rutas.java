@@ -271,7 +271,7 @@ public class Rutas {
                 //si ambos vertices existen busca el camino mas corto entre ambos
                 NodoCiudad auxO = ubicarCiudad(origen);
                 NodoCiudad auxD = ubicarCiudad(destino);
-                caminoCortoCiudadesAux(auxO, auxD, salida);
+                caminoCortoCiudadesAux(auxO, auxD.getElem(), salida);
             }
         }
         return salida;
@@ -293,13 +293,16 @@ public class Rutas {
         NodoRuta nAdyacente = n.getPrimerRuta();
         if (n.getElem().equals(dest)) {
             if (salida.esVacia() || (vis.longitud() < salida.longitud())) {
+                vis.insertar(n.getElem(), vis.longitud() + 1);
                 salida.duplicar(vis);
             }
         } else {
             vis.insertar(n.getElem(), vis.longitud() + 1);
             while (nAdyacente != null) {
                 if (vis.localizar(nAdyacente.getVertice().getElem()) < 1) {
-                    caminoCortoCiudadesAdy(nAdyacente.getVertice(), dest, vis, salida);
+                    if(salida.esVacia() || (vis.longitud() + 1 < salida.longitud())){
+                        caminoCortoCiudadesAdy(nAdyacente.getVertice(), dest, vis, salida);
+                    }
                 }
                 nAdyacente = nAdyacente.getSigRuta();
                 if (nAdyacente == null) {
@@ -327,21 +330,21 @@ public class Rutas {
         //Busca el camino mas corto en la lista de adyacentes del nodo n hacia el vertice dest
         Lista visitados = new Lista();
         NodoRuta nAdyacente = n.getPrimerRuta();
-        double distanciaTotal, distanciaMenor, distSalida = 0;
+        double distanciaTotal, distSalida = 0;
         visitados.insertar(n.getElem(), visitados.longitud() + 1);
         while (nAdyacente != null) {
             distanciaTotal = nAdyacente.getEtiqueta();
-            distanciaMenor = nAdyacente.getEtiqueta();
-            distSalida = caminoCortoDistanciasAdy(nAdyacente.getVertice(), dest, visitados, salida, distanciaTotal, distanciaMenor, distSalida);
+            distSalida = caminoCortoDistanciasAdy(nAdyacente.getVertice(), dest, visitados, salida, distanciaTotal, distSalida);
             nAdyacente = nAdyacente.getSigRuta();
         }
     }
 
-    private double caminoCortoDistanciasAdy(NodoCiudad n, Object dest, Lista vis, Lista salida, double distTotal, double distParcial, double distSalida) {
+    private double caminoCortoDistanciasAdy(NodoCiudad n, Object dest, Lista vis, Lista salida, double distTotal, double distSalida) {
         //Busca el camino mas largo en la lista de adyacentes del nodo n hacia el vertice dest y retorna el double distSalida
         NodoRuta nAdyacente = n.getPrimerRuta();
         if (n.getElem().equals(dest)) {
             if ((distSalida == 0) || (distTotal < distSalida)) {
+                vis.insertar(n.getElem(), vis.longitud() + 1);
                 salida.duplicar(vis);
                 distSalida = distTotal;
             }
@@ -351,7 +354,7 @@ public class Rutas {
                 if (vis.localizar(nAdyacente.getVertice().getElem()) < 1) {
                     if ((distSalida == 0) || (nAdyacente.getEtiqueta() + distTotal < distSalida)) {
                         distTotal = distTotal + nAdyacente.getEtiqueta();
-                        distSalida = caminoCortoDistanciasAdy(nAdyacente.getVertice(), dest, vis, salida, distTotal, nAdyacente.getEtiqueta(), distSalida);
+                        distSalida = caminoCortoDistanciasAdy(nAdyacente.getVertice(), dest, vis, salida, distTotal, distSalida);
                         distTotal = distTotal - nAdyacente.getEtiqueta();
                     }
                 }

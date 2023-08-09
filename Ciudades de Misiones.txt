@@ -1,4 +1,0 @@
-Posadas,Código Postal: 3300;
-Oberá,Código Postal: 3360;
-Eldorado,Código Postal: 3380;
-Puerto Iguazú,Código Postal: 3370

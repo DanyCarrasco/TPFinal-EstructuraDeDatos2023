@@ -1,8 +1,0 @@
-Cambio de etiquetas
-
-NodoAdyEtiq = NodoRuta
-NodoVertEtiq = NodoCiudad
-GrafoEtiq = Rutas
-arco = arco
-adyacente = ruta
-vertice = ciudad

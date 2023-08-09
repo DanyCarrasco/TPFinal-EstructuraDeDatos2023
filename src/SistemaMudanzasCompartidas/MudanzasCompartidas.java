@@ -12,42 +12,29 @@ import java.util.StringTokenizer;
 public class MudanzasCompartidas {
     private static Funcionamiento funcion = new Funcionamiento();
     private static Scanner lectura = new Scanner(System.in);
+    private static Escritor aviso;
 
-    public static void main(String[] args) {
-        String cvcFile = "C:\\Users\\danyc\\OneDrive\\Documentos\\gitProjects\\TPFinal-EstructuraDeDatos2023.v1\\escribeme.txt";
-
+    static {
         try {
-            FileWriter file = new FileWriter(cvcFile);
-            BufferedWriter escribeme = new BufferedWriter(file);
-            escribeme.write("");
-            escribeme.flush();
-            escribeme.close();
-        } catch (Exception e) {
-            e.getStackTrace();
+            aviso = new Escritor("C:\\Users\\danyc\\OneDrive\\Documentos\\gitProjects\\TPFinal-EstructuraDeDatos2023.v1\\escribeme.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+    }
 
+    public static void main(String[] args) throws IOException {
         int opcion;
-        String cad = "";
+        aviso.vaciarTxt();
         menu();
         opcion = lectura.nextInt();
         while (opcion != 7) {
-            cad = cad + ejecutarOpcion(opcion);
+            ejecutarOpcion(opcion);
             menu();
             opcion = lectura.nextInt();
         }
+        System.out.println("Se termina de ejecutar el sistema");
+        aviso.registrarInfo("Se termina de ejecutar el sistema\n\nEstado final del sistema:\n\n" + funcion.mostrarSistema());
         lectura.close();
-
-        cad = cad + "El usuario termina la ejecucion del menu principal de Mudanzas Compartidas\n Estado del sistema: \n\n" + funcion.mostrarSistema();
-
-        try {
-            FileWriter file = new FileWriter(cvcFile);
-            BufferedWriter escribeme = new BufferedWriter(file);
-            escribeme.write(cad);
-            escribeme.flush();
-            escribeme.close();
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
     }
 
     public static void menu() {
@@ -62,44 +49,42 @@ public class MudanzasCompartidas {
         System.out.println("Ingrese que opcion desea ejecutar: ");
     }
 
-    public static String ejecutarOpcion(int opcion) {
-        String cad = "";
+    public static void ejecutarOpcion(int opcion) {
         switch (opcion) {
             case 1:
-                cad = menuDeCarga();
+                menuDeCarga();
                 break;
             case 2:
-                cad = ABMCiudades();
+                ABMCiudades();
                 break;
             case 3:
-                cad = ABMRedDeRutas();
+                ABMRedDeRutas();
                 break;
             case 4:
-                cad = ABMClientes();
+                ABMClientes();
                 break;
             case 5:
-                cad = ABMPedidos();
+                ABMPedidos();
                 break;
             case 6:
-                cad = mostrarSistema();
+                mostrarSistema();
                 break;
             default:
                 System.out.println("Numero ingresado incorrecto, intentalo de nuevo");
-                cad = "Ingresa un numero erroneo en la eleccion de opciones de menu principal\n";
+                aviso.registrarInfo("Ingresa un numero erroneo en la eleccion de opciones de menu principal");
                 break;
         }
-        return cad;
     }
 
-    public static String menuDeCarga() {
-        String cad = metodo();
+    public static void menuDeCarga() {
+        metodo();
+        System.out.println("Estado del sistema: \n");
         System.out.println(funcion.mostrarSistema());
-        cad = cad + "Se muestra el sistema cargado al usuario\n";
-        return cad;
+        aviso.registrarInfo("Se muestra el sistema cargado al usuario");
+        aviso.registrarInfo("Estado del sistema al terminar la carga inicial:\n\n" + funcion.mostrarSistema());
     }
 
-    public static String metodo() {
-        String cad = "";
+    public static void metodo() {
         String csvFile = "C:\\Users\\danyc\\OneDrive\\Documentos\\gitProjects\\TPFinal-EstructuraDeDatos2023.v1\\leeme.txt";
         BufferedReader br = null;
         String line = ";";
@@ -112,7 +97,7 @@ public class MudanzasCompartidas {
                 int num = datos.length;
                 int i = 0;
                 while (i < num) {
-                    cad = cad + metodoCargar(datos[i]);
+                    metodoCargar(datos[i]);
                     i++;
 
                 }
@@ -130,30 +115,27 @@ public class MudanzasCompartidas {
                 }
             }
         }
-        return cad;
     }
 
-    public static String metodoCargar(String linea) {
-        String cad = "";
+    public static void metodoCargar(String linea) {
         StringTokenizer st = new StringTokenizer(linea, ";");
         switch (st.nextToken()) {
             case "C":
-                cad = cargarCiudad(st);
+                cargarCiudad(st);
                 break;
             case "S":
-                cad = cargarSolicitud(st);
+                cargarSolicitud(st);
                 break;
             case "R":
-                cad = cargarRuta(st);
+                cargarRuta(st);
                 break;
             case "P":
-                cad = cargarCliente(st);
+                cargarCliente(st);
                 break;
         }
-        return cad;
     }
 
-    public static String cargarCiudad(StringTokenizer st) {
+    public static void cargarCiudad(StringTokenizer st) {
         String[] arreglo = new String[4];
         int i = 1;
         while (st.hasMoreTokens()) {
@@ -166,15 +148,14 @@ public class MudanzasCompartidas {
         String provincia = arreglo[3];
         if (funcion.insertarCiudad(codigo, nombre, provincia)) {
             System.out.println("Se inserto la ciudad " + nombre + " exitosamente");
-            cad = "Se creo una ciudad " + nombre + " exitosamente\n";
+            aviso.registrarInfo("Se creo una ciudad " + nombre + " exitosamente");
         } else {
             System.out.println("No se inserto la ciudad " + nombre + " exitosamente");
-            cad = "No se creo una ciudad " + nombre + " exitosamente\n";
+            aviso.registrarError("No se creo una ciudad " + nombre + " exitosamente");
         }
-        return cad;
     }
 
-    public static String cargarSolicitud(StringTokenizer st) {
+    public static void cargarSolicitud(StringTokenizer st) {
         String cad = "";
         int codOrigen = Integer.parseInt(st.nextToken());
         int codDestino = Integer.parseInt(st.nextToken());
@@ -191,30 +172,27 @@ public class MudanzasCompartidas {
         }
         if (funcion.insertarSolicitud(codOrigen, codDestino, tipoDoc, numeroDoc, fecha, cantMetros, cantBultos, domRetiro, domEntrega, pago)) {
             System.out.println("Se inserto la solicitud de viaje de un cliente ingresado exitosamente");
-            cad = "Se creo una solicitud de " + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino) + " de cliente " + funcion.getNombreCliente(tipoDoc, numeroDoc) + " ingresado exitosamente\n";
+            aviso.registrarInfo("Se creo una solicitud de " + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino) + " de cliente " + funcion.getNombreCliente(tipoDoc, numeroDoc) + " ingresado exitosamente");
         } else {
             System.out.println("No se inserto la solicitud de viaje de un cliente ingresado exitosamente");
-            cad = "No se creo una solicitud de " + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino) + "de cliente " + funcion.getNombreCliente(tipoDoc, numeroDoc) + " ingresado exitosamente\n";
+            aviso.registrarError("No se creo una solicitud de " + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino) + "de cliente " + funcion.getNombreCliente(tipoDoc, numeroDoc) + " ingresado exitosamente");
         }
-        return cad;
     }
 
-    public static String cargarRuta(StringTokenizer st) {
-        String cad = "";
+    public static void cargarRuta(StringTokenizer st) {
         int codOrigen = Integer.parseInt(st.nextToken());
         int codDestino = Integer.parseInt(st.nextToken());
         double etiqueta = Double.parseDouble(st.nextToken());
         if (funcion.insertarRuta(codOrigen, codDestino, etiqueta)) {
             System.out.println("Se inserto la ruta entre dos ciudades ingresadas exitosamente");
-            cad = "Se creo una ruta entre las ciudades " + funcion.getNombreCiudad(codOrigen) + " y " + funcion.getNombreCiudad(codDestino) + " exitosamente\n";
+            aviso.registrarInfo("Se creo una ruta entre las ciudades " + funcion.getNombreCiudad(codOrigen) + " y " + funcion.getNombreCiudad(codDestino) + " exitosamente");
         } else {
             System.out.println("No se inserto la solicitud de viaje de un cliente ingresado exitosamente");
-            cad = "No se creo una ruta entre las ciudades " + funcion.getNombreCiudad(codOrigen) + " y " + funcion.getNombreCiudad(codDestino) + " exitosamente\n";
+            aviso.registrarError("No se creo una ruta entre las ciudades " + funcion.getNombreCiudad(codOrigen) + " y " + funcion.getNombreCiudad(codDestino) + " exitosamente");
         }
-        return cad;
     }
 
-    public static String cargarCliente(StringTokenizer st) {
+    public static void cargarCliente(StringTokenizer st) {
         String[] arreglo = new String[7];
         int i = 1;
         while (st.hasMoreTokens()) {
@@ -230,26 +208,25 @@ public class MudanzasCompartidas {
         String email = arreglo[6].toUpperCase();
         if (funcion.insertarCliente(tipoDoc, numDoc, nombre, apellido, telefono, email)) {
             System.out.println("Se inserto un cliente exitosamente");
-            cad = "Se creo un cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " exitosamente\n";
+            aviso.registrarInfo("Se creo un cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " exitosamente");
         } else {
             System.out.println("No se inserto un cliente exitosamente");
-            cad = "Se creo un cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " exitosamente\n";
+            aviso.registrarError("No se creo un cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " exitosamente");
         }
-        return cad;
     }
 
-    public static String ABMCiudades() {
+    public static void ABMCiudades() {
         int opcion;
-        String cad = "";
         menuABMCiudades();
         opcion = lectura.nextInt();
         while (opcion != 14) {
-            cad = cad + opcionesABMCiudades(opcion);
+            opcionesABMCiudades(opcion);
             menuABMCiudades();
             lectura.hasNextLine();
             opcion = lectura.nextInt();
         }
-        return cad;
+        System.out.println("Se termina de ejecutar ABMCiudades");
+        aviso.registrarInfo("Se termina de ejecutar ABMCiudades");
     }
 
     public static void menuABMCiudades() {
@@ -269,59 +246,57 @@ public class MudanzasCompartidas {
         System.out.println("14 - Volver al menu principal");
     }
 
-    public static String opcionesABMCiudades(int opcion) {
-        String cad = "";
+    public static void opcionesABMCiudades(int opcion) {
         switch (opcion) {
             case 1:
-                cad = insertarCiudadSistema();
+                insertarCiudadSistema();
                 break;
             case 2:
-                cad = eliminarCiudadSistema();
+                eliminarCiudadSistema();
                 break;
             case 3:
-                cad = getNombreCiudadSistema();
+                getNombreCiudadSistema();
                 break;
             case 4:
-                cad = setNombreCiudadSistema();
+                setNombreCiudadSistema();
                 break;
             case 5:
-                cad = getProvinciaCiudadSistema();
+                getProvinciaCiudadSistema();
                 break;
             case 6:
-                cad = setProvinciaCiudadSistema();
+                setProvinciaCiudadSistema();
                 break;
             case 7:
-                cad = listarCodigosPostales();
+                listarCodigosPostales();
                 break;
             case 8:
-                cad = listarCiudades();
+                listarCiudades();
                 break;
             case 9:
-                cad = existeCiudad();
+                existeCiudad();
                 break;
             case 10:
-                cad = esVacioCiudades();
+                esVacioCiudades();
                 break;
             case 11:
-                cad = mostrarCiudad();
+                mostrarCiudad();
                 break;
             case 12:
-                cad = listarRangoCiudades();
+                listarRangoCiudades();
                 break;
             case 13:
-                cad = vaciarCiudades();
+                vaciarCiudades();
                 break;
             default:
                 System.out.println("Numero ingresado incorrecto, intentalo de nuevo");
-                cad = "Ingresa un numero erroneo en la eleccion de opciones de ABM Ciudades\n";
+                aviso.registrarInfo("Ingresa un numero erroneo en la eleccion de opciones de ABM Ciudades");
                 break;
         }
-        return cad;
     }
 
-    public static String insertarCiudadSistema() {
+    public static void insertarCiudadSistema() {
         int codigo, numProvincia;
-        String ciudad = "", salida = "Se inserta una ciudad sin exito\n";
+        String ciudad;
         System.out.println("Ingrese el codigo de la ciudad:");
         codigo = lectura.nextInt();
         if (esCodigoPostal(codigo)) {
@@ -339,37 +314,47 @@ public class MudanzasCompartidas {
                         System.out.println("Numero incorrecto, intentelo de nuevo");
                     }
                 }
-                if (funcion.insertarCiudad(codigo, ciudad, numProvincia)) {
-                    System.out.println("Se inserta la ciudad " + ciudad + " con exito");
-                    salida = "Se inserta la ciudad " + ciudad + " con exito\n";
+            } else {
+                if (funcion.existeCiudad(codigo)) {
+                    System.out.println("No se inserto ciudad " + codigo + " porque ya existe en el sistema");
+                    aviso.registrarError("No se inserta la ciudad " + codigo + " porque ya existe en el sistema");
+                } else {
+                    if (funcion.insertarCiudad(codigo, ciudad, numProvincia)) {
+                        System.out.println("Se inserta la ciudad " + codigo + " con exito");
+                        aviso.registrarInfo("Se inserta la ciudad " + codigo + " con exito");
+                    }
                 }
             }
+        } else {
+            System.out.println("Se inserta una ciudad sin exito porque no se ingreso un codigo postal correcto");
+            aviso.registrarError("Se inserta una ciudad sin exito porque no se ingreso un codigo postal correcto");
         }
-        return salida;
     }
 
-    public static String eliminarCiudadSistema() {
-        String salida = "Se elimino una ciudad sin exito\n";
-        String ciudad = "";
-        int codigo = 0;
+    public static void eliminarCiudadSistema() {
+        int codigo;
         System.out.println("Ingrese el codigo de la ciudad:");
-        if (lectura.hasNextLine()) {
-            codigo = lectura.nextInt();
-        }
-        boolean exito = false;
+        codigo = lectura.nextInt();
         if (esCodigoPostal(codigo)) {
-            ciudad = funcion.getNombreCiudad(codigo);
-            exito = funcion.eliminarCiudad(codigo);
+            if (funcion.existeCiudad(codigo)) {
+                if (funcion.eliminarCiudad(codigo)) {
+                    System.out.println("Se elimino la ciudad " + codigo + " con exito");
+                    aviso.registrarInfo("Se elimino la ciudad " + codigo + " con exito");
+                } else {
+                    System.out.println("Se elimino una ciudad " + codigo + " sin exito");
+                    aviso.registrarError("Se elimino una ciudad " + codigo + " sin exito");
+                }
+            } else {
+                System.out.println("No se elimino la ciudad " + codigo + " porque ya no existe en el sistema");
+                aviso.registrarInfo("No se elimino la ciudad " + codigo + " porque ya no existe en el sistema");
+            }
+        } else {
+            System.out.println("Eliminacion de una ciudad " + codigo + " sin exito");
+            aviso.registrarInfo("Eliminacion de una ciudad " + codigo + " sin exito");
         }
-        if (exito) {
-            System.out.println("Se elimino la ciudad " + ciudad + " con exito");
-            salida = "Se elimino la ciudad " + ciudad + " con exito\n";
-        }
-        return salida;
     }
 
-    public static String getNombreCiudadSistema() {
-        String salida = "Se busco el nombre de una ciudad sin exito\n";
+    public static void getNombreCiudadSistema() {
         String nombre;
         System.out.println("Ingrese el codigo de la ciudad:");
         int codigo = lectura.nextInt();
@@ -377,157 +362,182 @@ public class MudanzasCompartidas {
             if (funcion.existeCiudad(codigo)) {
                 nombre = funcion.getNombreCiudad(codigo);
                 System.out.println("Nombre de la ciudad buscada: " + nombre);
-                salida = "Se encuentra y se muestra el nombre de la ciudad buscada: " + nombre + "\n";
+                aviso.registrarInfo("Se encuentra y se muestra el nombre de la ciudad buscada " + codigo);
+            } else {
+                System.out.println("No se encuentra la ciudad " + codigo);
+                aviso.registrarError("No se encuentra la ciudad " + codigo);
             }
+        } else {
+            System.out.println("Se busco el nombre de ciudad " + codigo + " sin exito");
+            aviso.registrarError("Se busco el nombre ciudad " + codigo + " sin exito");
         }
-        return salida;
     }
 
-    public static String setNombreCiudadSistema() {
-        String salida = "Se busco una ciudad para modificar su nombre sin exito\n";
-        String nombreViejo, nombreNuevo;
-        boolean exito;
+    public static void setNombreCiudadSistema() {
+        String nombreNuevo;
         System.out.println("Ingrese el codigo de la ciudad:");
         int codigo = lectura.nextInt();
         if (esCodigoPostal(codigo)) {
             if (funcion.existeCiudad(codigo)) {
-                nombreViejo = funcion.getNombreCiudad(codigo);
                 System.out.println("Ingrese el nuevo nombre de la ciudad: ");
                 nombreNuevo = lectura.next().toUpperCase();
-                exito = funcion.setNombreCiudad(codigo, nombreNuevo);
-                System.out.println("Se modifico el nombre de la ciudad: " + nombreViejo + "--->" + nombreNuevo + ":"+ exito);
-                if (exito) {
-                    salida = "Se encuentra y se modifica el nombre de una ciudad buscada: " + nombreViejo + "--->" + nombreNuevo + "\n";
+                if (funcion.setNombreCiudad(codigo, nombreNuevo)) {
+                    System.out.println("Se modifico el nombre de la ciudad " + codigo);
+                    aviso.registrarInfo("Se modifico el nombre de la ciudad " + codigo);
+                } else {
+                    System.out.println("Se busco ciudad " + codigo + "para modificar su nombre sin exito");
+                    aviso.registrarError("Se busco ciudad " + codigo + "para modificar su nombre sin exito");
                 }
+            } else {
+                System.out.println("No se encuentra la ciudad " + codigo + " en el sistema");
+                aviso.registrarError("No se encuentra la ciudad " + codigo + "en el sistema");
             }
+        } else {
+            System.out.println("Se busco ciudad" + codigo + "para modificar su nombre sin exito");
+            aviso.registrarError("Se busco ciudad" + codigo + "para modificar su nombre sin exito");
         }
-        return salida;
     }
 
-    public static String getProvinciaCiudadSistema() {
-        String salida = "Se busco la provincia de una ciudad sin exito\n";
-        String nombre;
+    public static void getProvinciaCiudadSistema() {
         System.out.println("Ingrese el codigo de la ciudad:");
         int codigo = lectura.nextInt();
         if (esCodigoPostal(codigo)) {
             if (funcion.existeCiudad(codigo)) {
-                nombre = funcion.getProvinciaCiudad(codigo);
-                System.out.println("Provincia de la ciudad buscada: " + nombre);
-                salida = "Se encuentra y se muestra la provincia de la ciudad buscada: " + nombre + "\n";
+                System.out.println("Provincia de la ciudad buscada: " + funcion.getProvinciaCiudad(codigo));
+                aviso.registrarInfo("Se encuentra y se muestra la provincia de la ciudad buscada: " + codigo);
+            } else {
+                System.out.println("No se encuentra la ciudad " + codigo + "en el sistema");
+                aviso.registrarError("No se encuentra la ciudad " + codigo + " en el sistema");
             }
+        } else {
+            System.out.println("Se busco la provincia de ciudad " + codigo + " sin exito");
+            aviso.registrarError("Se busco la provincia de ciudad " + codigo + " sin exito");
         }
-        return salida;
     }
 
-    public static String setProvinciaCiudadSistema() {
-        String salida = "Se busca una ciudad para modificar la provincia sin exito\n";
+    public static void setProvinciaCiudadSistema() {
         int numProvincia;
-        boolean exito;
-        String nombreViejo, nombreNuevo;
+        String nombreNuevo;
         System.out.println("Ingrese el codigo de la ciudad:");
         int codigo = lectura.nextInt();
         if (esCodigoPostal(codigo)) {
             if (funcion.existeCiudad(codigo)) {
-                nombreViejo = funcion.getProvinciaCiudad(codigo);
                 mostrarProvincias();
                 numProvincia = lectura.nextInt();
                 nombreNuevo = funcion.getProvinciaArgentina(numProvincia);
-                exito = funcion.setProvinciaCiudad(codigo, nombreNuevo);
-                System.out.println("Se modifico la provincia de la ciudad " + nombreViejo + "--->" + nombreNuevo +": " + exito);
-                if (exito) {
-                    salida = "Se encuentra y se modifica el nombre de una ciudad buscada: " + nombreViejo + "--->" + nombreNuevo + "\n";
+                if (funcion.setProvinciaCiudad(codigo, nombreNuevo)) {
+                    System.out.println("Se modifico la provincia de la ciudad " + codigo);
+                    aviso.registrarInfo("Se encuentra y se modifica el nombre de una ciudad buscada: " + codigo);
+                } else {
+                    System.out.println("Se busca ciudad " + codigo + " para modificar la provincia sin exito");
+                    aviso.registrarError("Se busca ciudad " + codigo + " para modificar la provincia sin exito");
                 }
+            } else {
+                System.out.println("No se encuentra ciudad " + codigo + " en el sistema");
+                aviso.registrarError("No se encuentra ciudad " + codigo + " en el sistema");
             }
+        } else {
+            System.out.println("Se busca ciudad " + codigo + " para modificar la provincia sin exito");
+            aviso.registrarError("Se busca una ciudad " + codigo + " para modificar la provincia sin exito");
         }
-        return salida;
     }
 
-    public static String listarCodigosPostales() {
-        String salida = "Se enlista codigos postales del sistema sin exito\n";
+    public static void listarCodigosPostales() {
         Lista lis;
         if (!funcion.esVacioCiudades()) {
             lis = funcion.listarCodigosPostales();
             System.out.println("Lista de los codigos postales del sistema:\n");
             System.out.println(lis.toString());
-            salida = "Se enlista y se muestran codigos postales del sistema con exito: \n" + lis.toString() + "\n";
+            aviso.registrarInfo("Se enlista y se muestran codigos postales del sistema con exito");
+        } else {
+            System.out.println("No se encuentran ciudades ingresadas en el sistema");
+            aviso.registrarError("No se encuentran ciudades ingresadas en el sistema");
         }
-        return salida;
     }
 
-    public static String listarCiudades() {
-        String salida = "Se enlista ciudades del sistema sin exito\n";
+    public static void listarCiudades() {
         Lista lis;
         if (!funcion.esVacioCiudades()) {
             lis = funcion.listarCiudades();
             System.out.println("Lista de las ciudades del sistema:\n");
             System.out.println(lis.toString());
-            salida = "Se enlista y se muestran las ciudades del sistema con exito: \n" + lis.toString() + "\n";
+            aviso.registrarInfo("Se enlista y se muestran las ciudades del sistema con exito");
+        } else {
+            System.out.println("No se encuentran ciudades en el sistema");
+            aviso.registrarError("No se encuentran ciudades en el sistema");
         }
-        return salida;
     }
 
-    public static String existeCiudad() {
+    public static void existeCiudad() {
         int codigo;
-        String salida = "Verifica la existencia de una ciudad del sistema sin exito\n";
         if (!funcion.esVacioCiudades()) {
             System.out.println("Ingrese el codigo postal de la ciudad");
             codigo = lectura.nextInt();
-            salida = "Se informo que no se encontro la ciudad buscada en el sistema \n";
             if (funcion.existeCiudad(codigo)) {
-                System.out.println("Existe la ciudad buscada: "+ funcion.getNombreCiudad(codigo));
-                salida = "Se informo que se encontro la ciudad buscada " + funcion.getNombreCiudad(codigo) + " en el sistema \n";
+                System.out.println("Existe la ciudad buscada: " + funcion.getNombreCiudad(codigo));
+                aviso.registrarInfo("Se informo que se encontro la ciudad buscada " + funcion.getNombreCiudad(codigo) + " en el sistema");
             } else {
-                System.out.println("No existe la ciudad buscada");
+                System.out.println("No existe la ciudad " + codigo + " buscada");
+                aviso.registrarInfo("Se informo que no se encontro la ciudad buscada " + codigo + " en el sistema");
             }
+        } else {
+            System.out.println("No se encuentran ciudades ingresadas en el sistema");
+            aviso.registrarError("No se encuentran ciudades ingresadas en el sistema");
         }
-        return salida;
     }
 
-    public static String esVacioCiudades() {
-        String salida = "Se informa que no hay ciudades en el sistema\n";
+    public static void esVacioCiudades() {
         if (funcion.esVacioCiudades()) {
             System.out.println("No hay ciudades en el sistema");
+            aviso.registrarInfo("Se informa que no hay ciudades en el sistema");
         } else {
             System.out.println("Si hay ciudades en el sistema");
-            salida = "Se informa que hay ciudades en el sistema\n";
+            aviso.registrarInfo("Se informa que hay ciudades en el sistema");
         }
-        return salida;
     }
 
-    public static String mostrarCiudad() {
+    public static void mostrarCiudad() {
         int codigo;
-        String salida = "Se muestra la informacion de una ciudad en el sistema sin exito\n";
         System.out.println("Ingrese el codigo postal de la ciudad: ");
         codigo = lectura.nextInt();
         if (funcion.existeCiudad(codigo)) {
             System.out.println(funcion.mostrarCiudad(codigo));
-            salida = "Se muestra la informacion de la ciudad " + funcion.getNombreCiudad(codigo) + " en el sistema con exito\n";
+            aviso.registrarInfo("Se muestra la informacion de la ciudad " + funcion.getNombreCiudad(codigo) + " en el sistema con exito");
+        } else {
+            System.out.println("No se encuentra la ciudad " + codigo + " en el sistema");
+            aviso.registrarError("No se encuentra la ciudad " + codigo + " en el sistema");
         }
-        return salida;
     }
 
-    public static String listarRangoCiudades() {
+    public static void listarRangoCiudades() {
         int prefijo;
-        String salida = "Se enlista ciudades que comienzan con el codigo postal del sistema sin exito\n";
         System.out.println("Se ingresa un prefijo de dos digitos, para devolver una lista de ciudades cuyo codigo postal" +
                 " comienza con dicho prefijo");
         System.out.println("Ingrese el numero prefijo");
         prefijo = lectura.nextInt();
         if (sonDosDigitos(prefijo)) {
-            Lista lis = funcion.listarRangoCiudades(prefijo);
-            System.out.println("Lista de las ciudades en base al rangp del prefijo ingresado: \n" + lis.toString());
-            salida = "Se enlista ciudades que comienzan con el perfijo " + prefijo + " en el codigo postal del sistema con exito: \n" + lis.toString() + "\n";
+            if (!funcion.esVacioCiudades()) {
+                Lista lis = funcion.listarRangoCiudades(prefijo);
+                System.out.println("Lista de las ciudades en base al rango del prefijo ingresado: \n" + lis.toString());
+                aviso.registrarInfo("Se enlista ciudades que comienzan con el perfijo " + prefijo + " en el codigo postal del sistema con exito");
+            } else {
+                System.out.println("No se encuentra nunguna ciudad en el sistema");
+                aviso.registrarError("No se encuentra ninguna ciudad en el sistema");
+            }
+        } else {
+            System.out.println("Se enlista ciudades que comienzan con el codigo postal del sistema sin exito");
+            aviso.registrarError("Se enlista ciudades que comienzan con el codigo postal del sistema sin exito");
         }
-        return salida;
     }
 
-    public static String vaciarCiudades() {
-        String salida = "Se borran las ciudades del sistema sin exito\n";
+    public static void vaciarCiudades() {
         if (funcion.vaciarCiudades()) {
             System.out.println("Se borraron las ciudades del sistema");
-            salida = "Se informa que se borran las ciudades del sistema con exito\n";
+            aviso.registrarInfo("Se informa que se borran las ciudades del sistema con exito");
+        } else {
+            System.out.println("Se borran las ciudades del sistema sin exito");
+            aviso.registrarError("Se borran las ciudades del sistema sin exito");
         }
-        return salida;
     }
 
     private static boolean sonDosDigitos(int num) {
@@ -568,27 +578,17 @@ public class MudanzasCompartidas {
     }
 
 
-    public static String ABMRedDeRutas() {
+    public static void ABMRedDeRutas() {
         int opcion;
-        String cad = "";
-        int opcionAnterior;
-        System.out.println("Antes de seguir se debe haber cargado el sistema Ciudades con la opcion 2 o hacer la carga inicial con la opcion 1");
-        System.out.println("Quiere seguir adelante?");
-        System.out.println("1 - Si");
-        System.out.println("0 - No");
-        opcionAnterior = lectura.nextInt();
-        if (opcionAnterior == 1) {
+        menuABMRedDeRutas();
+        opcion = lectura.nextInt();
+        while (opcion != 8) {
+            opcionesABMRedDeRutas(opcion);
             menuABMRedDeRutas();
             opcion = lectura.nextInt();
-            while (opcion != 8) {
-                cad = cad + opcionesABMRedDeRutas(opcion);
-                menuABMCiudades();
-                opcion = lectura.nextInt();
-            }
-        } else {
-            cad = "Regresa de nuevo al menu principal ya que no ha ingresado ninguna ciudad en el sistema\n";
         }
-        return cad;
+        System.out.println("Se termina de ejecutar ABMRedDeRutas");
+        aviso.registrarInfo("Se termina de ejecutar ABMRedDeRutas");
     }
 
     public static void menuABMRedDeRutas() {
@@ -602,216 +602,284 @@ public class MudanzasCompartidas {
         System.out.println("8 - Volver al menu principal");
     }
 
-    public static String opcionesABMRedDeRutas(int opcion) {
-        String cad = "";
+    public static void opcionesABMRedDeRutas(int opcion) {
         switch (opcion) {
             case 1:
-                cad = insertarRutaSistema();
+                insertarRutaSistema();
                 break;
             case 2:
-                cad = eliminarRutaSistema();
+                eliminarRutaSistema();
                 break;
             case 3:
-                cad = existeRuta();
+                existeRuta();
                 break;
             case 4:
-                cad = existeCamino();
+                existeCamino();
                 break;
             case 5:
-                cad = esVacioRutas();
+                esVacioRutas();
                 break;
             case 6:
-                cad = listarCaminoCortoCiudades();
+                listarCaminoCortoCiudades();
                 break;
             case 7:
-                cad = listarCaminoCortoDistancias();
+                listarCaminoCortoDistancias();
                 break;
             default:
                 System.out.println("Numero ingresado incorrecto, intentalo de nuevo");
-                cad = "Ingresa un numero erroneo en la eleccion de opciones de ABM Red de Rutas\n";
+                aviso.registrarInfo("Ingresa un numero erroneo en la eleccion de opciones de ABM Red de Rutas");
                 break;
         }
-        return cad;
     }
 
-    public static String insertarRutaSistema() {
+    public static void insertarRutaSistema() {
         int codOrigen, codDestino;
         double etiqueta;
-        String salida = "Se inserta una ruta sin exito\n";
         System.out.println("Ingrese el codigo de la ciudad origen:");
         codOrigen = lectura.nextInt();
         System.out.println("Ingrese el codigo de la ciudad destino:");
         codDestino = lectura.nextInt();
         if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
-            System.out.println("Ingrese la distancia de entre las ciudades: ");
-            etiqueta = lectura.nextDouble();
-            if (funcion.insertarRuta(codOrigen, codDestino, etiqueta)) {
-                System.out.println("Se ingreso una ruta con exito entre "+ funcion.getNombreCiudad(codOrigen) + " y " + funcion.getNombreCiudad(codDestino));
-                salida = "Se inserta una ruta entre las ciudades de " + funcion.getNombreCiudad(codOrigen) + " y " + funcion.getNombreCiudad(codDestino) + " con exito\n";
+            if (funcion.existeRuta(codOrigen, codDestino)) {
+                System.out.println("Existe una ruta entre " + codOrigen + " y " + codDestino);
+                aviso.registrarError("Existe una ruta entre " + codOrigen + " y " + codDestino);
+            } else {
+                System.out.println("Ingrese la distancia de entre las ciudades: ");
+                etiqueta = lectura.nextDouble();
+                if (funcion.insertarRuta(codOrigen, codDestino, etiqueta)) {
+                    System.out.println("Se ingreso una ruta con exito entre " + codOrigen + " y " + codDestino);
+                    aviso.registrarInfo("Se inserta una ruta entre las ciudades de " + codOrigen + " y " + codDestino + " con exito");
+                }
             }
+        } else {
+            System.out.println("Se inserta una ruta sin exito");
+            aviso.registrarError("Se inserta una ruta sin exito");
         }
-        return salida;
     }
 
-    public static String eliminarRutaSistema() {
-        String salida = "Se elimino una ruta sin exito\n";
+    public static void eliminarRutaSistema() {
         System.out.println("Ingrese el codigo de la ciudad origen:");
         int codOrigen = lectura.nextInt();
         System.out.println("Ingrese el codigo de la ciudad origen:");
         int codDestino = lectura.nextInt();
         boolean exito = false;
         if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
-            exito = funcion.eliminarRuta(codOrigen, codDestino);
+            if (funcion.existeRuta(codOrigen, codDestino)) {
+                exito = funcion.eliminarRuta(codOrigen, codDestino);
+            } else {
+                System.out.println("No existe la ruta entre " + codOrigen + " y " + codDestino);
+                aviso.registrarError("No existe la ruta entre " + codOrigen + " y " + codDestino);
+            }
         }
         if (exito) {
-            System.out.println("Se elimino la ruta entre "+ funcion.getNombreCiudad(codOrigen) + " y " + funcion.getNombreCiudad(codDestino) +": " + exito);
-            salida = "Se elimino una ruta entre las ciudades de " + funcion.getNombreCiudad(codOrigen) + " y " + funcion.getNombreCiudad(codDestino) + " con exito\n";
+            System.out.println("Se elimino la ruta entre " + codOrigen + " y " + codDestino + ": " + exito);
+            aviso.registrarInfo("Se elimino una ruta entre las ciudades de " + codOrigen + " y " + codDestino + " con exito");
+        } else {
+            System.out.println("Se elimino una ruta sin exito entre " + codOrigen + " y " + codDestino);
+            aviso.registrarError("Se elimino una ruta sin exito entre " + codOrigen + " y " + codDestino);
         }
-        return salida;
     }
 
-    public static String existeRuta() {
+    public static void existeRuta() {
         int codOrigen, codDestino;
-        boolean exito;
-        String salida = "Verifica la existencia de una ruta entre dos ciudades del sistema sin exito\n";
         if (!funcion.esVacioCiudades()) {
             System.out.println("Ingrese el codigo postal de la ciudad");
             codOrigen = lectura.nextInt();
             System.out.println("Ingrese el codigo postal de la ciudad");
             codDestino = lectura.nextInt();
             if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
-                exito = funcion.existeRuta(codOrigen, codDestino);
-                if (exito) {
-                    System.out.println("Existe una ruta entre la ciudad "+ funcion.getNombreCiudad(codOrigen)
-                            + " y " + funcion.getNombreCiudad(codDestino));
-                    salida = "Se informo que se encontro una ruta entre las ciudades " + funcion.getNombreCiudad(codOrigen)
-                            + " y " + funcion.getNombreCiudad(codDestino) + "en el sistema \n";
+                if (funcion.existeRuta(codOrigen, codDestino)) {
+                    System.out.println("Existe una ruta entre la ciudad " + codOrigen + " y " + codDestino);
+                    aviso.registrarInfo("Se informo que se encontro una ruta entre las ciudades " + codOrigen + " y " + codDestino + "en el sistema ");
+                } else {
+                    System.out.println("No existe la ruta entre " + codOrigen + " y " + codDestino);
+                    aviso.registrarError("No existe la ruta entre " + codOrigen + " y " + codDestino);
                 }
+            } else {
+                System.out.println("Verifica la existencia de una ruta entre dos ciudades del sistema sin exito");
+                aviso.registrarError("Verifica la existencia de una ruta entre dos ciudades del sistema sin exito");
             }
+        } else {
+            System.out.println("No se encuentran ciudades ingresadas en el sistema");
+            aviso.registrarError("No se encuentran ciudades ingresadas en el sistema");
         }
-        return salida;
     }
 
-    public static String existeCamino() {
+    public static void existeCamino() {
         int codOrigen, codDestino;
-        String salida = "Verifica si existe un camino de una ciudad a otra en el sistema sin exito\n";
         System.out.println("Ingrese el numero codigo postal de la ciudad de origen");
         codOrigen = lectura.nextInt();
         System.out.println("Ingrese el numero codigo postal de la ciudad de origen");
         codDestino = lectura.nextInt();
-        if (sonDosDigitos(codOrigen) && esCodigoPostal(codDestino)) {
+        if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
             if (funcion.existeCamino(codOrigen, codDestino)) {
-                System.out.println("Existe un camino de la ciudad " + funcion.getNombreCiudad(codOrigen)
-                        + " a la ciudad " + funcion.getNombreCiudad(codDestino));
-                salida = "Se informo que se encontro una camino de la ciudad " + funcion.getNombreCiudad(codOrigen)
-                        + " a la ciudad " + funcion.getNombreCiudad(codDestino) + "en el sistema \n";
+                System.out.println("Existe un camino de la ciudad " + codOrigen + " y " + codDestino);
+                aviso.registrarInfo("Se informo que se encontro una camino de la ciudad " + codOrigen + " y " + codDestino + " en el sistema");
+            } else {
+                System.out.println("No se encuentra la ruta entre " + codOrigen + " y " + codDestino);
+                aviso.registrarError("No se encuentra la ruta entre " + codOrigen + " y " + codDestino);
             }
+        } else {
+            System.out.println("Verifica si existe un camino de ciudad " + codOrigen + " y " + codDestino + " en el sistema sin exito");
+            aviso.registrarError("Verifica si existe un camino de ciudad " + codOrigen + " y " + codDestino + " en el sistema sin exito");
         }
-        return salida;
     }
 
-    public static String esVacioRutas() {
-        String salida = "Se informa que no hay ciudades en el sistema\n";
+    public static void esVacioRutas() {
         if (funcion.esVacioCiudades()) {
+            aviso.registrarInfo("Se informa que no hay ciudades en el sistema");
             System.out.println("No hay ciudades en el sistema");
         } else {
             System.out.println("Si hay ciudades en el sistema");
-            salida = "Se informa que hay ciudades en el sistema\n";
+            aviso.registrarInfo("Se informa que hay ciudades en el sistema");
         }
-        return salida;
     }
 
-    public static String listarCaminoCortoCiudades() {
-        String salida = "Se enlista las ciudades que forman el camino corto entre dos ciudades del sistema sin exito\n";
+    public static void listarCaminoCortoCiudades() {
         Lista lis;
         if (!funcion.esVacioCiudades()) {
             System.out.println("Ingrese el codigo postal de la ciudad de origen: ");
             int codOrigen = lectura.nextInt();
-            if (esCodigoPostal(codOrigen)) {
-                System.out.println("Ingrese el codigo postal de la ciudad de destino: ");
-                int codDestino = lectura.nextInt();
-                lis = funcion.caminoCortoCiudades(codOrigen, codDestino);
-                System.out.println("Lista de los ciudaes que forma el camino corto entre dos ciudades buscadas del sistema: \n" + lis.toString());
-                salida = "Se enlista y se muestran las ciudades que forman el camino corto desde "
-                        + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
-                        + " del sistema con exito: \n" + lis.toString() + "\n";
+            System.out.println("Ingrese el codigo postal de la ciudad de destino: ");
+            int codDestino = lectura.nextInt();
+            if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
+                if (funcion.existeCiudad(codOrigen) && funcion.existeCiudad(codDestino)) {
+                    lis = funcion.caminoCortoCiudades(codOrigen, codDestino);
+                    if (lis.esVacia()) {
+                        System.out.println("No se encuentra un camino entre " + codOrigen + " y " + codDestino);
+                        aviso.registrarError("No se encuentra un camino entre " + codOrigen + " y " + codDestino);
+                    } else {
+                        System.out.println("Lista de los ciudaes que forma el camino corto entre dos ciudades buscadas del sistema: \n" + lis.toString());
+                        aviso.registrarInfo("Se enlista y se muestran las ciudades que forman el camino corto desde " + codOrigen + " a " + codDestino + " del sistema con exito");
+                    }
+                } else {
+                    System.out.println("No se encuentra ciudades ingresdas en el sistema");
+                    aviso.registrarError("No se encuentra ciudades ingresadas en el sistema");
+                }
+            } else {
+                System.out.println("Se enlista las ciudades que forman el camino corto entre " + codOrigen + " a " + codDestino + " del sistema sin exito");
+                aviso.registrarError("Se enlista las ciudades que forman el camino corto entre dos ciudades del sistema sin exito");
             }
+        } else {
+            System.out.println("No hay ciudades ingresdas en el sistema");
+            aviso.registrarError("No hay ciudades ingresadas en el sistema");
         }
-        return salida;
     }
 
-    public static String listarCaminoCortoDistancias() {
-        String salida = "Se enlista las ciudades que forman el camino corto entre dos ciudades del sistema sin exito\n";
+    public static void listarCaminoCortoDistancias() {
         Lista lis;
         if (!funcion.esVacioCiudades()) {
             System.out.println("Ingrese el codigo postal de la ciudad de origen: ");
             int codOrigen = lectura.nextInt();
-            if (esCodigoPostal(codOrigen)) {
-                System.out.println("Ingrese el codigo postal de la ciudad de destino: ");
-                int codDestino = lectura.nextInt();
-                lis = funcion.caminoCortoDistancia(codOrigen, codDestino);
-                System.out.println("Lista de los ciudaes que forma el camino corto entre dos ciudades buscadas del sistema: \n" + lis.toString());
-                salida = "Se enlista y se muestran las ciudades que forman el camino corto desde "
-                        + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
-                        + " del sistema con exito: \n" + lis.toString() + "\n";
+            System.out.println("Ingrese el codigo postal de la ciudad de destino: ");
+            int codDestino = lectura.nextInt();
+            if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
+                if (funcion.existeCiudad(codOrigen) && funcion.existeCiudad(codDestino)) {
+                    lis = funcion.caminoCortoDistancia(codOrigen, codDestino);
+                    if (lis.esVacia()) {
+                        System.out.println("Se enlista las ciudades que forman el camino corto entre dos ciudades del sistema sin exito");
+                        aviso.registrarError("Se enlista las ciudades que forman el camino corto entre dos ciudades del sistema sin exito");
+                    } else {
+                        System.out.println("Lista de los ciudaes que forma el camino corto entre dos ciudades buscadas del sistema: \n" + lis.toString());
+                        aviso.registrarInfo("Se enlista y se muestran las ciudades que forman el camino corto desde "
+                                + codOrigen + " a " + codDestino + " del sistema con exito");
+                    }
+                } else {
+                    System.out.println("No se encuentran las ciudades " + codOrigen + " a " + codDestino);
+                    aviso.registrarError("No se encuentran las ciudades " + codOrigen + " a " + codDestino);
+                }
+            } else {
+                System.out.println("Se enlista las ciudades que forman el camino corto entre dos ciudades del sistema sin exito");
+                aviso.registrarError("Se enlista las ciudades que forman el camino corto entre dos ciudades del sistema sin exito");
             }
+        } else {
+            System.out.println("No hay ciudades en el sistema");
+            aviso.registrarError("No hay ciudades en el sistema");
         }
-        return salida;
     }
 
 
-    public static String ABMClientes() {
+    public static void ABMClientes() {
         int opcion;
-        String cad = "";
         menuABMClientes();
         opcion = lectura.nextInt();
-        while (opcion != 6) {
-            cad = cad + opcionesABMClientes(opcion);
+        while (opcion != 14) {
+            opcionesABMClientes(opcion);
             menuABMClientes();
             opcion = lectura.nextInt();
         }
-        return cad;
+        System.out.println("Se termina de ejecutar ABMClientes");
+        aviso.registrarInfo("Se termina de ejecutar ABMClientes");
     }
 
     public static void menuABMClientes() {
         System.out.println("1 - Insertar un Cliente en el sistema");
         System.out.println("2 - Eliminar un Cliente en el sistema");
-        System.out.println("3 - Verificar si existe un cliente en el sistema");
-        System.out.println("4 - Muestra la informacion de un cliente en el sistema");
-        System.out.println("5 - Verificar si esta vacio de clientes en el sistema");
-        System.out.println("6 - Volver al menu principal");
+        System.out.println("3 - Obtener el nombre de un cliente en el sistema");
+        System.out.println("4 - Modificar el nombre de un cliente en el sistema");
+        System.out.println("5 - Obtener el apellido de un cliente en el sistema");
+        System.out.println("6 - Modificar el apellido de un cliente en el sistema");
+        System.out.println("7 - Obtener el telefono de un cliente en el sistema");
+        System.out.println("8 - Modificar el telefono de un cliente en el sistema");
+        System.out.println("9 - Obtener el email de un cliente en el sistema");
+        System.out.println("10 - Modificar el email de un cliente en el sistema");
+        System.out.println("11 - Verificar si existe un cliente en el sistema");
+        System.out.println("12 - Muestra la informacion de un cliente en el sistema");
+        System.out.println("13 - Verificar si esta vacio de clientes en el sistema");
+        System.out.println("14 - Volver al menu principal");
     }
 
-    public static String opcionesABMClientes(int opcion) {
-        String cad = "";
+    public static void opcionesABMClientes(int opcion) {
         switch (opcion) {
             case 1:
-                cad = insertarCliente();
+                insertarCliente();
                 break;
             case 2:
-                cad = eliminarCliente();
+                eliminarCliente();
                 break;
             case 3:
-                cad = existeCliente();
+                getNombreCliente();
                 break;
             case 4:
-                cad = mostrarCliente();
+                setNombreCliente();
                 break;
             case 5:
-                cad = esVacioClientes();
+                getApellidoCliente();
+                break;
+            case 6:
+                setApellidoCliente();
+                break;
+            case 7:
+                getTelefonoCliente();
+                break;
+            case 8:
+                setTelefonoCliente();
+                break;
+            case 9:
+                getEmailCliente();
+                break;
+            case 10:
+                setEmailCliente();
+                break;
+            case 11:
+                existeCliente();
+                break;
+            case 12:
+                mostrarCliente();
+                break;
+            case 13:
+                esVacioClientes();
                 break;
             default:
                 System.out.println("Numero ingresado incorrecto, intentalo de nuevo");
-                cad = "Ingresa un numero erroneo en la eleccion de opciones de ABM Clientes\n";
+                aviso.registrarInfo("Ingresa un numero erroneo en la eleccion de opciones de ABM Clientes");
                 break;
         }
-        return cad;
     }
 
-    public static String insertarCliente() {
+    public static void insertarCliente() {
         int tipoDoc, numDoc, telefono;
         String nombre, apellido, email;
-        String salida = "Se inserta un cliente sin exito\n";
         listaDeDocumentos();
         tipoDoc = lectura.nextInt();
         System.out.println("Ingrese el numero del documento:");
@@ -826,11 +894,13 @@ public class MudanzasCompartidas {
             System.out.println("Ingrese el email del cliente:");
             email = lectura.next().toUpperCase();
             if (funcion.insertarCliente(tipoDoc, numDoc, nombre, apellido, telefono, email)) {
-                System.out.println("Se ingreso el cliente "+ nombre + " con exito");
-                salida = "Se inserta el cliente " + nombre + " con exito\n";
+                System.out.println("Se ingreso el cliente " + nombre + " con exito");
+                aviso.registrarInfo("Se inserta el cliente " + nombre + " con exito");
             }
+        } else {
+            System.out.println("Existe cliente de tipo de documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+            aviso.registrarError("Existe cliente de tipo de documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
         }
-        return salida;
     }
 
     private static void listaDeDocumentos() {
@@ -842,85 +912,234 @@ public class MudanzasCompartidas {
         System.out.println("5 - Certificado de nacionalidad con foto (CNF)");
     }
 
-    public static String eliminarCliente() {
+    public static void eliminarCliente() {
         int tipoDoc, numDoc;
-        String nombre;
-        String salida = "Se elimina un cliente sin exito\n";
         listaDeDocumentos();
         tipoDoc = lectura.nextInt();
         System.out.println("Ingrese el numero del documento:");
         numDoc = lectura.nextInt();
         if (funcion.existeCliente(tipoDoc, numDoc)) {
-            nombre = funcion.getNombreCliente(tipoDoc, numDoc);
             if (funcion.eliminarCliente(tipoDoc, numDoc)) {
-                System.out.println("Se elimina el cliente "+ nombre + " con exito");
-                salida = "Se elimina el cliente " + nombre + " con exito\n";
+                System.out.println("Se elimina el cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " con exito");
+                aviso.registrarInfo("Se elimina el cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " con exito");
+            } else {
+                System.out.println("Se elimina un cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+                aviso.registrarError("Se elimina un cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
             }
+        } else {
+            System.out.println("No existe cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
         }
-        return salida;
     }
 
-    public static String existeCliente() {
+    public static void getNombreCliente() {
         int tipoDoc, numDoc;
-        String salida = "Verifica la existencia de un cliente del sistema sin exito\n";
         listaDeDocumentos();
         tipoDoc = lectura.nextInt();
         System.out.println("Ingresa el numero del documento:");
         numDoc = lectura.nextInt();
         if (funcion.existeCliente(tipoDoc, numDoc)) {
-            System.out.println("Existe el cliente buscado: " + funcion.getNombreCliente(tipoDoc, numDoc));
-            salida = "Se informo que se encontro al cliente buscado " + funcion.getNombreCliente(tipoDoc, numDoc) + " en el sistema \n";
+            System.out.println("Nombre del cliente buscado: " + funcion.getNombreCliente(tipoDoc, numDoc));
+            aviso.registrarInfo("Se encuentra y se muestra el nombre de cliente buscado de tipo documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+        } else {
+            System.out.println("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
         }
-        return salida;
     }
 
-    public static String mostrarCliente() {
+    public static void setNombreCliente() {
+        String nombre;
         int tipoDoc, numDoc;
-        String salida = "Muestra de la informacion de un cliente del sistema sin exito\n";
+        listaDeDocumentos();
+        tipoDoc = lectura.nextInt();
+        System.out.println("Ingresa el numero del documento:");
+        numDoc = lectura.nextInt();
+        String t = lectura.nextLine();
+        if (funcion.existeCliente(tipoDoc, numDoc)) {
+            System.out.println("Ingrese el nuevo nombre del cliente:");
+            lectura.hasNextLine();
+            nombre = lectura.nextLine();
+            nombre = nombre.toUpperCase();
+            if (funcion.setNombreCliente(tipoDoc, numDoc, nombre)) {
+                System.out.println("Se cambio el nombre del cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+                aviso.registrarInfo("Se cambia el nombre de cliente buscado de tipo documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+            } else {
+                System.out.println("Cambio del nombre del cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+                aviso.registrarError("Cambio del nombre del cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+            }
+        } else {
+            System.out.println("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+        }
+    }
+
+    public static void getApellidoCliente() {
+        int tipoDoc, numDoc;
+        listaDeDocumentos();
+        tipoDoc = lectura.nextInt();
+        System.out.println("Ingresa el numero del documento:");
+        numDoc = lectura.nextInt();
+        if (funcion.existeCliente(tipoDoc, numDoc)) {
+            System.out.println("Nombre del cliente buscado: " + funcion.getApellidoCliente(tipoDoc, numDoc));
+            aviso.registrarInfo("Se encuentra y se muestra el apellido de cliente buscado de tipo documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+        } else {
+            System.out.println("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+        }
+    }
+
+    public static void setApellidoCliente() {
+        String apellido;
+        int tipoDoc, numDoc;
+        listaDeDocumentos();
+        tipoDoc = lectura.nextInt();
+        System.out.println("Ingresa el numero del documento:");
+        numDoc = lectura.nextInt();
+        String t = lectura.nextLine();
+        if (funcion.existeCliente(tipoDoc, numDoc)) {
+            System.out.println("Ingrese el nuevo apellido del cliente:");
+            apellido = lectura.nextLine().toUpperCase();
+            if (funcion.setApellidoCliente(tipoDoc, numDoc, apellido)) {
+                System.out.println("Se cambio el apellido del cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+                aviso.registrarInfo("Se cambia el apellido de cliente buscado de tipo documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+            } else {
+                System.out.println("Cambio del apellido del cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+                aviso.registrarError("Cambio del apellido del cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+            }
+        } else {
+            System.out.println("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+        }
+    }
+
+    public static void getTelefonoCliente() {
+        int tipoDoc, numDoc;
+        listaDeDocumentos();
+        tipoDoc = lectura.nextInt();
+        System.out.println("Ingresa el numero del documento:");
+        numDoc = lectura.nextInt();
+        if (funcion.existeCliente(tipoDoc, numDoc)) {
+            System.out.println("Telefono del cliente buscado: " + funcion.getTelefonoCliente(tipoDoc, numDoc));
+            aviso.registrarInfo("Se encuentra y se muestra el telefono de cliente buscado de tipo documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+        } else {
+            System.out.println("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+        }
+    }
+
+    public static void setTelefonoCliente() {
+        int telefono;
+        int tipoDoc, numDoc;
+        listaDeDocumentos();
+        tipoDoc = lectura.nextInt();
+        System.out.println("Ingresa el numero del documento:");
+        numDoc = lectura.nextInt();
+        if (funcion.existeCliente(tipoDoc, numDoc)) {
+            System.out.println("Ingrese el nuevo telefono del cliente:");
+            telefono = lectura.nextInt();
+            if (funcion.setTelefonoCliente(tipoDoc, numDoc, telefono)) {
+                System.out.println("Se cambio el telefono del cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+                aviso.registrarInfo("Se cambia el telefono de cliente buscado de tipo documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+            } else {
+                System.out.println("Cambio del telefono del cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+                aviso.registrarError("Cambio del telefono del cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+            }
+        } else {
+            System.out.println("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+        }
+    }
+
+    public static void getEmailCliente() {
+        int tipoDoc, numDoc;
+        listaDeDocumentos();
+        tipoDoc = lectura.nextInt();
+        System.out.println("Ingresa el numero del documento:");
+        numDoc = lectura.nextInt();
+        if (funcion.existeCliente(tipoDoc, numDoc)) {
+            System.out.println("Email del cliente buscado: " + funcion.getEmailCliente(tipoDoc, numDoc));
+            aviso.registrarInfo("Se encuentra y se muestra el email de cliente buscado de tipo documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+        } else {
+            System.out.println("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+        }
+    }
+
+    public static void setEmailCliente() {
+        String email;
+        int tipoDoc, numDoc;
+        listaDeDocumentos();
+        tipoDoc = lectura.nextInt();
+        System.out.println("Ingresa el numero del documento:");
+        numDoc = lectura.nextInt();
+        String t = lectura.nextLine();
+        if (funcion.existeCliente(tipoDoc, numDoc)) {
+            System.out.println("Ingrese el nuevo email del cliente:");
+            email = lectura.nextLine().toUpperCase();
+            if (funcion.setEmailCliente(tipoDoc, numDoc, email)) {
+                System.out.println("Se cambio el email del cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+                aviso.registrarInfo("Se cambia el email de cliente buscado de tipo documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+            } else {
+                System.out.println("Cambio del email del cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+                aviso.registrarError("Cambio del email del cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+            }
+        } else {
+            System.out.println("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+        }
+    }
+
+    public static void existeCliente() {
+        int tipoDoc, numDoc;
+        listaDeDocumentos();
+        tipoDoc = lectura.nextInt();
+        System.out.println("Ingresa el numero del documento:");
+        numDoc = lectura.nextInt();
+        if (funcion.existeCliente(tipoDoc, numDoc)) {
+            System.out.println("Existe el cliente buscado de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarInfo("Se informo que se encontro al cliente buscado de tipo documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+        } else {
+            System.out.println("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No existe un cliente de tipo documento " + tipoDoc + " y numero " + numDoc);
+        }
+    }
+
+    public static void mostrarCliente() {
+        int tipoDoc, numDoc;
         listaDeDocumentos();
         tipoDoc = lectura.nextInt();
         System.out.println("Ingresa el numero del documento:");
         numDoc = lectura.nextInt();
         if (funcion.existeCliente(tipoDoc, numDoc)) {
             System.out.println("Cliente buscado: \n" + funcion.mostrarCliente(tipoDoc, numDoc));
-            salida = "Se mostro informacion de cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " en el sistema \n";
+            aviso.registrarInfo("Se mostro informacion de cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " en el sistema");
+        } else {
+            System.out.println("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+            aviso.registrarError("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
         }
-        return salida;
     }
 
-    public static String esVacioClientes() {
-        String salida = "Se informa que no hay clientes en el sistema\n";
+    public static void esVacioClientes() {
         if (funcion.esVacioClientes()) {
             System.out.println("No hay clientes en el sistema");
+            aviso.registrarInfo("Se informa que no hay clientes en el sistema");
         } else {
             System.out.println("Si hay clientes en el sistema");
-            salida = "Se informa que hay clientes en el sistema\n";
+            aviso.registrarInfo("Se informa que hay clientes en el sistema");
         }
-        return salida;
     }
 
-    public static String ABMPedidos() {
+    public static void ABMPedidos() {
         int opcion;
-        String cad = "";
-        int opcionAnterior;
-        System.out.println("Antes de seguir se debe haber cargado manualmente el sistema Ciudades con la opcion 2 y el sistema Clientes de " +
-                "la opcion 4 o hacer la carga inicial con el lote fijo con la opcion 1");
-        System.out.println("Quiere seguir adelante?");
-        System.out.println("1 - Si");
-        System.out.println("0 - No");
-        opcionAnterior = lectura.nextInt();
-        if (opcionAnterior == 1) {
-            menuABMRedDeRutas();
+        menuABMPedidos();
+        opcion = lectura.nextInt();
+        while (opcion != 11) {
+            opcionesABMPedidos(opcion);
+            menuABMPedidos();
             opcion = lectura.nextInt();
-            while (opcion != 8) {
-                cad = cad + opcionesABMPedidos(opcion);
-                menuABMCiudades();
-                opcion = lectura.nextInt();
-            }
-        } else {
-            cad = "Regresa de nuevo al menu principal ya que no ha ingresado ninguna ciudad en el sistema\n";
         }
-        return cad;
+        System.out.println("Se termina de ejecutar ABMPedidos");
+        aviso.registrarInfo("Se termina de ejecutar ABMPedidos");
     }
 
     public static void menuABMPedidos() {
@@ -937,83 +1156,93 @@ public class MudanzasCompartidas {
         System.out.println("11 - Volver al menu principal");
     }
 
-    public static String opcionesABMPedidos(int opcion) {
-        String cad;
+    public static void opcionesABMPedidos(int opcion) {
         switch (opcion) {
             case 1:
-                cad = insertarSolicitud();
+                insertarSolicitud();
                 break;
             case 2:
-                cad = eliminarSolicitud();
+                eliminarSolicitud();
                 break;
             case 3:
-                cad = eliminarSolicitudesCliente();
+                eliminarSolicitudesCliente();
                 break;
             case 4:
-                cad = eliminarSolicitudes();
+                eliminarSolicitudes();
                 break;
             case 5:
-                cad = existeCiudadesDeViaje();
+                existeCiudadesDeViaje();
                 break;
             case 6:
-                cad = existeClienteSolicitud();
+                existeClienteSolicitud();
                 break;
             case 7:
-                cad = existeSolicitud();
+                existeSolicitud();
                 break;
             case 8:
-                cad = esVacioSolicitudes();
+                esVacioSolicitudes();
                 break;
             case 9:
-                cad = mostrarSolicitudes();
+                mostrarSolicitudes();
                 break;
             case 10:
-                cad = esCaminoPerfecto();
+                esCaminoPerfecto();
                 break;
             default:
                 System.out.println("Numero ingresado incorrecto, intentalo de nuevo");
-                cad = "Ingresa un numero erroneo en la eleccion de opciones de ABM Pedidos\n";
+                aviso.registrarInfo("Ingresa un numero erroneo en la eleccion de opciones de ABM Pedidos");
                 break;
         }
-        return cad;
     }
 
-    public static String insertarSolicitud() {
+    public static void insertarSolicitud() {
         int codOrigen, codDestino, cantMetros, cantBultos, tipoDoc, numDoc;
         String fecha, domEntrega, domRetiro;
         boolean pago;
-        String salida = "Se inserta una solicitud de un cliente sin exito\n";
         System.out.println("Ingrese el codigo de la ciudad origen:");
         codOrigen = lectura.nextInt();
         System.out.println("Ingrese el codigo de la ciudad destino:");
         codDestino = lectura.nextInt();
         if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
-            fecha = ingresarFecha();
-            while (fecha.isEmpty()) {
+            if (funcion.existeCiudad(codOrigen) && funcion.existeCiudad(codDestino)) {
                 fecha = ingresarFecha();
+                while (fecha.isEmpty()) {
+                    fecha = ingresarFecha();
+                }
+                listaDeDocumentos();
+                tipoDoc = lectura.nextInt();
+                System.out.println("Ingrese el numero del documento:");
+                numDoc = lectura.nextInt();
+                if (funcion.existeCliente(tipoDoc, numDoc)) {
+                    System.out.println("Ingrese la cantidad de metros cuadrados del pedido:");
+                    cantMetros = lectura.nextInt();
+                    System.out.println("Ingrese la cantidad de bultos del pedido:");
+                    cantBultos = lectura.nextInt();
+                    System.out.println("Ingrese el domicilio de retiro del pedido:");
+                    domRetiro = lectura.next().toUpperCase();
+                    System.out.println("Ingrese el domicilio de entrega del pedido:");
+                    domEntrega = lectura.next().toUpperCase();
+                    System.out.println("Ingrese si el envio esta pagado (true/false):");
+                    pago = lectura.nextBoolean();
+                    if (funcion.insertarSolicitud(codOrigen, codDestino, tipoDoc, numDoc, fecha, cantMetros, cantBultos, domRetiro, domEntrega, pago)) {
+                        System.out.println("Se ingreso una solicitud de " + codOrigen + " a " + codDestino + " de cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " con exito");
+                        aviso.registrarInfo("Se ingreso una solicitud de " + codOrigen + " a " + codDestino + " de cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " con exito");
+                    } else {
+                        System.out.println("Se inserta una solicitud " + codOrigen + " a " + codDestino + " de cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+                        aviso.registrarError("Se inserta una solicitud " + codOrigen + " a " + codDestino + " de cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+                    }
+                } else {
+                    System.out.println("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+                    aviso.registrarError("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+                }
+            } else {
+                System.out.println("No se encuentran las ciudades " + codOrigen + " y " + codDestino);
+                aviso.registrarError("No se encuentra las ciudades " + codOrigen + " y " + codDestino);
             }
-            listaDeDocumentos();
-            tipoDoc = lectura.nextInt();
-            System.out.println("Ingrese el numero del documento:");
-            numDoc = lectura.nextInt();
-            System.out.println("Ingrese la cantidad de metros cuadrados del pedido:");
-            cantMetros = lectura.nextInt();
-            System.out.println("Ingrese la cantidad de bultos del pedido:");
-            cantBultos = lectura.nextInt();
-            System.out.println("Ingrese el domicilio de retiro del pedido:");
-            domRetiro = lectura.next().toUpperCase();
-            System.out.println("Ingrese el domicilio de entrega del pedido:");
-            domEntrega = lectura.next().toUpperCase();
-            System.out.println("Ingrese si el envio esta pagado (true/false):");
-            pago = lectura.hasNext();
-            if (funcion.insertarSolicitud(codOrigen, codDestino, tipoDoc, numDoc, fecha, cantMetros, cantBultos, domRetiro, domEntrega, pago)) {
-                System.out.println("Se ingreso una solicitud de "+ funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
-                        + " de cliente " + funcion.getNombreCliente(tipoDoc, numDoc) +" con exito");
-                salida = "Se inserta una solicitud de " + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
-                        + " de cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " con exito\n";
-            }
+        } else {
+            System.out.println("Se inserta una solicitud de un cliente sin exito");
+            aviso.registrarError("Se inserta una solicitud de un cliente sin exito");
         }
-        return salida;
     }
 
     private static String ingresarFecha() {
@@ -1078,199 +1307,267 @@ public class MudanzasCompartidas {
         return exito;
     }
 
-    public static String eliminarSolicitud() {
+    public static void eliminarSolicitud() {
         int codOrigen, codDestino, tipoDoc, numDoc;
         String fecha, domRetiro;
-        String salida = "Se elimina una solicitud de un cliente sin exito\n";
         System.out.println("Ingrese el codigo de la ciudad origen:");
         codOrigen = lectura.nextInt();
         System.out.println("Ingrese el codigo de la ciudad destino:");
         codDestino = lectura.nextInt();
         if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
-            fecha = ingresarFecha();
-            while (fecha.isEmpty()) {
-                fecha = ingresarFecha();
+            if (funcion.existeCiudad(codOrigen) && funcion.existeCiudad(codDestino)) {
+                listaDeDocumentos();
+                tipoDoc = lectura.nextInt();
+                System.out.println("Ingrese el numero del documento:");
+                numDoc = lectura.nextInt();
+                if (funcion.existeCliente(tipoDoc, numDoc)) {
+                    fecha = ingresarFecha();
+                    while (fecha.isEmpty()) {
+                        fecha = ingresarFecha();
+                    }
+                    System.out.println("Ingrese el domicilio de retiro del pedido:");
+                    domRetiro = lectura.next();
+                    if (funcion.eliminarSolicitud(codOrigen, codDestino, tipoDoc, numDoc, fecha, domRetiro)) {
+                        System.out.println("Se elimino una solicitud de " + codOrigen + " a " + codDestino + " de cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " con exito");
+                        aviso.registrarInfo("Se elimino una solicitud de " + codOrigen + " a " + codDestino + " de cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " con exito");
+                    } else {
+                        System.out.println("Se elimina una solicitud de " + codOrigen + " a " + codDestino + " de cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+                        aviso.registrarError("Se elimina una solicitud de " + codOrigen + " a " + codDestino + " de cliente de tipo documento " + tipoDoc + " y numero " + numDoc + " sin exito");
+                    }
+                } else {
+                    System.out.println("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+                    aviso.registrarError("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+                }
+            } else {
+                System.out.println("No se encuentran las ciudades " + codOrigen + " y " + codDestino);
+                aviso.registrarError("No se encuentra las ciudades " + codOrigen + " y " + codDestino);
             }
-            listaDeDocumentos();
-            tipoDoc = lectura.nextInt();
-            System.out.println("Ingrese el numero del documento:");
-            numDoc = lectura.nextInt();
-            System.out.println("Ingrese el domicilio de retiro del pedido:");
-            domRetiro = lectura.next();
-            if (funcion.eliminarSolicitud(codOrigen, codDestino, tipoDoc, numDoc, fecha, domRetiro)) {
-                System.out.println("Se elimino una solicitud de "+ funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
-                        + " de cliente " + funcion.getNombreCliente(tipoDoc, numDoc) +" con exito");
-                salida = "Se elimino una solicitud de " + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
-                        + " de cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " con exito\n";
-            }
+        } else {
+            System.out.println("Se elimina una solicitud de un cliente sin exito");
+            aviso.registrarError("Se elimina una solicitud de un cliente sin exito");
         }
-        return salida;
     }
 
-    public static String eliminarSolicitudesCliente() {
+    public static void eliminarSolicitudesCliente() {
         int codOrigen, codDestino, tipoDoc, numDoc;
-        String salida = "Se elimina una solicitud de un cliente sin exito\n";
         System.out.println("Ingrese el codigo de la ciudad origen:");
         codOrigen = lectura.nextInt();
         System.out.println("Ingrese el codigo de la ciudad destino:");
         codDestino = lectura.nextInt();
         if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
-            listaDeDocumentos();
-            tipoDoc = lectura.nextInt();
-            System.out.println("Ingrese el numero del documento:");
-            numDoc = lectura.nextInt();
-            if (funcion.eliminarSolicitudesCliente(codOrigen, codDestino, tipoDoc, numDoc)) {
-                System.out.println("Se elimino todas las solicitud "+ funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
-                        + " del cliente " + funcion.getNombreCliente(tipoDoc, numDoc) +" con exito");
-                salida = "Se elimino todas las solicitudes de " + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
-                        + " del cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " con exito\n";
+            if (funcion.existeCiudad(codOrigen) && funcion.existeCiudad(codDestino)) {
+                listaDeDocumentos();
+                tipoDoc = lectura.nextInt();
+                System.out.println("Ingrese el numero del documento:");
+                numDoc = lectura.nextInt();
+                if (funcion.existeCliente(tipoDoc, numDoc)) {
+                    if (funcion.eliminarSolicitudesCliente(codOrigen, codDestino, tipoDoc, numDoc)) {
+                        System.out.println("Se elimino todas las solicitud " + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
+                                + " del cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " con exito");
+                        aviso.registrarInfo("Se elimino todas las solicitudes de " + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
+                                + " del cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " con exito");
+                    } else {
+                        System.out.println("Se elimina una solicitud de un cliente sin exito");
+                        aviso.registrarError("Se elimina una solicitud de un cliente sin exito");
+                    }
+                } else {
+                    System.out.println("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+                    aviso.registrarError("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+                }
+            } else {
+
             }
+        } else {
+            System.out.println("Se elimina una solicitud de un cliente sin exito");
+            aviso.registrarError("Se elimina una solicitud de un cliente sin exito");
         }
-        return salida;
     }
 
-    public static String eliminarSolicitudes() {
+    public static void eliminarSolicitudes() {
         int codOrigen, codDestino;
-        String salida = "Se elimina una solicitud de un cliente sin exito\n";
         System.out.println("Ingrese el codigo de la ciudad origen:");
         codOrigen = lectura.nextInt();
         System.out.println("Ingrese el codigo de la ciudad destino:");
         codDestino = lectura.nextInt();
         if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
-            if (funcion.eliminarSolicitudes(codOrigen, codDestino)) {
-                System.out.println("Se eliminaron todas las solicitud del viaje de "+
-                        funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino) +" con exito");
-                salida = "Se eliminaron todas las solicitudes del viaje de " + funcion.getNombreCiudad(codOrigen) + " a " + funcion.getNombreCiudad(codDestino)
-                        + " con exito\n";
+            if (funcion.existeCiudad(codOrigen) && funcion.existeCiudad(codDestino)) {
+                if (funcion.eliminarSolicitudes(codOrigen, codDestino)) {
+                    System.out.println("Se eliminaron todas las solicitud del viaje de " + codOrigen + " a " + codDestino + " con exito");
+                    aviso.registrarInfo("Se eliminaron todas las solicitudes del viaje de " + codOrigen + " a " + codDestino + " con exito");
+                } else {
+                    System.out.println("No se encuentra la solicitud");
+                    aviso.registrarError("No se encuentra la solicitud");
+                }
+            } else {
+                System.out.println("No se encuentran las ciudades " + codOrigen + " y " + codDestino);
+                aviso.registrarError("No se encuentra las ciudades " + codOrigen + " y " + codDestino);
             }
+        } else {
+            System.out.println("Se elimina una solicitud de un cliente sin exito");
+            aviso.registrarError("Se elimina una solicitud de un cliente sin exito");
         }
-        return salida;
     }
 
-    public static String existeCiudadesDeViaje() {
+    public static void existeCiudadesDeViaje() {
         int codOrigen, codDestino;
-        String salida = "Verifica la existencia de la solicitud un viaje del sistema sin exito\n";
         System.out.println("Ingrese el codigo postal de la ciudad origen:");
         codOrigen = lectura.nextInt();
         System.out.println("Ingresa el codigo postal de la ciudad destino:");
         codDestino = lectura.nextInt();
         if (funcion.existeCiudadesDeViaje(codOrigen, codDestino)) {
-            System.out.println("Existe una solicitud del viaje de " + funcion.getNombreCiudad(codOrigen) +
-                    " a " + funcion.getNombreCiudad(codDestino));
-            salida = "Se informo que se encontro una solicitud de un viaje de " + funcion.getNombreCiudad(codOrigen) +
-                    " a " + funcion.getNombreCiudad(codDestino) + " en el sistema \n";
+            System.out.println("Existe una solicitud del viaje de " + codOrigen + " y " + codDestino);
+            aviso.registrarInfo("Se informo que se encontro una solicitud de un viaje de " + codOrigen + " y " + codDestino + " en el sistema");
+        } else {
+            System.out.println("No existe una solicitud de viaje entre " + codOrigen + " y " + codDestino);
+            aviso.registrarError("No existe una solicitud de viaje entre " + codOrigen + " y " + codDestino);
         }
-        return salida;
     }
 
-    public static String existeClienteSolicitud() {
+    public static void existeClienteSolicitud() {
         int codOrigen, codDestino, tipoDoc, numDoc;
-        String salida = "Verifica la existencia de alguna solicitud de un cliente de un viaje del sistema sin exito\n";
         System.out.println("Ingrese el codigo postal de la ciudad origen:");
         codOrigen = lectura.nextInt();
         System.out.println("Ingrese el codigo postal de la ciudad destino:");
         codDestino = lectura.nextInt();
-        listaDeDocumentos();
-        tipoDoc = lectura.nextInt();
-        System.out.println("Ingrese el numero del documento:");
-        numDoc = lectura.nextInt();
-        if (funcion.existeClienteSolicitud(codOrigen, codDestino, tipoDoc, numDoc)) {
-            System.out.println("Existen solicitudes del cliente "+funcion.getNombreCliente(tipoDoc,numDoc) +
-                    " de un viaje de " + funcion.getNombreCiudad(codOrigen) +" a " + funcion.getNombreCiudad(codDestino));
-            salida = "Se informo que se encontraron solicitudes del cliente " + funcion.getNombreCliente(tipoDoc,numDoc) + " de un viaje de " + funcion.getNombreCiudad(codOrigen) +
-                    " a " + funcion.getNombreCiudad(codDestino) + " en el sistema \n";
+        if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
+            if (funcion.existeCiudad(codOrigen) && funcion.existeCiudad(codDestino)) {
+                listaDeDocumentos();
+                tipoDoc = lectura.nextInt();
+                System.out.println("Ingrese el numero del documento:");
+                numDoc = lectura.nextInt();
+                if (funcion.existeCliente(tipoDoc, numDoc)) {
+                    if (funcion.existeClienteSolicitud(codOrigen, codDestino, tipoDoc, numDoc)) {
+                        System.out.println("Existen solicitudes del cliente de tipo documento " + tipoDoc + " y numero " + numDoc +
+                                " de un viaje de " + codOrigen + " a " + codDestino);
+                        aviso.registrarInfo("Se informo que se encontraron solicitudes del cliente de tipo documento " + tipoDoc + " y numero " + numDoc +
+                                " de un viaje de " + codOrigen + " a " + codDestino + " en el sistema");
+                    } else {
+                        System.out.println("Verifica la existencia de alguna solicitud de un cliente de un viaje del sistema sin exito");
+                        aviso.registrarError("Verifica la existencia de alguna solicitud de un cliente de un viaje del sistema sin exito");
+                    }
+                } else {
+                    System.out.println("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+                    aviso.registrarError("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+                }
+            } else {
+                System.out.println("No se encuentran las ciudades " + codOrigen + " y " + codDestino);
+                aviso.registrarError("No se encuentra las ciudades " + codOrigen + " y " + codDestino);
+            }
+        } else {
+            System.out.println("Verifica la existencia de alguna solicitud de un cliente de un viaje del sistema sin exito");
+            aviso.registrarError("Verifica la existencia de alguna solicitud de un cliente de un viaje del sistema sin exito");
         }
-        return salida;
     }
 
-    public static String existeSolicitud() {
+    public static void existeSolicitud() {
         int codOrigen, codDestino, tipoDoc, numDoc;
         String domRetiro, fecha;
-        String salida = "Verifica la existencia de una solicitud de un cliente de un viaje del sistema sin exito\n";
         System.out.println("Ingrese el codigo postal de la ciudad origen:");
         codOrigen = lectura.nextInt();
         System.out.println("Ingrese el codigo postal de la ciudad destino:");
         codDestino = lectura.nextInt();
-        listaDeDocumentos();
-        tipoDoc = lectura.nextInt();
-        System.out.println("Ingrese el numero del documento:");
-        numDoc = lectura.nextInt();
-        fecha = ingresarFecha();
-        while (fecha.isEmpty()) {
-            fecha = ingresarFecha();
+        if (esCodigoPostal(codOrigen) && esCodigoPostal(codDestino)) {
+            if (funcion.existeCiudad(codOrigen) && funcion.existeCiudad(codDestino)) {
+                listaDeDocumentos();
+                tipoDoc = lectura.nextInt();
+                System.out.println("Ingrese el numero del documento:");
+                numDoc = lectura.nextInt();
+                if (funcion.existeCliente(tipoDoc, numDoc)) {
+                    fecha = ingresarFecha();
+                    while (fecha.isEmpty()) {
+                        fecha = ingresarFecha();
+                    }
+                    System.out.println("Ingrese el domicilio de retiro:");
+                    domRetiro = lectura.next().toUpperCase();
+                    if (funcion.existeSolicitud(codOrigen, codDestino, tipoDoc, numDoc, fecha, domRetiro)) {
+                        System.out.println("Existe solicitud del cliente tipo documento " + tipoDoc + " y numero " + numDoc +
+                                " de un viaje de " + codOrigen + " a " + codDestino);
+                        aviso.registrarInfo("Se informo que se encontraron solicitudes del cliente tipo documento " + tipoDoc + " y numero " + numDoc + " de un viaje de " + codOrigen + " a " + codDestino + " en el sistema");
+                    } else {
+                        System.out.println("No se encuentra la solicitud del cliente tipo documento " + tipoDoc + " y numero " + numDoc +
+                                " de un viaje de " + codOrigen + " a " + codDestino);
+                        aviso.registrarError("No se encuentra la solicitud del cliente tipo documento " + tipoDoc + " y numero " + numDoc +
+                                " de un viaje de " + codOrigen + " a " + codDestino);
+                    }
+                } else {
+                    System.out.println("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+                    aviso.registrarError("No se encuentra el cliente con tipo documento " + tipoDoc + " y numero " + numDoc);
+                }
+            } else {
+                System.out.println("No se encuentran las ciudades " + codOrigen + " y " + codDestino);
+                aviso.registrarError("No se encuentra las ciudades " + codOrigen + " y " + codDestino);
+            }
+        } else {
+            System.out.println("Verifica la existencia de una solicitud de un cliente de un viaje del sistema sin exito");
+            aviso.registrarError("Verifica la existencia de una solicitud de un cliente de un viaje del sistema sin exito");
         }
-        System.out.println("Ingrese el domicilio de retiro:");
-        domRetiro = lectura.next().toUpperCase();
-        if (funcion.existeSolicitud(codOrigen, codDestino, tipoDoc, numDoc, fecha, domRetiro)) {
-            System.out.println("Existe solicitud del cliente "+ funcion.getNombreCliente(tipoDoc, numDoc) +
-                    " de un viaje de " + funcion.getNombreCiudad(codOrigen) +" a " + funcion.getNombreCiudad(codDestino));
-            salida = "Se informo que se encontraron solicitudes del cliente " + funcion.getNombreCliente(tipoDoc, numDoc) + " de un viaje de " + funcion.getNombreCiudad(codOrigen) +
-                    " a " + funcion.getNombreCiudad(codDestino) + " en el sistema \n";
-        }
-        return salida;
     }
 
-    public static String esVacioSolicitudes() {
-        String salida = "Se informa que no hay clientes en el sistema\n";
+    public static void esVacioSolicitudes() {
         if (funcion.esVacioSolicitudes()) {
             System.out.println("No hay clientes en el sistema");
+            aviso.registrarInfo("Se informa que no hay clientes en el sistema");
         } else {
             System.out.println("Si hay clientes en el sistema");
-            salida = "Se informa que hay clientes en el sistema\n";
+            aviso.registrarInfo("Se informa que hay clientes en el sistema");
         }
-        return salida;
     }
 
-    public static String mostrarSolicitudes() {
+    public static void mostrarSolicitudes() {
         int codOrigen, codDestino;
-        String salida = "Muestra de solicitudes de un viaje del sistema sin exito\n";
         System.out.println("Ingrese el codigo postal de la ciudad origen:");
         codOrigen = lectura.nextInt();
         System.out.println("Ingrese el codigo postal de la ciudad destino:");
         codDestino = lectura.nextInt();
         if (funcion.existeCiudadesDeViaje(codOrigen, codDestino)) {
             System.out.println("Se muestran las solicitudes de un viaje del sistema: \n" + funcion.mostrarSolicitudes(codOrigen, codDestino));
-            salida = "Se mostraron las solicitudes del viaje de " + funcion.getNombreCiudad(codOrigen) +
-                    " a " + funcion.getNombreCiudad(codDestino) + " en el sistema: \n" + funcion.mostrarSolicitudes(codOrigen, codDestino) + "\n";
+            aviso.registrarInfo("Se mostraron las solicitudes del viaje de " + codOrigen + " a " + codDestino + " en el sistema");
+        } else {
+            System.out.println("No se encuentran las ciudades " + codOrigen + " y " + codDestino);
+            aviso.registrarError("No se encuentra las ciudades " + codOrigen + " y " + codDestino);
         }
-        return salida;
     }
 
-    public static String esCaminoPerfecto() {
-        String salida = "El camino perfecto en la lista de un viaje del sistema sin exito\n";
-        boolean ingresar = true;
+    public static void esCaminoPerfecto() {
+        int ingresar = 0;
         int cantCamion;
         Lista lis = new Lista();
-        while (ingresar) {
+        while (ingresar == 0) {
             ingresar = ingresarCodigosPostales(lis);
         }
         System.out.println("Ingrese la capacidad total en metros cuadrados del camion: ");
         cantCamion = lectura.nextInt();
         if (funcion.esCaminoPerfecto(lis, cantCamion)) {
             System.out.println("Existe camino perfecto en la lista de ciudades");
-            salida = "El camino perfecto en la lista de un viaje del sistema con exito\n";
+            aviso.registrarInfo("El camino perfecto en la lista de un viaje del sistema con exito");
+        } else {
+            System.out.println("El camino perfecto en la lista de un viaje del sistema sin exito");
+            aviso.registrarError("El camino perfecto en la lista de un viaje del sistema sin exito");
         }
-        return salida;
     }
 
-    private static boolean ingresarCodigosPostales(Lista lis) {
-        boolean ingresar;
+    private static int ingresarCodigosPostales(Lista lis) {
+        int ingresar;
         int codPostal;
+        String t = lectura.nextLine();
         System.out.println("Ingrese un codigo postal de una ciudad del sistema");
         codPostal = lectura.nextInt();
+        t = lectura.nextLine();
         while (!funcion.existeCiudad(codPostal)) {
             System.out.println("El codigo postal ingresado no se encuentra registrado, intentelo de nuevo:");
             codPostal = lectura.nextInt();
         }
         lis.insertar(codPostal, lis.longitud() + 1);
-        System.out.println("Desea ingresar otro codigo postal en la lista? (true/false)");
-        ingresar = lectura.hasNext();
+        System.out.println("Desea ingresar otro codigo postal en la lista? (0 = true/1 = false)");
+        ingresar = lectura.nextInt();
         return ingresar;
     }
 
 
-    public static String mostrarSistema() {
+    public static void mostrarSistema() {
         System.out.println(funcion.mostrarSistema());
-        return "Muestra el sistema actual al usuario\n";
+        aviso.registrarInfo("Muestra el sistema actual al usuario");
+        System.out.println("Se termina de ejecutar mostrarSistema");
+        aviso.registrarInfo("Se termina de ejecutar mostrarSistema");
     }
 }

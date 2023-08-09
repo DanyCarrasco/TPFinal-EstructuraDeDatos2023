@@ -1,4 +1,0 @@
-Rosario,Código Postal: 2000;
-Santa Fe,Código Postal: 3000;
-Rafaela,Código Postal: 2300;
-Venado Tuerto,Código Postal: 2600
